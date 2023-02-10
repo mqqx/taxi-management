@@ -14,5 +14,6 @@
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>api</module>
+        <module>backend-spring</module>
     </modules>
 </project>
