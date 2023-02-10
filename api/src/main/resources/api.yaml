@@ -1,0 +1,447 @@
+openapi: 3.0.3
+info:
+  title: Taxi Management API
+  version: 1.0.0
+servers:
+- url: http://localhost:3000
+tags:
+- description: Operations about taxis which are used for a shift
+  name: taxi
+- description: Operations about drivers of a shift
+  name: driver
+- description: Operations about start point and destination of a trip
+  name: location
+- description: Operations about customers which can be part of trip
+  name: customer
+- description: Operations about shifts done by drivers in taxis
+  name: shift
+- description: Operations about trips including starting point, destination as well
+    as an optional customer
+  name: trip
+paths:
+  /taxis:
+    get:
+      operationId: getTaxis
+      tags:
+        - taxi
+      summary: Returns a list of taxis
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Taxi'
+    post:
+      operationId: addTaxi
+      tags:
+        - taxi
+      summary: Create a taxi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Taxi'
+      responses:
+        '201':
+          description: Created
+  /drivers:
+    get:
+      operationId: getDrivers
+      tags:
+        - driver
+      summary: Returns a list of drivers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Driver'
+    put:
+      operationId: updateDrivers
+      tags:
+        - driver
+      summary: Update 1 to n drivers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Driver'
+      responses:
+        '204':
+          description: No Content
+    post:
+      operationId: addDriver
+      tags:
+        - driver
+      summary: Create a driver
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Driver'
+      responses:
+        '201':
+          description: Created
+  /locations:
+    get:
+      operationId: getLocations
+      tags:
+        - location
+      summary: Returns a list of locations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+    post:
+      operationId: addLocation
+      tags:
+        - location
+      summary: Create a location
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '201':
+          description: Created
+  /customers:
+    get:
+      operationId: findCustomersByPeriod
+      tags:
+        - customer
+      summary: Returns a list of customers, optionally in a period of trips
+      parameters:
+        - $ref: '#/components/parameters/From'
+        - $ref: '#/components/parameters/To'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    post:
+      operationId: addCustomer
+      tags:
+        - customer
+      summary: Create a customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: Created
+  /shifts:
+    get:
+      operationId: getShifts
+      tags:
+        - shift
+      summary: Returns a list of shifts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shift'
+    post:
+      operationId: addShift
+      tags:
+        - shift
+      summary: Create a shift
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Shift'
+      responses:
+        '201':
+          description: Created
+  /shifts/{shiftId}:
+    get:
+      operationId: findShiftById
+      parameters:
+        - name: shiftId
+          in: path
+          description: id of the shift to return
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 123
+      tags:
+        - shift
+      summary: Returns a shift by id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shift'
+  /trips:
+    get:
+      operationId: getTrips
+      tags:
+        - trip
+      summary: Returns a list of trips
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trip'
+    post:
+      operationId: addTrip
+      tags:
+        - trip
+      summary: Create a trip
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trip'
+      responses:
+        '201':
+          description: Created
+  /trips/{tripId}:
+    delete:
+      operationId: deleteTrip
+      tags:
+        - trip
+      summary: Deletes a trip
+      parameters:
+        - name: tripId
+          in: path
+          description: id of the trip to delete
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 123
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    Customer:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 100000
+        name:
+          type: string
+          example: Herr Müller
+        count:
+          type: integer
+          format: int32
+          example: 100000
+    Location:
+      type: object
+      required:
+        - description
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 100000
+        description:
+          type: string
+          example: Eschenbach
+    Driver:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - active
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 100000
+        firstName:
+          type: string
+          example: Max
+        lastName:
+          type: string
+          example: Müller
+        pLicenceDate:
+          type: string
+          format: date
+          example: 2022-04-19
+        birthdate:
+          type: string
+          format: date
+          example: 1987-02-12
+        address:
+          type: string
+          example: Gartenstraße 10, 92655 Grafenwöhr
+        active:
+          type: boolean
+    Taxi:
+      type: object
+      required:
+        - description
+        - active
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 100000
+        description:
+          type: string
+          example: Volvo 9999
+        mileage:
+          type: string
+          example: Müller
+        numberPlate:
+          type: string
+          example: NEW-X 1800
+        registrationDate:
+          type: string
+          format: date
+          example: 2018-12-20
+        concessionNumber:
+          type: integer
+          format: int32
+          example: 9005
+        concessionDate:
+          type: string
+          format: date
+          example: 2018-12-20
+        fin:
+          type: string
+          example: WVWZZZ7NZCV004904
+        active:
+          type: boolean
+          default: true
+    Shift:
+      type: object
+      required:
+        - date
+        - startMileage
+        - endMileage
+        - driver
+        - taxi
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 100000
+        date:
+          type: string
+          format: date
+          example: 2018-12-20
+        startMileage:
+          type: integer
+          format: int32
+          example: 100000
+        endMileage:
+          type: integer
+          format: int32
+          example: 100123
+        duration:
+          type: integer
+          format: int32
+          example: 120
+          description: shift duration in minutes
+        driver:
+          $ref: '#/components/schemas/Driver'
+        taxi:
+          $ref: '#/components/schemas/Taxi'
+        trips:
+          type: array
+          items:
+            $ref: '#/components/schemas/Trip'
+    Trip:
+      type: object
+      required:
+        - shiftId
+        - start
+        - destination
+        - tax
+        - taxi
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 100000
+        shiftId:
+          type: integer
+          format: int32
+          example: 100000
+        description:
+          type: string
+          example: Arzt
+        start:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        cash:
+          type: number
+          format: double
+          example: 15.50
+        bill:
+          type: number
+          format: double
+          example: 28.00
+        tax:
+          type: string
+          description: Tax percentage of trip fare
+          enum:
+            - ZERO
+            - SEVEN
+            - NINETEEN
+          example: SEVEN
+        waitingTime:
+          type: number
+          format: double
+          example: 1.5
+          description: Waiting time in hours like 90min = 1.5h
+  parameters:
+    From:
+      name: from
+      description: from date inclusive
+      in: query
+      schema:
+        type: string
+        format: date
+    To:
+      name: to
+      description: to date inclusive
+      in: query
+      schema:
+        type: string
+        format: date
+
+
+
