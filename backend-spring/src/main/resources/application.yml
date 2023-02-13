@@ -1,1 +1,6 @@
-
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/taxi_management
+    username: root
+  liquibase:
+    change-log: db/changelog/db.changelog-initial.xml

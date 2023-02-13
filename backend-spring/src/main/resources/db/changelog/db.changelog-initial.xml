@@ -1,0 +1,159 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="mqqx (generated)" id="1676298063041-1">
+        <createTable tableName="fahrer">
+            <column autoIncrement="true" name="fahrer_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Vorname" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="P-Schein" type="date"/>
+            <column defaultValueComputed="NULL" name="Geburtstag" type="date"/>
+            <column name="Adresse" type="VARCHAR(200)"/>
+            <column defaultValueBoolean="true" name="active" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-2">
+        <createTable tableName="fahrten">
+            <column autoIncrement="true" name="fahrten_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="start_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ziel_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="kunde_id" type="INT"/>
+            <column name="Beschreibung" type="VARCHAR(200)"/>
+            <column defaultValueComputed="NULL" name="Preis Bar" type="DOUBLE(6, 2)"/>
+            <column defaultValueComputed="NULL" name="Preis Rechnung" type="DOUBLE(6, 2)"/>
+            <column name="MwSt" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="Wartezeit" type="DOUBLE(6, 3)"/>
+            <column name="Art" type="VARCHAR(64)"/>
+            <column name="schicht_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-3">
+        <createTable tableName="kunden">
+            <column autoIncrement="true" name="kunden_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Beschreibung" type="VARCHAR(200)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-4">
+        <createTable tableName="orte">
+            <column autoIncrement="true" name="ort_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Bezeichnung" type="VARCHAR(200)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-5">
+        <createTable tableName="schicht">
+            <column autoIncrement="true" name="schicht_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Datum" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fahrer_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="taxen_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Anfangs-KM" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="End-KM" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL" name="Schichtdauer" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-6">
+        <createTable tableName="taxen">
+            <column autoIncrement="true" name="taxen_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Bezeichnung" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="KM-Stand" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Kennzeichen" type="VARCHAR(12)"/>
+            <column defaultValueComputed="NULL" name="Zulassungsdatum" type="date"/>
+            <column name="FIN" type="VARCHAR(30)"/>
+            <column defaultValueComputed="NULL" name="Ordnungsnummer" type="INT"/>
+            <column defaultValueComputed="NULL" name="Konzessionsdatum" type="date"/>
+            <column defaultValueBoolean="true" name="active" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-7">
+        <createIndex indexName="fahrer_id" tableName="schicht">
+            <column name="fahrer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-8">
+        <createIndex indexName="kunde_id" tableName="fahrten">
+            <column defaultValueComputed="NULL" name="kunde_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-9">
+        <createIndex indexName="schicht_id" tableName="fahrten">
+            <column name="schicht_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-10">
+        <createIndex indexName="start_id" tableName="fahrten">
+            <column name="start_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-11">
+        <createIndex indexName="taxen_id" tableName="schicht">
+            <column name="taxen_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-12">
+        <createIndex indexName="ziel_id" tableName="fahrten">
+            <column name="ziel_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-13">
+        <addForeignKeyConstraint baseColumnNames="start_id" baseTableName="fahrten" constraintName="fahrten_ibfk_4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ort_id" referencedTableName="orte" validate="true"/>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-14">
+        <addForeignKeyConstraint baseColumnNames="ziel_id" baseTableName="fahrten" constraintName="fahrten_ibfk_5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ort_id" referencedTableName="orte" validate="true"/>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-15">
+        <addForeignKeyConstraint baseColumnNames="kunde_id" baseTableName="fahrten" constraintName="fahrten_ibfk_6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="kunden_id" referencedTableName="kunden" validate="true"/>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-16">
+        <addForeignKeyConstraint baseColumnNames="schicht_id" baseTableName="fahrten" constraintName="fahrten_ibfk_7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="schicht_id" referencedTableName="schicht" validate="true"/>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-17">
+        <addForeignKeyConstraint baseColumnNames="fahrer_id" baseTableName="schicht" constraintName="schicht_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="fahrer_id" referencedTableName="fahrer" validate="true"/>
+    </changeSet>
+    <changeSet author="mqqx (generated)" id="1676298063041-18">
+        <addForeignKeyConstraint baseColumnNames="taxen_id" baseTableName="schicht" constraintName="schicht_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="taxen_id" referencedTableName="taxen" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
