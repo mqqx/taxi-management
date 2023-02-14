@@ -5,3 +5,6 @@ spring:
     password: password
   liquibase:
     change-log: db/changelog/db.changelog-initial.xml
+  jpa:
+    hibernate:
+      ddl-auto: validate
