@@ -40,6 +40,7 @@ paths:
         - taxi
       summary: Create a taxi
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -68,6 +69,7 @@ paths:
         - driver
       summary: Update 1 to n drivers
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -83,6 +85,7 @@ paths:
         - driver
       summary: Create a driver
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -111,6 +114,7 @@ paths:
         - location
       summary: Create a location
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -142,6 +146,7 @@ paths:
         - customer
       summary: Create a customer
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -170,6 +175,7 @@ paths:
         - shift
       summary: Create a shift
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -220,6 +226,7 @@ paths:
         - trip
       summary: Create a trip
       requestBody:
+        required: true
         content:
           application/json:
             schema:
