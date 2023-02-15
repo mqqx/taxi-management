@@ -64,18 +64,16 @@ paths:
                 items:
                   $ref: '#/components/schemas/Driver'
     put:
-      operationId: updateDrivers
+      operationId: updateDriver
       tags:
         - driver
-      summary: Update 1 to n drivers
+      summary: Update a driver
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Driver'
+              $ref: '#/components/schemas/Driver'
       responses:
         '204':
           description: No Content

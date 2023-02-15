@@ -1,0 +1,12 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      naming:
+        # needed due to poor legacy naming for column "P-Schein" in "fahrer" table
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
