@@ -336,8 +336,9 @@ components:
           type: string
           example: Volvo 9999
         mileage:
-          type: string
-          example: Müller
+          type: integer
+          format: int32
+          example: 157864
         numberPlate:
           type: string
           example: NEW-X 1800
