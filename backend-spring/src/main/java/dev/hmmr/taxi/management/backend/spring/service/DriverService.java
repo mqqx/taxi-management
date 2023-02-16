@@ -49,9 +49,9 @@ public class DriverService {
   }
 
   @Transactional
-  public void update(Driver driver) {
+  public void update(Integer id, Driver driver) {
     driverRepository
-        .findById(driver.getId())
+        .findById(id)
         .ifPresentOrElse(
             driverEntity ->
                 driverEntity

@@ -63,20 +63,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Driver'
-    put:
-      operationId: updateDriver
-      tags:
-        - driver
-      summary: Update a driver
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Driver'
-      responses:
-        '204':
-          description: No Content
     post:
       operationId: addDriver
       tags:
@@ -91,6 +77,32 @@ paths:
       responses:
         '201':
           description: Created
+  /drivers/{id}:
+    put:
+      operationId: updateDriver
+      parameters:
+        - name: id
+          in: path
+          description: id of the resource
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 123
+      tags:
+        - driver
+      summary: Updates a driver
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Driver'
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
   /locations:
     get:
       operationId: getLocations
@@ -181,13 +193,13 @@ paths:
       responses:
         '201':
           description: Created
-  /shifts/{shiftId}:
+  /shifts/{id}:
     get:
       operationId: findShiftById
       parameters:
-        - name: shiftId
+        - name: id
           in: path
-          description: id of the shift to return
+          description: id of the resource
           required: true
           schema:
             type: integer
@@ -232,16 +244,16 @@ paths:
       responses:
         '201':
           description: Created
-  /trips/{tripId}:
+  /trips/{id}:
     delete:
       operationId: deleteTrip
       tags:
         - trip
       summary: Deletes a trip
       parameters:
-        - name: tripId
+        - name: id
           in: path
-          description: id of the trip to delete
+          description: id of the resource
           required: true
           schema:
             type: integer

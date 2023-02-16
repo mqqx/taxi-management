@@ -115,10 +115,10 @@ class DriverControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                put(linkTo(methodOn(DriverController.class).updateDriver(null)).toUri())
+                put(linkTo(methodOn(DriverController.class).updateDriver(entity.getId(), null))
+                        .toUri())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(
-                        objectMapper.writeValueAsString(driver().id(entity.getId()).active(false)))
+                    .content(objectMapper.writeValueAsString(driver().active(false)))
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
             .getResponse();
@@ -136,9 +136,9 @@ class DriverControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                put(linkTo(methodOn(DriverController.class).updateDriver(null)).toUri())
+                put(linkTo(methodOn(DriverController.class).updateDriver(-1, null)).toUri())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(driver().id(-1).active(false)))
+                    .content(objectMapper.writeValueAsString(driver().active(false)))
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
             .getResponse();

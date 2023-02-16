@@ -34,8 +34,8 @@ public class DriverController implements DriversApi {
   }
 
   @Override
-  public ResponseEntity<Void> updateDriver(Driver driver) {
-    driverService.update(driver);
+  public ResponseEntity<Void> updateDriver(Integer id, Driver driver) {
+    driverService.update(id, driver);
     return noContent().build();
   }
 }
