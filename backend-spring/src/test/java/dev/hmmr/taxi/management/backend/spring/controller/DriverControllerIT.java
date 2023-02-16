@@ -129,4 +129,21 @@ class DriverControllerIT {
         .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
         .containsExactlyElementsOf(singletonList(driverEntity().setActive(false)));
   }
+
+  @Test
+  void testUpdateDriverNotFound() throws Exception {
+    // Run the test
+    final MockHttpServletResponse response =
+        mockMvc
+            .perform(
+                put(linkTo(methodOn(DriverController.class).updateDriver(null)).toUri())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(driver().id(-1).active(false)))
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse();
+
+    // Verify the results
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+  }
 }

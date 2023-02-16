@@ -1,10 +1,10 @@
 package dev.hmmr.taxi.management.backend.spring.service;
 
+import dev.hmmr.taxi.management.backend.spring.exception.ResourceNotFoundException;
 import dev.hmmr.taxi.management.backend.spring.model.DriverEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.DriverRepository;
 import dev.hmmr.taxi.management.openapi.model.Driver;
 import java.util.List;
-import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -50,19 +50,19 @@ public class DriverService {
 
   @Transactional
   public void update(Driver driver) {
-    final Optional<DriverEntity> optionalDriver = driverRepository.findById(driver.getId());
-
-    optionalDriver.ifPresent(
-        driverEntity -> {
-          driverEntity
-              .setLastName(driver.getLastName())
-              .setFirstName(driver.getFirstName())
-              .setAddress(driver.getAddress())
-              .setBirthdate(driver.getBirthdate())
-              .setPLicenceDate(driver.getpLicenceDate())
-              .setActive(driver.getActive());
-        });
-
-    // TODO add not found exception which returns 404
+    driverRepository
+        .findById(driver.getId())
+        .ifPresentOrElse(
+            driverEntity ->
+                driverEntity
+                    .setLastName(driver.getLastName())
+                    .setFirstName(driver.getFirstName())
+                    .setAddress(driver.getAddress())
+                    .setBirthdate(driver.getBirthdate())
+                    .setPLicenceDate(driver.getpLicenceDate())
+                    .setActive(driver.getActive()),
+            () -> {
+              throw new ResourceNotFoundException();
+            });
   }
 }
