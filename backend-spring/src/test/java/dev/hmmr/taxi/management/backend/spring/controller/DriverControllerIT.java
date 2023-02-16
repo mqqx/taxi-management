@@ -35,7 +35,7 @@ class DriverControllerIT {
   @Autowired MockMvc mockMvc;
   @Autowired DriverRepository driverRepository;
 
-  static ObjectMapper objectMapper = new ObjectMapper();
+  @Autowired ObjectMapper objectMapper;
 
   @BeforeEach
   void setUp() {
