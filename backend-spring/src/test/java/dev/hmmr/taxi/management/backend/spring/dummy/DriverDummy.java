@@ -2,7 +2,10 @@ package dev.hmmr.taxi.management.backend.spring.dummy;
 
 import dev.hmmr.taxi.management.backend.spring.model.DriverEntity;
 import dev.hmmr.taxi.management.openapi.model.Driver;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.NONE)
 public class DriverDummy {
   private static final String FIRST_NAME = "Test";
   private static final String LAST_NAME = "Driver";
