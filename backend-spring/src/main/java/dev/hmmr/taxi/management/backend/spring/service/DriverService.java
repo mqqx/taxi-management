@@ -18,19 +18,9 @@ public class DriverService {
   DriverRepository driverRepository;
 
   public void add(Driver driver) {
-    final DriverEntity driverEntity = toDriverEntity(driver);
+    final DriverEntity driverEntity = toDriverEntity(driver, new DriverEntity());
 
     driverRepository.save(driverEntity);
-  }
-
-  private static DriverEntity toDriverEntity(Driver driver) {
-    return new DriverEntity()
-        .setLastName(driver.getLastName())
-        .setFirstName(driver.getFirstName())
-        .setAddress(driver.getAddress())
-        .setBirthdate(driver.getBirthdate())
-        .setPLicenceDate(driver.getpLicenceDate())
-        .setActive(driver.getActive());
   }
 
   public List<Driver> findAll() {
@@ -53,16 +43,19 @@ public class DriverService {
     driverRepository
         .findById(id)
         .ifPresentOrElse(
-            driverEntity ->
-                driverEntity
-                    .setLastName(driver.getLastName())
-                    .setFirstName(driver.getFirstName())
-                    .setAddress(driver.getAddress())
-                    .setBirthdate(driver.getBirthdate())
-                    .setPLicenceDate(driver.getpLicenceDate())
-                    .setActive(driver.getActive()),
+            driverEntity -> toDriverEntity(driver, driverEntity),
             () -> {
               throw new ResourceNotFoundException();
             });
+  }
+
+  private static DriverEntity toDriverEntity(Driver driver, DriverEntity driverEntity) {
+    return driverEntity
+        .setLastName(driver.getLastName())
+        .setFirstName(driver.getFirstName())
+        .setAddress(driver.getAddress())
+        .setBirthdate(driver.getBirthdate())
+        .setPLicenceDate(driver.getpLicenceDate())
+        .setActive(driver.getActive());
   }
 }

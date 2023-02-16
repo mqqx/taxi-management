@@ -9,19 +9,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
+@Data
 @Entity
-@Setter
-@Getter
-@ToString
+@NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "fahrer")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+// As no lazy loaded fields are used its fine to use @Data for this JPA entity
+@SuppressWarnings("com.haulmont.jpb.LombokDataInspection")
 public class DriverEntity {
   @Id
   @Setter(AccessLevel.NONE)
