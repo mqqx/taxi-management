@@ -81,7 +81,7 @@ class TaxiControllerIT {
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     assertThat(
             objectMapper.readValue(
-                response.getContentAsString(), new TypeReference<List<Taxi>>() {}))
+                response.getContentAsByteArray(), new TypeReference<List<Taxi>>() {}))
         .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
         .containsExactlyElementsOf(singletonList(taxi()));
   }
@@ -99,6 +99,6 @@ class TaxiControllerIT {
 
     // Verify the results
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-    assertThat(response.getContentAsString()).isEqualTo("[]");
+    assertThat(response.getContentLength()).isZero();
   }
 }

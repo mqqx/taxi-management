@@ -83,7 +83,7 @@ class DriverControllerIT {
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     assertThat(
             objectMapper.readValue(
-                response.getContentAsString(), new TypeReference<List<Driver>>() {}))
+                response.getContentAsByteArray(), new TypeReference<List<Driver>>() {}))
         .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
         .containsExactlyElementsOf(singletonList(driver()));
   }
@@ -101,7 +101,7 @@ class DriverControllerIT {
 
     // Verify the results
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-    assertThat(response.getContentAsString()).isEqualTo("[]");
+    assertThat(response.getContentLength()).isZero();
   }
 
   @Test
