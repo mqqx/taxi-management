@@ -32,7 +32,6 @@ import org.springframework.test.web.servlet.MockMvc;
 class CustomerControllerIT {
   @Autowired MockMvc mockMvc;
   @Autowired CustomerRepository customerRepository;
-
   @Autowired ObjectMapper objectMapper;
 
   @BeforeEach

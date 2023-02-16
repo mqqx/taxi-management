@@ -34,7 +34,6 @@ import org.springframework.test.web.servlet.MockMvc;
 class DriverControllerIT {
   @Autowired MockMvc mockMvc;
   @Autowired DriverRepository driverRepository;
-
   @Autowired ObjectMapper objectMapper;
 
   @BeforeEach

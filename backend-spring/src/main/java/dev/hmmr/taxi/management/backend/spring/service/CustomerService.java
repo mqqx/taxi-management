@@ -1,5 +1,6 @@
 package dev.hmmr.taxi.management.backend.spring.service;
 
+import dev.hmmr.taxi.management.backend.spring.mapper.CustomerMapper;
 import dev.hmmr.taxi.management.backend.spring.model.CustomerEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.CustomerRepository;
 import dev.hmmr.taxi.management.openapi.model.Customer;
@@ -14,18 +15,14 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CustomerService {
   CustomerRepository customerRepository;
+  CustomerMapper customerMapper;
 
   public void add(Customer customer) {
-    final CustomerEntity customerEntity = new CustomerEntity().setName(customer.getName());
-
+    final CustomerEntity customerEntity = customerMapper.toEntity(customer);
     customerRepository.save(customerEntity);
   }
 
   public List<Customer> findAll() {
-    return customerRepository.findAll().stream()
-        .map(
-            customerEntity ->
-                new Customer().id(customerEntity.getId()).name(customerEntity.getName()))
-        .toList();
+    return customerRepository.findAll().stream().map(customerMapper::fromEntity).toList();
   }
 }
