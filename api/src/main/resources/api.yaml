@@ -291,7 +291,7 @@ components:
           example: 100000
         description:
           type: string
-          example: Eschenbach
+          example: München
     Driver:
       type: object
       required:
