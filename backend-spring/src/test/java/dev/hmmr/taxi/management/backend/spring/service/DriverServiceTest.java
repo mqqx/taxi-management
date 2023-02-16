@@ -6,11 +6,11 @@ import static dev.hmmr.taxi.management.backend.spring.dummy.DriverDummy.driverEn
 import static dev.hmmr.taxi.management.backend.spring.dummy.DriverDummy.driverWithId;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatRuntimeException;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import dev.hmmr.taxi.management.backend.spring.mapper.DriverMapper;
 import dev.hmmr.taxi.management.backend.spring.model.DriverEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.DriverRepository;
 import dev.hmmr.taxi.management.openapi.model.Driver;
@@ -27,18 +27,21 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class DriverServiceTest {
-
   @Mock DriverRepository mockDriverRepository;
+  @Mock DriverMapper mockDriverMapper;
 
   DriverService driverServiceUnderTest;
 
   @BeforeEach
   void setUp() {
-    driverServiceUnderTest = new DriverService(mockDriverRepository);
+    driverServiceUnderTest = new DriverService(mockDriverRepository, mockDriverMapper);
   }
 
   @Test
   void testAdd() {
+    // Setup
+    when(mockDriverMapper.toEntity(driver())).thenReturn(driverEntity());
+
     // Run the test
     driverServiceUnderTest.add(driver());
 
@@ -48,6 +51,9 @@ class DriverServiceTest {
 
   @Test
   void testFindAll() {
+    // Setup
+    when(mockDriverMapper.fromEntity(driverEntityWithId())).thenReturn(driverWithId());
+
     // Configure DriverRepository.findAll(...).
     final List<DriverEntity> driverEntities = List.of(driverEntityWithId());
     when(mockDriverRepository.findAll()).thenReturn(driverEntities);
@@ -78,9 +84,10 @@ class DriverServiceTest {
     when(mockDriverRepository.findById(driverEntity.getId())).thenReturn(Optional.of(driverEntity));
 
     // Run the test
+    driverServiceUnderTest.update(driverEntity.getId(), driver());
+
     // Verify the results
-    assertThatCode(() -> driverServiceUnderTest.update(driverEntity.getId(), driver()))
-        .doesNotThrowAnyException();
+    verify(mockDriverMapper).toEntity(driver(), driverEntity);
   }
 
   @Test
