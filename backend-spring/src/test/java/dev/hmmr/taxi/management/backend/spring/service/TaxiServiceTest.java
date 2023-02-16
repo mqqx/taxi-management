@@ -45,7 +45,7 @@ class TaxiServiceTest {
 
   @Test
   void testFindAll() {
-    // Configure DriverRepository.findAll(...).
+    // Configure TaxiRepository.findAll(...).
     final List<TaxiEntity> taxiEntities = List.of(taxiEntityWithId());
     when(mockTaxiRepository.findAll()).thenReturn(taxiEntities);
 

@@ -44,7 +44,7 @@ class LocationServiceTest {
 
   @Test
   void testFindAll() {
-    // Configure DriverRepository.findAll(...).
+    // Configure LocationRepository.findAll(...).
     final List<LocationEntity> locationEntities = List.of(locationEntityWithId());
     when(mockLocationRepository.findAll()).thenReturn(locationEntities);
 
