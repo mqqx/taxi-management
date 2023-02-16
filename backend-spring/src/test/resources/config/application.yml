@@ -3,7 +3,7 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;MODE=MariaDB
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
