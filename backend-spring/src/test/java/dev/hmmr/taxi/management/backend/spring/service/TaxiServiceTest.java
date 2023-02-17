@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import dev.hmmr.taxi.management.backend.spring.mapper.TaxiMapper;
 import dev.hmmr.taxi.management.backend.spring.model.TaxiEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.TaxiRepository;
 import dev.hmmr.taxi.management.openapi.model.Taxi;
@@ -24,18 +25,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class TaxiServiceTest {
-
   @Mock TaxiRepository mockTaxiRepository;
-
+  @Mock TaxiMapper mockTaxiMapper;
   TaxiService taxiServiceUnderTest;
 
   @BeforeEach
   void setUp() {
-    taxiServiceUnderTest = new TaxiService(mockTaxiRepository);
+    taxiServiceUnderTest = new TaxiService(mockTaxiRepository, mockTaxiMapper);
   }
 
   @Test
   void testAdd() {
+    // Setup
+    when(mockTaxiMapper.toEntity(taxi())).thenReturn(taxiEntity());
+
     // Run the test
     taxiServiceUnderTest.add(taxi());
 
@@ -45,6 +48,9 @@ class TaxiServiceTest {
 
   @Test
   void testFindAll() {
+    // Setup
+    when(mockTaxiMapper.fromEntity(taxiEntityWithId())).thenReturn(taxiWithId());
+
     // Configure TaxiRepository.findAll(...).
     final List<TaxiEntity> taxiEntities = List.of(taxiEntityWithId());
     when(mockTaxiRepository.findAll()).thenReturn(taxiEntities);
