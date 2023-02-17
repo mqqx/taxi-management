@@ -4,14 +4,15 @@ import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.locati
 import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.locationEntity;
 import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.locationEntityWithId;
 import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.locationWithId;
+import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import dev.hmmr.taxi.management.backend.spring.mapper.LocationMapper;
 import dev.hmmr.taxi.management.backend.spring.model.LocationEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.LocationRepository;
 import dev.hmmr.taxi.management.openapi.model.Location;
-import java.util.Collections;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -25,16 +26,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class LocationServiceTest {
   @Mock LocationRepository mockLocationRepository;
+  @Mock LocationMapper mockLocationMapper;
 
   LocationService locationServiceUnderTest;
 
   @BeforeEach
   void setUp() {
-    locationServiceUnderTest = new LocationService(mockLocationRepository);
+    locationServiceUnderTest = new LocationService(mockLocationRepository, mockLocationMapper);
   }
 
   @Test
   void testAdd() {
+    // Setup
+    when(mockLocationMapper.toEntity(location())).thenReturn(locationEntity());
+
     // Run the test
     locationServiceUnderTest.add(location());
 
@@ -44,6 +49,9 @@ class LocationServiceTest {
 
   @Test
   void testFindAll() {
+    // Setup
+    when(mockLocationMapper.fromEntity(locationEntityWithId())).thenReturn(locationWithId());
+
     // Configure LocationRepository.findAll(...).
     final List<LocationEntity> locationEntities = List.of(locationEntityWithId());
     when(mockLocationRepository.findAll()).thenReturn(locationEntities);
@@ -58,12 +66,12 @@ class LocationServiceTest {
   @Test
   void testFindAll_LocationRepositoryReturnsNoItems() {
     // Setup
-    when(mockLocationRepository.findAll()).thenReturn(Collections.emptyList());
+    when(mockLocationRepository.findAll()).thenReturn(emptyList());
 
     // Run the test
     final List<Location> result = locationServiceUnderTest.findAll();
 
     // Verify the results
-    assertThat(result).isEqualTo(Collections.emptyList());
+    assertThat(result).isEqualTo(emptyList());
   }
 }
