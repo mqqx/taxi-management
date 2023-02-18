@@ -10,3 +10,7 @@ spring:
       naming:
         # needed due to poor legacy naming for column "P-Schein" in "fahrer" table
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
