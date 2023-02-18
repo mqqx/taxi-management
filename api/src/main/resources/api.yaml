@@ -15,9 +15,6 @@ tags:
   name: customer
 - description: Operations about shifts done by drivers in taxis
   name: shift
-- description: Operations about trips including starting point, destination as well
-    as an optional customer
-  name: trip
 paths:
   /taxis:
     get:
@@ -193,11 +190,11 @@ paths:
       responses:
         '201':
           description: Created
-  /shifts/{id}:
+  /shifts/{shift-id}:
     get:
       operationId: findShiftById
       parameters:
-        - name: id
+        - name: shift-id
           in: path
           description: id of the resource
           required: true
@@ -215,12 +212,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Shift'
-  /trips:
+  /shifts/{shift-id}/trips:
+    parameters:
+      - name: shift-id
+        in: path
+        description: id of the resource
+        required: true
+        schema:
+          type: integer
+          format: int32
+          example: 123
     get:
       operationId: getTrips
       tags:
-        - trip
-      summary: Returns a list of trips
+        - shift
+      summary: Returns a list of trips of the given shift id
       responses:
         '200':
           description: OK
@@ -233,8 +239,8 @@ paths:
     post:
       operationId: addTrip
       tags:
-        - trip
-      summary: Create a trip
+        - shift
+      summary: Adds a trip to the given shift id
       requestBody:
         required: true
         content:
@@ -244,14 +250,22 @@ paths:
       responses:
         '201':
           description: Created
-  /trips/{id}:
+  /shifts/{shift-id}/trips/{trip-id}:
     delete:
       operationId: deleteTrip
       tags:
-        - trip
+        - shift
       summary: Deletes a trip
       parameters:
-        - name: id
+        - name: shift-id
+          in: path
+          description: id of the resource
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 123
+        - name: trip-id
           in: path
           description: id of the resource
           required: true
