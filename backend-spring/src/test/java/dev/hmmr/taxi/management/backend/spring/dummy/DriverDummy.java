@@ -14,6 +14,7 @@ public class DriverDummy {
   private static final String ADDRESS = "address";
   private static final LocalDate P_LICENCE_DATE = LocalDate.of(2025, 1, 1);
   private static final LocalDate BIRTHDATE = LocalDate.of(1986, 12, 12);
+  static final int ID = 1;
 
   public static Driver driver() {
     return new Driver()
@@ -26,8 +27,12 @@ public class DriverDummy {
   }
 
   public static Driver driverWithId() {
+    return driverWithId(ID);
+  }
+
+  public static Driver driverWithId(int id) {
     final Driver driver = driver();
-    driver.setId(1);
+    driver.setId(id);
     return driver;
   }
 
@@ -43,7 +48,7 @@ public class DriverDummy {
 
   public static DriverEntity driverEntityWithId() {
     final DriverEntity driverEntity = driverEntity();
-    ReflectionTestUtils.setField(driverEntity, "id", 1);
+    ReflectionTestUtils.setField(driverEntity, "id", ID);
     return driverEntity;
   }
 }

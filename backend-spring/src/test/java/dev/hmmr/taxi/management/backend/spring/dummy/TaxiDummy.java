@@ -12,10 +12,11 @@ public class TaxiDummy {
   private static final String FIN = "WVWZZZ7NZCV004904";
   private static final String DESCRIPTION = "Volvo 9999";
   private static final String NUMBER_PLATE = "NEW-X 1800";
-  private static final int MILEAGE = 157864;
-  private static final int CONCESSION_NUMBER = 9005;
   private static final LocalDate REGISTRATION_DATE = LocalDate.of(2021, 1, 1);
   private static final LocalDate CONCESSION_DATE = LocalDate.of(2021, 2, 10);
+  private static final int MILEAGE = 157864;
+  private static final int CONCESSION_NUMBER = 9005;
+  static final int ID = 1;
 
   public static Taxi taxi() {
     return new Taxi()
@@ -30,8 +31,12 @@ public class TaxiDummy {
   }
 
   public static Taxi taxiWithId() {
+    return taxiWithId(ID);
+  }
+
+  public static Taxi taxiWithId(int id) {
     final Taxi taxi = taxi();
-    taxi.setId(1);
+    taxi.setId(id);
     return taxi;
   }
 
@@ -49,7 +54,7 @@ public class TaxiDummy {
 
   public static TaxiEntity taxiEntityWithId() {
     final TaxiEntity taxiEntity = taxiEntity();
-    ReflectionTestUtils.setField(taxiEntity, "id", 1);
+    ReflectionTestUtils.setField(taxiEntity, "id", ID);
     return taxiEntity;
   }
 }
