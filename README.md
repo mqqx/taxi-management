@@ -1,5 +1,21 @@
-# taxi-management
-Managing trips in shifts with drivers and cars
+# Taxi Management
+Managing trips in shifts with drivers, cars and customers
+
+## General Information
+
+OpenAPI + Java 17 + Spring Boot 3 
+
+## API
+
+[OpenAPI representation of REST API](api/README.md)
+
+## Database
+
+[Database for local development](database/README.md)
+
+## Spring Boot Backend
+
+[Spring Boot backend implementation](backend-spring/README.md)
 
 ## 📬 Recommended Commit Message Titles
 
