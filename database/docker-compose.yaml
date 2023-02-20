@@ -2,6 +2,8 @@ version: '3.9'
 
 services:
   mariadb:
+    # supported version of host limited to 10.3
+    # therefore development version is set to the same
     image: mariadb:10.3
     ports:
       - "3306:3306"

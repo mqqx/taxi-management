@@ -1,6 +1,10 @@
-# backend-spring
+# Spring Boot Backend
 
 Spring Boot implementation of taxi-management backend.
+
+## Getting Started
+
+[//]: # (TODO)
 
 ## Liquibase
 

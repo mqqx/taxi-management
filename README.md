@@ -3,7 +3,7 @@ Managing trips in shifts with drivers, cars and customers
 
 ## General Information
 
-OpenAPI + Java 17 + Spring Boot 3 
+OpenAPI + Java 17 + Spring Boot 3 + MariaDB for development
 
 ## API
 
