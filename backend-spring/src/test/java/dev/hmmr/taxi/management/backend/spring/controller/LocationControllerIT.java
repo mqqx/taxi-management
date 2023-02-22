@@ -1,7 +1,7 @@
 package dev.hmmr.taxi.management.backend.spring.controller;
 
-import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.location;
-import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.locationEntity;
+import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.start;
+import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.startEntity;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -51,7 +51,7 @@ class LocationControllerIT {
             .perform(
                 post(linkTo(methodOn(LocationController.class).addLocation(null)).toUri())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(location()))
+                    .content(objectMapper.writeValueAsString(start()))
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
             .getResponse();
@@ -60,13 +60,13 @@ class LocationControllerIT {
     assertThat(response.getStatus()).isEqualTo(HttpStatus.NO_CONTENT.value());
     assertThat(locationRepository.findAll())
         .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
-        .containsExactlyElementsOf(singletonList(locationEntity()));
+        .containsExactlyElementsOf(singletonList(startEntity()));
   }
 
   @Test
   void testGetLocations() throws Exception {
     // Setup
-    locationRepository.save(locationEntity());
+    locationRepository.save(startEntity());
 
     // Run the test
     final MockHttpServletResponse response =
@@ -83,7 +83,7 @@ class LocationControllerIT {
             objectMapper.readValue(
                 response.getContentAsByteArray(), new TypeReference<List<Location>>() {}))
         .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
-        .containsExactlyElementsOf(singletonList(location()));
+        .containsExactlyElementsOf(singletonList(start()));
   }
 
   @Test

@@ -55,8 +55,7 @@ class DriverServiceTest {
     when(mockDriverMapper.fromEntity(driverEntityWithId())).thenReturn(driverWithId());
 
     // Configure DriverRepository.findAll(...).
-    final List<DriverEntity> driverEntities = List.of(driverEntityWithId());
-    when(mockDriverRepository.findAll()).thenReturn(driverEntities);
+    when(mockDriverRepository.findAll()).thenReturn(List.of(driverEntityWithId()));
 
     // Run the test
     final List<Driver> result = driverServiceUnderTest.findAll();

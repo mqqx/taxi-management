@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import dev.hmmr.taxi.management.backend.spring.mapper.TaxiMapper;
-import dev.hmmr.taxi.management.backend.spring.model.TaxiEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.TaxiRepository;
 import dev.hmmr.taxi.management.openapi.model.Taxi;
 import java.util.Collections;
@@ -52,8 +51,7 @@ class TaxiServiceTest {
     when(mockTaxiMapper.fromEntity(taxiEntityWithId())).thenReturn(taxiWithId());
 
     // Configure TaxiRepository.findAll(...).
-    final List<TaxiEntity> taxiEntities = List.of(taxiEntityWithId());
-    when(mockTaxiRepository.findAll()).thenReturn(taxiEntities);
+    when(mockTaxiRepository.findAll()).thenReturn(List.of(taxiEntityWithId()));
 
     // Run the test
     final List<Taxi> result = taxiServiceUnderTest.findAll();

@@ -1,9 +1,9 @@
 package dev.hmmr.taxi.management.backend.spring.service;
 
-import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.location;
-import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.locationEntity;
-import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.locationEntityWithId;
-import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.locationWithId;
+import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.start;
+import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.startEntity;
+import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.startEntityWithId;
+import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.startWithId;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -38,29 +38,29 @@ class LocationServiceTest {
   @Test
   void testAdd() {
     // Setup
-    when(mockLocationMapper.toEntity(location())).thenReturn(locationEntity());
+    when(mockLocationMapper.toEntity(start())).thenReturn(startEntity());
 
     // Run the test
-    locationServiceUnderTest.add(location());
+    locationServiceUnderTest.add(start());
 
     // Verify the results
-    verify(mockLocationRepository).save(locationEntity());
+    verify(mockLocationRepository).save(startEntity());
   }
 
   @Test
   void testFindAll() {
     // Setup
-    when(mockLocationMapper.fromEntity(locationEntityWithId())).thenReturn(locationWithId());
+    when(mockLocationMapper.fromEntity(startEntityWithId())).thenReturn(startWithId());
 
     // Configure LocationRepository.findAll(...).
-    final List<LocationEntity> locationEntities = List.of(locationEntityWithId());
+    final List<LocationEntity> locationEntities = List.of(startEntityWithId());
     when(mockLocationRepository.findAll()).thenReturn(locationEntities);
 
     // Run the test
     final List<Location> result = locationServiceUnderTest.findAll();
 
     // Verify the results
-    assertThat(result).isEqualTo(List.of(locationWithId()));
+    assertThat(result).isEqualTo(List.of(startWithId()));
   }
 
   @Test

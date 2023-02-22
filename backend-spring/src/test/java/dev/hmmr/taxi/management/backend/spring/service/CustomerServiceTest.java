@@ -62,7 +62,7 @@ class CustomerServiceTest {
   }
 
   @Test
-  void testFindAll_CustomerRepositoryReturnsNoItems() {
+  void testFindAllReturnsNoItems() {
     // Setup
     when(mockCustomerRepository.findAll()).thenReturn(emptyList());
 

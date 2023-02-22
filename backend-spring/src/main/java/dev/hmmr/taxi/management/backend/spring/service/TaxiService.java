@@ -18,12 +18,8 @@ public class TaxiService {
   TaxiMapper taxiMapper;
 
   public void add(Taxi taxi) {
-    final TaxiEntity taxiEntity = toTaxiEntity(taxi);
+    final TaxiEntity taxiEntity = taxiMapper.toEntity(taxi);
     taxiRepository.save(taxiEntity);
-  }
-
-  private TaxiEntity toTaxiEntity(Taxi taxi) {
-    return taxiMapper.toEntity(taxi);
   }
 
   public List<Taxi> findAll() {
