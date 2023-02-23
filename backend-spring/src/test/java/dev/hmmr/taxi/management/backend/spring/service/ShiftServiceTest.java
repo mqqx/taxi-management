@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import dev.hmmr.taxi.management.backend.spring.mapper.ShiftMapper;
-import dev.hmmr.taxi.management.backend.spring.model.ShiftEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.ShiftRepository;
 import dev.hmmr.taxi.management.openapi.model.Shift;
 import java.util.List;
@@ -68,8 +67,7 @@ class ShiftServiceTest {
   void testFindAll() {
     // Setup
     // Configure ShiftRepository.findAll(...).
-    final List<ShiftEntity> shiftEntities = List.of(shiftEntityWithId());
-    when(mockShiftRepository.findAll()).thenReturn(shiftEntities);
+    when(mockShiftRepository.findAll()).thenReturn(List.of(shiftEntityWithId()));
 
     // Configure ShiftMapper.fromEntity(...).
     when(mockShiftMapper.fromEntity(shiftEntityWithId())).thenReturn(shiftWithId());

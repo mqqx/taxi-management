@@ -11,6 +11,9 @@ public class CustomerMapper {
   }
 
   public Customer fromEntity(CustomerEntity customerEntity) {
+    if (customerEntity == null) {
+      return null;
+    }
     return new Customer().id(customerEntity.getId()).name(customerEntity.getName());
   }
 }

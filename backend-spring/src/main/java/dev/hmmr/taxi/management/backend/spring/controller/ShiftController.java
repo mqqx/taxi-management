@@ -4,6 +4,7 @@ import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
 import dev.hmmr.taxi.management.backend.spring.service.ShiftService;
+import dev.hmmr.taxi.management.backend.spring.service.TripService;
 import dev.hmmr.taxi.management.openapi.api.ShiftsApi;
 import dev.hmmr.taxi.management.openapi.model.Shift;
 import dev.hmmr.taxi.management.openapi.model.Trip;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ShiftController implements ShiftsApi {
   ShiftService shiftService;
+  TripService tripService;
 
   @Override
   public ResponseEntity<Void> addShift(Shift shift) {
@@ -30,12 +32,14 @@ public class ShiftController implements ShiftsApi {
 
   @Override
   public ResponseEntity<Void> addTrip(Integer shiftId, Trip trip) {
-    return null;
+    tripService.add(shiftId, trip);
+    return noContent().build();
   }
 
   @Override
   public ResponseEntity<Void> deleteTrip(Integer shiftId, Integer tripId) {
-    return null;
+    tripService.delete(tripId);
+    return noContent().build();
   }
 
   @Override
@@ -52,6 +56,7 @@ public class ShiftController implements ShiftsApi {
 
   @Override
   public ResponseEntity<List<Trip>> getTrips(Integer shiftId) {
-    return null;
+    final List<Trip> trips = tripService.findByShiftId(shiftId);
+    return ok(trips);
   }
 }
