@@ -9,6 +9,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 @NoArgsConstructor(access = AccessLevel.NONE)
 public class CustomerDummy {
   private static final String DESCRIPTION = "Herr Müller";
+  public static final int ID = 1;
 
   public static Customer customer() {
     return new Customer().name(DESCRIPTION);
@@ -16,7 +17,7 @@ public class CustomerDummy {
 
   public static Customer customerWithId() {
     final Customer customer = customer();
-    customer.setId(1);
+    customer.setId(ID);
     return customer;
   }
 
@@ -26,7 +27,7 @@ public class CustomerDummy {
 
   public static CustomerEntity customerEntityWithId() {
     final CustomerEntity customerEntity = customerEntity();
-    ReflectionTestUtils.setField(customerEntity, "id", 1);
+    ReflectionTestUtils.setField(customerEntity, "id", ID);
     return customerEntity;
   }
 }

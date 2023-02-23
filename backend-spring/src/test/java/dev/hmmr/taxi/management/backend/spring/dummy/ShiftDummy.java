@@ -18,7 +18,7 @@ public class ShiftDummy {
   private static final int START_MILEAGE = 153546;
   private static final int END_MILEAGE = 153891;
   private static final int DURATION = 8;
-  private static final int ID = 1;
+  public static final int ID = 1;
 
   public static Shift shift() {
     return shiftBase().taxi(taxiWithId()).driver(driverWithId());
