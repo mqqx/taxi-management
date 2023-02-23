@@ -18,7 +18,7 @@ import dev.hmmr.taxi.management.openapi.model.Driver;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -36,7 +36,7 @@ class DriverControllerIT {
   @Autowired DriverRepository driverRepository;
   @Autowired ObjectMapper objectMapper;
 
-  @BeforeEach
+  @AfterEach
   void setUp() {
     driverRepository.deleteAll();
   }

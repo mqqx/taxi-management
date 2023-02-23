@@ -16,7 +16,7 @@ import dev.hmmr.taxi.management.openapi.model.Customer;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,7 +34,7 @@ class CustomerControllerIT {
   @Autowired CustomerRepository customerRepository;
   @Autowired ObjectMapper objectMapper;
 
-  @BeforeEach
+  @AfterEach
   void setUp() {
     customerRepository.deleteAll();
   }

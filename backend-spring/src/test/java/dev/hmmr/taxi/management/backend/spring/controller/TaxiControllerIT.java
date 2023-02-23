@@ -16,7 +16,7 @@ import dev.hmmr.taxi.management.openapi.model.Taxi;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,10 +32,9 @@ import org.springframework.test.web.servlet.MockMvc;
 class TaxiControllerIT {
   @Autowired MockMvc mockMvc;
   @Autowired TaxiRepository taxiRepository;
-
   @Autowired ObjectMapper objectMapper;
 
-  @BeforeEach
+  @AfterEach
   void setUp() {
     taxiRepository.deleteAll();
   }
