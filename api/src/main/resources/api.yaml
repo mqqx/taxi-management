@@ -419,7 +419,6 @@ components:
         - start
         - destination
         - tax
-        - taxi
       properties:
         id:
           type: integer
