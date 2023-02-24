@@ -40,4 +40,13 @@ class CustomerMapperTest {
     // Verify the results
     assertThat(result).isEqualTo(customerWithId());
   }
+
+  @Test
+  void testFromEntityNull() {
+    // Run the test
+    final Customer result = customerMapperUnderTest.fromEntity(null);
+
+    // Verify the results
+    assertThat(result).isNull();
+  }
 }
