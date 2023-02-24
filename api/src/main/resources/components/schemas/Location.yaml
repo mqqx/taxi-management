@@ -1,0 +1,11 @@
+type: object
+required:
+  - description
+properties:
+  id:
+    type: integer
+    format: int32
+    example: 100000
+  description:
+    type: string
+    example: München

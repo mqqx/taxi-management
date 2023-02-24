@@ -1,0 +1,28 @@
+get:
+  operationId: getShifts
+  tags:
+    - shift
+  summary: Returns a list of shifts
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Shift.yaml'
+post:
+  operationId: addShift
+  tags:
+    - shift
+  summary: Create a shift
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Shift.yaml'
+  responses:
+    '201':
+      description: Created

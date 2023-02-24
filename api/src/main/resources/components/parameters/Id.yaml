@@ -1,0 +1,8 @@
+name: id
+in: path
+description: id of the resource
+required: true
+schema:
+  type: integer
+  format: int32
+  example: 123

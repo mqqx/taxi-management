@@ -1,0 +1,18 @@
+put:
+  operationId: updateDriver
+  tags:
+    - driver
+  summary: Updates a driver
+  parameters:
+    - $ref: '../components/parameters/Id.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Driver.yaml'
+  responses:
+    '204':
+      description: No Content
+    '404':
+      description: Not Found

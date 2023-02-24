@@ -1,0 +1,31 @@
+get:
+  operationId: findCustomersByPeriod
+  tags:
+    - customer
+  summary: Returns a list of customers, optionally in a period of trips
+  parameters:
+    - $ref: '../components/parameters/From.yaml'
+    - $ref: '../components/parameters/To.yaml'
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Customer.yaml'
+post:
+  operationId: addCustomer
+  tags:
+    - customer
+  summary: Create a customer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Customer.yaml'
+  responses:
+    '201':
+      description: Created

@@ -1,0 +1,30 @@
+parameters:
+  - $ref: '../components/parameters/ShiftId.yaml'
+get:
+  operationId: getTrips
+  tags:
+    - shift
+  summary: Returns a list of trips of the given shift id
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Trip.yaml'
+post:
+  operationId: addTrip
+  tags:
+    - shift
+  summary: Adds a trip to the given shift id
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Trip.yaml'
+  responses:
+    '201':
+      description: Created

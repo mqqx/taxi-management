@@ -1,0 +1,29 @@
+type: object
+required:
+  - firstName
+  - lastName
+  - active
+properties:
+  id:
+    type: integer
+    format: int32
+    example: 100000
+  firstName:
+    type: string
+    example: Max
+  lastName:
+    type: string
+    example: Müller
+  pLicenceDate:
+    type: string
+    format: date
+    example: 2022-04-19
+  birthdate:
+    type: string
+    format: date
+    example: 1987-02-12
+  address:
+    type: string
+    example: Gartenstraße 10, 92655 Grafenwöhr
+  active:
+    type: boolean

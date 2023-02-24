@@ -1,0 +1,28 @@
+get:
+  operationId: getTaxis
+  tags:
+    - taxi
+  summary: Returns a list of taxis
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Taxi.yaml'
+post:
+  operationId: addTaxi
+  tags:
+    - taxi
+  summary: Create a taxi
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Taxi.yaml'
+  responses:
+    '201':
+      description: Created

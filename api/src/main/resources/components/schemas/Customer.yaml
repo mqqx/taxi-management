@@ -1,0 +1,15 @@
+type: object
+required:
+  - name
+properties:
+  id:
+    type: integer
+    format: int32
+    example: 100000
+  name:
+    type: string
+    example: Herr Müller
+  count:
+    type: integer
+    format: int32
+    example: 100000

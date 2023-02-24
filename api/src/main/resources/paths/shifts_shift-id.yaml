@@ -1,0 +1,14 @@
+parameters:
+  - $ref: '../components/parameters/ShiftId.yaml'
+get:
+  operationId: findShiftById
+  tags:
+    - shift
+  summary: Returns a shift by id
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Shift.yaml'

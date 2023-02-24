@@ -1,0 +1,6 @@
+name: from
+description: from date inclusive
+in: query
+schema:
+  type: string
+  format: date

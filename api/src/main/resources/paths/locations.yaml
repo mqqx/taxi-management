@@ -1,0 +1,28 @@
+get:
+  operationId: getLocations
+  tags:
+    - location
+  summary: Returns a list of locations
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Location.yaml'
+post:
+  operationId: addLocation
+  tags:
+    - location
+  summary: Create a location
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Location.yaml'
+  responses:
+    '201':
+      description: Created

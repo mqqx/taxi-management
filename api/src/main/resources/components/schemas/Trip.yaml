@@ -1,0 +1,45 @@
+type: object
+required:
+  - shiftId
+  - start
+  - destination
+  - tax
+properties:
+  id:
+    type: integer
+    format: int32
+    example: 100000
+  shiftId:
+    type: integer
+    format: int32
+    example: 100000
+  description:
+    type: string
+    example: Arzt
+  start:
+    $ref: 'Location.yaml'
+  destination:
+    $ref: 'Location.yaml'
+  customer:
+    $ref: 'Customer.yaml'
+  cash:
+    type: number
+    format: double
+    example: 15.50
+  bill:
+    type: number
+    format: double
+    example: 28.00
+  tax:
+    type: string
+    description: Tax percentage of trip fare
+    enum:
+      - ZERO
+      - SEVEN
+      - NINETEEN
+    example: SEVEN
+  waitingTime:
+    type: number
+    format: double
+    example: 1.5
+    description: Waiting time in hours like 90min = 1.5h

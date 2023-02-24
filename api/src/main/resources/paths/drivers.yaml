@@ -1,0 +1,28 @@
+get:
+  operationId: getDrivers
+  tags:
+    - driver
+  summary: Returns a list of drivers
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Driver.yaml'
+post:
+  operationId: addDriver
+  tags:
+    - driver
+  summary: Create a driver
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Driver.yaml'
+  responses:
+    '201':
+      description: Created

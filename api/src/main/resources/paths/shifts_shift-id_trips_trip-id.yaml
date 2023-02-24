@@ -1,0 +1,11 @@
+delete:
+  operationId: deleteTrip
+  tags:
+    - shift
+  summary: Deletes a trip
+  parameters:
+    - $ref: '../components/parameters/ShiftId.yaml'
+    - $ref: '../components/parameters/TripId.yaml'
+  responses:
+    '204':
+      description: No Content
