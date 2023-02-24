@@ -86,7 +86,7 @@ class LocationControllerIT {
   }
 
   @Test
-  void testGetLocations_LocationServiceReturnsNoItems() throws Exception {
+  void testGetLocationsReturnsNoItems() throws Exception {
     // Run the test
     final MockHttpServletResponse response =
         mockMvc

@@ -88,7 +88,7 @@ class DriverControllerIT {
   }
 
   @Test
-  void testGetDrivers_DriverServiceReturnsNoItems() throws Exception {
+  void testGetDriversReturnsNoItems() throws Exception {
     // Run the test
     final MockHttpServletResponse response =
         mockMvc

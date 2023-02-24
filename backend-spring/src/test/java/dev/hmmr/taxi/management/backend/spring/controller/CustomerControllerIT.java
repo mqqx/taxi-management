@@ -87,7 +87,7 @@ class CustomerControllerIT {
   }
 
   @Test
-  void testGetCustomers_CustomerServiceReturnsNoItems() throws Exception {
+  void testGetCustomersReturnsNoItems() throws Exception {
     // Run the test
     final MockHttpServletResponse response =
         mockMvc
