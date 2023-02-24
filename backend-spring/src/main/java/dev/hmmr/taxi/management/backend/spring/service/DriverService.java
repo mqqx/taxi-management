@@ -29,7 +29,7 @@ public class DriverService {
   }
 
   @Transactional
-  public void update(Integer id, Driver driver) {
+  public void update(int id, Driver driver) {
     driverRepository
         .findById(id)
         .ifPresentOrElse(
