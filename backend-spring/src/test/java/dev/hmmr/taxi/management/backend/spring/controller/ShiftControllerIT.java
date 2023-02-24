@@ -16,6 +16,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -129,8 +130,7 @@ class ShiftControllerIT {
   @Test
   void testDeleteTrip() throws Exception {
     // Setup
-    final Shift shift = shift();
-    final ShiftEntity shiftEntity = initShiftEntity(shift);
+    final ShiftEntity shiftEntity = initShiftEntity(shift());
     shiftRepository.save(shiftEntity);
     final TripEntity tripEntity = tripRepository.save(initTripDtoAndEntity(shiftEntity).entity);
 
@@ -157,13 +157,10 @@ class ShiftControllerIT {
   @Test
   void testFindShiftById() throws Exception {
     // Setup
-    final ShiftEntity shiftEntity = initShiftEntity();
-    shiftRepository.save(shiftEntity);
-
     final Shift expected = shift();
-    expected.getTaxi().setId(shiftEntity.getTaxiId());
-    expected.getDriver().setId(shiftEntity.getDriverId());
-    expected.setId(shiftEntity.getId());
+    final ShiftEntity shiftEntity = initShiftEntity(expected);
+    shiftRepository.save(shiftEntity);
+    expected.id(shiftEntity.getId());
 
     // Run the test
     final MockHttpServletResponse response =
@@ -184,12 +181,10 @@ class ShiftControllerIT {
   @Test
   void testGetShifts() throws Exception {
     // Setup
-    final ShiftEntity shiftEntity = initShiftEntity();
-    shiftRepository.save(shiftEntity);
-
     final Shift expected = shift();
-    expected.getTaxi().setId(shiftEntity.getTaxiId());
-    expected.getDriver().setId(shiftEntity.getDriverId());
+    final ShiftEntity shiftEntity = initShiftEntity(expected);
+    shiftRepository.save(shiftEntity);
+    expected.id(shiftEntity.getId());
 
     // Run the test
     final MockHttpServletResponse response =
@@ -205,7 +200,6 @@ class ShiftControllerIT {
     assertThat(
             objectMapper.readValue(
                 response.getContentAsByteArray(), new TypeReference<List<Shift>>() {}))
-        .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
         .containsExactlyElementsOf(singletonList(expected));
   }
 
@@ -252,6 +246,49 @@ class ShiftControllerIT {
         .containsExactlyElementsOf(singletonList(tripDtoAndEntity.dto));
   }
 
+  @Test
+  void testUpdateShift() throws Exception {
+    // Setup
+    final Shift shift = shift();
+    final ShiftEntity shiftEntity = initShiftEntity(shift);
+    shiftRepository.save(shiftEntity);
+    shift.id(shiftEntity.getId());
+
+    // Run the test
+    final MockHttpServletResponse response =
+        mockMvc
+            .perform(
+                put(linkTo(methodOn(ShiftController.class).updateShift(shiftEntity.getId(), null))
+                        .toUri())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(shift.endMileage(Integer.MAX_VALUE)))
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse();
+
+    // Verify the results
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.NO_CONTENT.value());
+    assertThat(shiftRepository.findAll())
+        .containsExactlyElementsOf(singletonList(shiftEntity.setEndMileage(Integer.MAX_VALUE)));
+  }
+
+  @Test
+  void testUpdateShiftNotFound() throws Exception {
+    // Run the test
+    final MockHttpServletResponse response =
+        mockMvc
+            .perform(
+                put(linkTo(methodOn(ShiftController.class).updateShift(-1, null)).toUri())
+                    .content(objectMapper.writeValueAsString(shift().endMileage(Integer.MAX_VALUE)))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse();
+
+    // Verify the results
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+  }
+
   private TripDtoAndEntity initTripDtoAndEntity(ShiftEntity createdShift) {
     final LocationEntity startEntity = locationRepository.save(startEntity());
     final LocationEntity destinationEntity = locationRepository.save(destinationEntity());
@@ -274,25 +311,11 @@ class ShiftControllerIT {
     return new TripDtoAndEntity(tripWithSavedIds, expected);
   }
 
-  private ShiftEntity initShiftEntity() {
-    return initShiftEntity(null, null);
-  }
-
   private ShiftEntity initShiftEntity(Shift shift) {
     final TaxiEntity taxiEntity = taxiRepository.saveAndFlush(taxiEntity());
     final DriverEntity driverEntity = driverRepository.saveAndFlush(driverEntity());
     shift.getTaxi().setId(taxiEntity.getId());
     shift.getDriver().setId(driverEntity.getId());
-    return initShiftEntity(taxiEntity, driverEntity);
-  }
-
-  private ShiftEntity initShiftEntity(TaxiEntity taxiEntity, DriverEntity driverEntity) {
-    if (taxiEntity == null) {
-      taxiEntity = taxiRepository.saveAndFlush(taxiEntity());
-    }
-    if (driverEntity == null) {
-      driverEntity = driverRepository.saveAndFlush(driverEntity());
-    }
     return shiftEntity()
         .setTaxiId(taxiEntity.getId())
         .setDriverId(driverEntity.getId())

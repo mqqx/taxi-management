@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +33,16 @@ public class ShiftService {
 
   public List<Shift> findAll() {
     return shiftRepository.findAll().stream().map(shiftMapper::fromEntity).toList();
+  }
+
+  @Transactional
+  public void update(int id, Shift shift) {
+    shiftRepository
+        .findById(id)
+        .ifPresentOrElse(
+            shiftEntity -> shiftMapper.toEntity(shift, shiftEntity),
+            () -> {
+              throw new ResourceNotFoundException();
+            });
   }
 }

@@ -15,7 +15,11 @@ public class ShiftMapper {
   DriverMapper driverMapper;
 
   public ShiftEntity toEntity(Shift shift) {
-    return new ShiftEntity()
+    return toEntity(shift, new ShiftEntity());
+  }
+
+  public ShiftEntity toEntity(Shift shift, ShiftEntity shiftEntity) {
+    return shiftEntity
         .setDuration(shift.getDuration())
         .setStartMileage(shift.getStartMileage())
         .setEndMileage(shift.getEndMileage())

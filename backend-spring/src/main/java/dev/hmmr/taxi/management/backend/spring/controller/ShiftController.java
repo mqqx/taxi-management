@@ -59,4 +59,10 @@ public class ShiftController implements ShiftsApi {
     final List<Trip> trips = tripService.findByShiftId(shiftId);
     return ok(trips);
   }
+
+  @Override
+  public ResponseEntity<Void> updateShift(Integer shiftId, Shift shift) {
+    shiftService.update(shiftId, shift);
+    return noContent().build();
+  }
 }

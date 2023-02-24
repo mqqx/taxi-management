@@ -6,10 +6,12 @@ import static dev.hmmr.taxi.management.backend.spring.dummy.ShiftDummy.shiftEnti
 import static dev.hmmr.taxi.management.backend.spring.dummy.ShiftDummy.shiftWithId;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatRuntimeException;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import dev.hmmr.taxi.management.backend.spring.mapper.ShiftMapper;
+import dev.hmmr.taxi.management.backend.spring.model.ShiftEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.ShiftRepository;
 import dev.hmmr.taxi.management.openapi.model.Shift;
 import java.util.List;
@@ -91,24 +93,23 @@ class ShiftServiceTest {
     assertThat(result).isEmpty();
   }
 
-  //  @Test
-  //  void testUpdate() {
-  //    // Configure ShiftRepository.findById(...).
-  //    final ShiftEntity shiftEntity = shiftEntityWithId();
-  //
-  // when(mockShiftRepository.findById(shiftEntity.getId())).thenReturn(Optional.of(shiftEntity));
-  //
-  //    // Run the test
-  //    shiftServiceUnderTest.update(shiftEntity.getId(), shift());
-  //
-  //    // Verify the results
-  //    verify(mockShiftMapper).toEntity(shift(), shiftEntity);
-  //  }
-  //
-  //  @Test
-  //  void testUpdateWithUnknownIdThrowsException() {
-  //    // Run the test
-  //    // Verify the results
-  //    assertThatRuntimeException().isThrownBy(() -> shiftServiceUnderTest.update(-1, shift()));
-  //  }
+  @Test
+  void testUpdate() {
+    // Configure ShiftRepository.findById(...).
+    final ShiftEntity shiftEntity = shiftEntityWithId();
+    when(mockShiftRepository.findById(shiftEntity.getId())).thenReturn(Optional.of(shiftEntity));
+
+    // Run the test
+    shiftServiceUnderTest.update(shiftEntity.getId(), shift());
+
+    // Verify the results
+    verify(mockShiftMapper).toEntity(shift(), shiftEntity);
+  }
+
+  @Test
+  void testUpdateWithUnknownIdThrowsException() {
+    // Run the test
+    // Verify the results
+    assertThatRuntimeException().isThrownBy(() -> shiftServiceUnderTest.update(-1, shift()));
+  }
 }
