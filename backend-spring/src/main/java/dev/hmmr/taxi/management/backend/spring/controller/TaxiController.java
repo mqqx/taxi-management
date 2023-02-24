@@ -29,4 +29,10 @@ public class TaxiController implements TaxisApi {
   public ResponseEntity<List<Taxi>> getTaxis() {
     return ok(taxiService.findAll());
   }
+
+  @Override
+  public ResponseEntity<Void> updateTaxi(Integer id, Taxi taxi) {
+    taxiService.update(id, taxi);
+    return noContent().build();
+  }
 }

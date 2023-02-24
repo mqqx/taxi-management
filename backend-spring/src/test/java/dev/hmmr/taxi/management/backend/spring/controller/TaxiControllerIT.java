@@ -8,9 +8,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.hmmr.taxi.management.backend.spring.model.TaxiEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.TaxiRepository;
 import dev.hmmr.taxi.management.openapi.model.Taxi;
 import java.util.List;
@@ -99,5 +101,47 @@ class TaxiControllerIT {
     // Verify the results
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     assertThat(response.getContentLength()).isZero();
+  }
+
+  @Test
+  void testUpdateTaxi() throws Exception {
+    // Setup
+    TaxiEntity entity = taxiEntity();
+    taxiRepository.save(entity);
+    assertThat(entity.isActive()).isTrue();
+
+    // Run the test
+    final MockHttpServletResponse response =
+        mockMvc
+            .perform(
+                put(linkTo(methodOn(TaxiController.class).updateTaxi(entity.getId(), null)).toUri())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(taxi().active(false)))
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse();
+
+    // Verify the results
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.NO_CONTENT.value());
+    assertThat(taxiRepository.findAll())
+        .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
+        .containsExactlyElementsOf(singletonList(taxiEntity().setActive(false)));
+  }
+
+  @Test
+  void testUpdateTaxiNotFound() throws Exception {
+    // Run the test
+    final MockHttpServletResponse response =
+        mockMvc
+            .perform(
+                put(linkTo(methodOn(TaxiController.class).updateTaxi(-1, null)).toUri())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(taxi().active(false)))
+                    .accept(MediaType.APPLICATION_JSON))
+            .andReturn()
+            .getResponse();
+
+    // Verify the results
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
   }
 }

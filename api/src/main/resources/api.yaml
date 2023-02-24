@@ -18,6 +18,8 @@ tags:
 paths:
   /taxis:
     $ref: 'paths/taxis.yaml'
+  /taxis/{id}:
+    $ref: 'paths/taxis_taxi-id.yaml'
   /drivers:
     $ref: 'paths/drivers.yaml'
   /drivers/{id}:

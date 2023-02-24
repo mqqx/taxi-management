@@ -1,0 +1,18 @@
+put:
+  operationId: updateTaxi
+  tags:
+    - taxi
+  summary: Updates a taxi
+  parameters:
+    - $ref: '../components/parameters/Id.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Taxi.yaml'
+  responses:
+    '204':
+      description: No Content
+    '404':
+      description: Not Found

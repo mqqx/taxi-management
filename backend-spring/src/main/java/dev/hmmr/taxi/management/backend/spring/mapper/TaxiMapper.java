@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaxiMapper {
   public TaxiEntity toEntity(Taxi taxi) {
-    return new TaxiEntity()
+    return toEntity(taxi, new TaxiEntity());
+  }
+
+  public TaxiEntity toEntity(Taxi taxi, TaxiEntity taxiEntity) {
+    return taxiEntity
         .setFin(taxi.getFin())
         .setMileage(taxi.getMileage())
         .setDescription(taxi.getDescription())

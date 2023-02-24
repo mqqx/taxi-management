@@ -5,14 +5,17 @@ import static dev.hmmr.taxi.management.backend.spring.dummy.TaxiDummy.taxiEntity
 import static dev.hmmr.taxi.management.backend.spring.dummy.TaxiDummy.taxiEntityWithId;
 import static dev.hmmr.taxi.management.backend.spring.dummy.TaxiDummy.taxiWithId;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatRuntimeException;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import dev.hmmr.taxi.management.backend.spring.mapper.TaxiMapper;
+import dev.hmmr.taxi.management.backend.spring.model.TaxiEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.TaxiRepository;
 import dev.hmmr.taxi.management.openapi.model.Taxi;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,5 +73,25 @@ class TaxiServiceTest {
 
     // Verify the results
     assertThat(result).isEqualTo(Collections.emptyList());
+  }
+
+  @Test
+  void testUpdate() {
+    // Configure TaxiRepository.findById(...).
+    final TaxiEntity taxiEntity = taxiEntityWithId();
+    when(mockTaxiRepository.findById(taxiEntity.getId())).thenReturn(Optional.of(taxiEntity));
+
+    // Run the test
+    taxiServiceUnderTest.update(taxiEntity.getId(), taxi());
+
+    // Verify the results
+    verify(mockTaxiMapper).toEntity(taxi(), taxiEntity);
+  }
+
+  @Test
+  void testUpdateWithUnknownIdThrowsException() {
+    // Run the test
+    // Verify the results
+    assertThatRuntimeException().isThrownBy(() -> taxiServiceUnderTest.update(-1, taxi()));
   }
 }

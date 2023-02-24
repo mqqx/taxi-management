@@ -26,6 +26,7 @@ Running `mvn clean install` will (re-)create the API server side.
 
 1. [x] create taxi
 2. [x] read taxis
+3. [x] update taxi
 
 ### customer
 
