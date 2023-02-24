@@ -107,9 +107,9 @@ class DriverControllerIT {
   void testUpdateDriver() throws Exception {
     // Setup
     DriverEntity entity = driverEntity();
-    entity = driverRepository.save(entity);
-
+    driverRepository.save(entity);
     assertThat(entity.isActive()).isTrue();
+
     // Run the test
     final MockHttpServletResponse response =
         mockMvc
