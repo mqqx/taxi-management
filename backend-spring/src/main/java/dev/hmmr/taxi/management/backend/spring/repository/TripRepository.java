@@ -5,5 +5,5 @@ import java.util.List;
 import org.springframework.data.repository.ListCrudRepository;
 
 public interface TripRepository extends ListCrudRepository<TripEntity, Integer> {
-  List<TripEntity> findByShiftId(int shiftId);
+  List<TripEntity> findAllByShiftId(int shiftId);
 }

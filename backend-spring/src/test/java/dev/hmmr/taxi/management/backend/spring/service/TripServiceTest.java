@@ -80,7 +80,7 @@ class TripServiceTest {
     final Trip trip = tripWithAllFields();
 
     // Configure TripRepository.findByShiftId(...).
-    when(mockTripRepository.findByShiftId(ShiftDummy.ID)).thenReturn(List.of(tripEntity));
+    when(mockTripRepository.findAllByShiftId(ShiftDummy.ID)).thenReturn(List.of(tripEntity));
 
     // Configure TripMapper.fromEntity(...).
     when(mockTripMapper.fromEntity(tripEntity)).thenReturn(trip);
@@ -95,7 +95,7 @@ class TripServiceTest {
   @Test
   void testFindByShiftIdReturnsNoItems() {
     // Setup
-    when(mockTripRepository.findByShiftId(ShiftDummy.ID)).thenReturn(emptyList());
+    when(mockTripRepository.findAllByShiftId(ShiftDummy.ID)).thenReturn(emptyList());
 
     // Run the test
     final List<Trip> result = tripServiceUnderTest.findByShiftId(ShiftDummy.ID);

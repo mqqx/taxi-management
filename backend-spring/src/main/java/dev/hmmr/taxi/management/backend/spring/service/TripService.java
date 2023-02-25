@@ -30,7 +30,7 @@ public class TripService {
   }
 
   public List<Trip> findByShiftId(int shiftId) {
-    return tripRepository.findByShiftId(shiftId).stream().map(tripMapper::fromEntity).toList();
+    return tripRepository.findAllByShiftId(shiftId).stream().map(tripMapper::fromEntity).toList();
   }
 
   public void delete(int tripId) {
