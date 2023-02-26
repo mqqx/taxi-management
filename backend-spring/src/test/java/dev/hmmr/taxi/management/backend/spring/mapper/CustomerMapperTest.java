@@ -3,7 +3,9 @@ package dev.hmmr.taxi.management.backend.spring.mapper;
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customer;
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerEntity;
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerEntityWithId;
+import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerProjection;
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerWithId;
+import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerWithIdAndCount;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import dev.hmmr.taxi.management.backend.spring.model.CustomerEntity;
@@ -48,5 +50,14 @@ class CustomerMapperTest {
 
     // Verify the results
     assertThat(result).isNull();
+  }
+
+  @Test
+  void testFromProjection() {
+    // Run the test
+    final Customer result = customerMapperUnderTest.fromProjection(customerProjection());
+
+    // Verify the results
+    assertThat(result).isEqualTo(customerWithIdAndCount());
   }
 }

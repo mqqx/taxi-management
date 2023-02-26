@@ -1,6 +1,7 @@
 package dev.hmmr.taxi.management.backend.spring.dummy;
 
 import dev.hmmr.taxi.management.backend.spring.model.CustomerEntity;
+import dev.hmmr.taxi.management.backend.spring.model.CustomerProjection;
 import dev.hmmr.taxi.management.openapi.model.Customer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 @NoArgsConstructor(access = AccessLevel.NONE)
 public class CustomerDummy {
   private static final String DESCRIPTION = "Herr Müller";
+  private static final int COUNT = 2;
   public static final int ID = 1;
 
   public static Customer customer() {
@@ -16,9 +18,15 @@ public class CustomerDummy {
   }
 
   public static Customer customerWithId() {
-    final Customer customer = customer();
-    customer.setId(ID);
-    return customer;
+    return customer().id(ID);
+  }
+
+  public static Customer customerWithIdAndCount() {
+    return customerWithId().count(COUNT);
+  }
+
+  public static CustomerProjection customerProjection() {
+    return new CustomerProjection(ID, DESCRIPTION, COUNT);
   }
 
   public static CustomerEntity customerEntity() {

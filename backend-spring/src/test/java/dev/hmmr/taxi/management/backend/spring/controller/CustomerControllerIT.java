@@ -2,6 +2,13 @@ package dev.hmmr.taxi.management.backend.spring.controller;
 
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customer;
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerEntity;
+import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerWithIdAndCount;
+import static dev.hmmr.taxi.management.backend.spring.dummy.DriverDummy.driverEntity;
+import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.destinationEntity;
+import static dev.hmmr.taxi.management.backend.spring.dummy.LocationDummy.startEntity;
+import static dev.hmmr.taxi.management.backend.spring.dummy.ShiftDummy.shiftEntity;
+import static dev.hmmr.taxi.management.backend.spring.dummy.TaxiDummy.taxiEntity;
+import static dev.hmmr.taxi.management.backend.spring.dummy.TripDummy.tripEntity;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -11,7 +18,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.hmmr.taxi.management.backend.spring.model.CustomerEntity;
+import dev.hmmr.taxi.management.backend.spring.model.DriverEntity;
+import dev.hmmr.taxi.management.backend.spring.model.LocationEntity;
+import dev.hmmr.taxi.management.backend.spring.model.ShiftEntity;
+import dev.hmmr.taxi.management.backend.spring.model.TaxiEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.CustomerRepository;
+import dev.hmmr.taxi.management.backend.spring.repository.DriverRepository;
+import dev.hmmr.taxi.management.backend.spring.repository.LocationRepository;
+import dev.hmmr.taxi.management.backend.spring.repository.ShiftRepository;
+import dev.hmmr.taxi.management.backend.spring.repository.TaxiRepository;
+import dev.hmmr.taxi.management.backend.spring.repository.TripRepository;
 import dev.hmmr.taxi.management.openapi.model.Customer;
 import java.util.List;
 import lombok.AccessLevel;
@@ -33,9 +50,19 @@ class CustomerControllerIT {
   @Autowired MockMvc mockMvc;
   @Autowired CustomerRepository customerRepository;
   @Autowired ObjectMapper objectMapper;
+  @Autowired DriverRepository driverRepository;
+  @Autowired TaxiRepository taxiRepository;
+  @Autowired ShiftRepository shiftRepository;
+  @Autowired LocationRepository locationRepository;
+  @Autowired TripRepository tripRepository;
 
   @AfterEach
   void setUp() {
+    tripRepository.deleteAll();
+    shiftRepository.deleteAll();
+    driverRepository.deleteAll();
+    taxiRepository.deleteAll();
+    locationRepository.deleteAll();
     customerRepository.deleteAll();
   }
 
@@ -65,7 +92,7 @@ class CustomerControllerIT {
   @Test
   void testGetCustomers() throws Exception {
     // Setup
-    customerRepository.save(customerEntity());
+    setupDummyTripsWithCustomer();
 
     // Run the test
     final MockHttpServletResponse response =
@@ -83,7 +110,7 @@ class CustomerControllerIT {
             objectMapper.readValue(
                 response.getContentAsByteArray(), new TypeReference<List<Customer>>() {}))
         .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
-        .containsExactlyElementsOf(singletonList(customer()));
+        .containsExactlyElementsOf(singletonList(customerWithIdAndCount()));
   }
 
   @Test
@@ -101,5 +128,35 @@ class CustomerControllerIT {
     // Verify the results
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     assertThat(response.getContentLength()).isZero();
+  }
+
+  private void setupDummyTripsWithCustomer() {
+    // save driver
+    final DriverEntity driverEntity = driverRepository.save(driverEntity());
+    // save taxi
+    final TaxiEntity taxiEntity = taxiRepository.save(taxiEntity());
+    // save shift
+    final ShiftEntity shiftEntity =
+        shiftRepository.save(
+            shiftEntity().setDriverId(driverEntity.getId()).setTaxiId(taxiEntity.getId()));
+    // save location
+    final LocationEntity startEntity = locationRepository.save(startEntity());
+    final LocationEntity destinationEntity = locationRepository.save(destinationEntity());
+    // save 2 trips with customer?
+    final CustomerEntity customerEntity = customerRepository.save(customerEntity());
+    tripRepository.save(
+        tripRepository.save(
+            tripEntity()
+                .setCustomerId(customerEntity.getId())
+                .setShiftId(shiftEntity.getId())
+                .setStartId(startEntity.getId())
+                .setDestinationId(destinationEntity.getId())));
+    tripRepository.save(
+        tripRepository.save(
+            tripEntity()
+                .setCustomerId(customerEntity.getId())
+                .setShiftId(shiftEntity.getId())
+                .setStartId(destinationEntity.getId())
+                .setDestinationId(startEntity.getId())));
   }
 }

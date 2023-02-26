@@ -2,7 +2,7 @@ package dev.hmmr.taxi.management.backend.spring.service;
 
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customer;
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerEntity;
-import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerEntityWithId;
+import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerProjection;
 import static dev.hmmr.taxi.management.backend.spring.dummy.CustomerDummy.customerWithId;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,6 +12,8 @@ import static org.mockito.Mockito.when;
 import dev.hmmr.taxi.management.backend.spring.mapper.CustomerMapper;
 import dev.hmmr.taxi.management.backend.spring.repository.CustomerRepository;
 import dev.hmmr.taxi.management.openapi.model.Customer;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -47,27 +49,29 @@ class CustomerServiceTest {
   }
 
   @Test
-  void testFindAll() {
+  void testFindAllByPeriod() {
     // Setup
-    when(mockCustomerMapper.fromEntity(customerEntityWithId())).thenReturn(customerWithId());
-
-    // Configure CustomerRepository.findAll(...).
-    when(mockCustomerRepository.findAll()).thenReturn(List.of(customerEntityWithId()));
+    when(mockCustomerRepository.findAllByFromAndToDate(
+            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now()))
+        .thenReturn(List.of(customerProjection()));
+    when(mockCustomerMapper.fromProjection(customerProjection())).thenReturn(customerWithId());
 
     // Run the test
-    final List<Customer> result = customerServiceUnderTest.findAll();
+    final List<Customer> result = customerServiceUnderTest.findAllByPeriod(null, null);
 
     // Verify the results
     assertThat(result).isEqualTo(List.of(customerWithId()));
   }
 
   @Test
-  void testFindAllReturnsNoItems() {
+  void testFindAllByPeriodReturnsNoItems() {
     // Setup
-    when(mockCustomerRepository.findAll()).thenReturn(emptyList());
+    when(mockCustomerRepository.findAllByFromAndToDate(
+            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now()))
+        .thenReturn(emptyList());
 
     // Run the test
-    final List<Customer> result = customerServiceUnderTest.findAll();
+    final List<Customer> result = customerServiceUnderTest.findAllByPeriod(null, null);
 
     // Verify the results
     assertThat(result).isEqualTo(emptyList());

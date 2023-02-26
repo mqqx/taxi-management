@@ -1,6 +1,7 @@
 package dev.hmmr.taxi.management.backend.spring.mapper;
 
 import dev.hmmr.taxi.management.backend.spring.model.CustomerEntity;
+import dev.hmmr.taxi.management.backend.spring.model.CustomerProjection;
 import dev.hmmr.taxi.management.openapi.model.Customer;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,12 @@ public class CustomerMapper {
       return null;
     }
     return new Customer().id(customerEntity.getId()).name(customerEntity.getName());
+  }
+
+  public Customer fromProjection(CustomerProjection customerProjection) {
+    return new Customer()
+        .id(customerProjection.id())
+        .name(customerProjection.name())
+        .count(customerProjection.count());
   }
 }
