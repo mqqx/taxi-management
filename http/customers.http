@@ -1,8 +1,17 @@
 ###
+# Create customer
+POST {{ baseURL }}/customers
+Content-Type: application/json
+
+{
+  "name": "Herr Müller"
+}
+
+###
 # Find all customers
 GET {{ baseURL }}/customers
 
 ###
 # Find all customers from the year 2022
-GET {{ baseURL }}/customers?from=2022-12-31&to=2022-12-31
+GET {{ baseURL }}/customers?from=2022-01-01&to=2022-12-31
 
