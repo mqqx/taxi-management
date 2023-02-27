@@ -1,0 +1,23 @@
+### Create a driver
+POST {{ baseURL }}/drivers
+Content-Type: application/json
+
+{
+  "firstName": "Max",
+  "lastName": "Mustermann",
+  "active": true
+}
+
+### Find all drivers
+GET {{ baseURL }}/drivers
+
+### Update a driver
+PUT {{ baseURL }}/drivers/5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "firstName": "Max",
+  "lastName": "Mustermann",
+  "active": false
+}
