@@ -1,0 +1,10 @@
+### Create a location
+POST {{ baseURL }}/locations
+Content-Type: application/json
+
+{
+  "description": "Hamburg"
+}
+
+### Find all locations
+GET {{ baseURL }}/locations
