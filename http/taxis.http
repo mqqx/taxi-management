@@ -1,0 +1,23 @@
+### Create a taxi
+POST {{ baseURL }}/taxis
+Content-Type: application/json
+
+{
+  "description": "Volvo 9999",
+  "mileage": 157864,
+  "active": true
+}
+
+### Find all taxis
+GET {{ baseURL }}/taxis
+
+### Update a taxi
+PUT {{ baseURL }}/taxis/23
+Content-Type: application/json
+
+{
+  "id": 23,
+  "description": "Volvo 9999",
+  "mileage": 157865,
+  "active": true
+}
