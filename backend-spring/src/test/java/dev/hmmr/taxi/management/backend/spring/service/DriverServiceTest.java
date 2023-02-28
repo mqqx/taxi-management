@@ -53,7 +53,8 @@ class DriverServiceTest {
   void testFindAll() {
     // Setup
     // Configure DriverRepository.findAll(...).
-    when(mockDriverRepository.findAll()).thenReturn(List.of(driverEntityWithId()));
+    when(mockDriverRepository.findAllByOrderByActiveDescLastName())
+        .thenReturn(List.of(driverEntityWithId()));
 
     // Configure DriverMapper.fromEntity(...).
     when(mockDriverMapper.fromEntity(driverEntityWithId())).thenReturn(driverWithId());
@@ -68,7 +69,7 @@ class DriverServiceTest {
   @Test
   void testFindAll_DriverRepositoryReturnsNoItems() {
     // Setup
-    when(mockDriverRepository.findAll()).thenReturn(emptyList());
+    when(mockDriverRepository.findAllByOrderByActiveDescLastName()).thenReturn(emptyList());
 
     // Run the test
     final List<Driver> result = driverServiceUnderTest.findAll();

@@ -25,7 +25,9 @@ public class DriverService {
   }
 
   public List<Driver> findAll() {
-    return driverRepository.findAll().stream().map(driverMapper::fromEntity).toList();
+    return driverRepository.findAllByOrderByActiveDescLastName().stream()
+        .map(driverMapper::fromEntity)
+        .toList();
   }
 
   @Transactional
