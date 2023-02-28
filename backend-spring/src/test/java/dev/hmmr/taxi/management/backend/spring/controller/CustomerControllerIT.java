@@ -98,7 +98,7 @@ class CustomerControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                get(linkTo(methodOn(CustomerController.class).findCustomersByPeriod(null, null))
+                get(linkTo(methodOn(CustomerController.class).getCustomersByPeriod(null, null))
                         .toUri())
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
@@ -119,7 +119,7 @@ class CustomerControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                get(linkTo(methodOn(CustomerController.class).findCustomersByPeriod(null, null))
+                get(linkTo(methodOn(CustomerController.class).getCustomersByPeriod(null, null))
                         .toUri())
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()

@@ -27,7 +27,7 @@ public class CustomerController implements CustomersApi {
   }
 
   @Override
-  public ResponseEntity<List<Customer>> findCustomersByPeriod(LocalDate from, LocalDate to) {
+  public ResponseEntity<List<Customer>> getCustomersByPeriod(LocalDate from, LocalDate to) {
     return ok(customerService.findAllByPeriod(from, to));
   }
 }
