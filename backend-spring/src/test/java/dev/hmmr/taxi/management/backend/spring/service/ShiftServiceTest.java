@@ -14,6 +14,8 @@ import dev.hmmr.taxi.management.backend.spring.mapper.ShiftMapper;
 import dev.hmmr.taxi.management.backend.spring.model.ShiftEntity;
 import dev.hmmr.taxi.management.backend.spring.repository.ShiftRepository;
 import dev.hmmr.taxi.management.openapi.model.Shift;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 import lombok.AccessLevel;
@@ -69,13 +71,15 @@ class ShiftServiceTest {
   void testFindAll() {
     // Setup
     // Configure ShiftRepository.findTop20ByOrderByIdDesc(...).
-    when(mockShiftRepository.findTop20ByOrderByIdDesc()).thenReturn(List.of(shiftEntityWithId()));
+    when(mockShiftRepository.findTop20ByDateBetweenOrderByIdDesc(
+            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now()))
+        .thenReturn(List.of(shiftEntityWithId()));
 
     // Configure ShiftMapper.fromEntity(...).
     when(mockShiftMapper.fromEntity(shiftEntityWithId())).thenReturn(shiftWithId());
 
     // Run the test
-    final List<Shift> result = shiftServiceUnderTest.findAll();
+    final List<Shift> result = shiftServiceUnderTest.findAllByPeriod(null, null);
 
     // Verify the results
     assertThat(result).isEqualTo(List.of(shiftWithId()));
@@ -84,10 +88,12 @@ class ShiftServiceTest {
   @Test
   void testFindAllReturnsNoItems() {
     // Setup
-    when(mockShiftRepository.findTop20ByOrderByIdDesc()).thenReturn(emptyList());
+    when(mockShiftRepository.findTop20ByDateBetweenOrderByIdDesc(
+            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now()))
+        .thenReturn(emptyList());
 
     // Run the test
-    final List<Shift> result = shiftServiceUnderTest.findAll();
+    final List<Shift> result = shiftServiceUnderTest.findAllByPeriod(null, null);
 
     // Verify the results
     assertThat(result).isEmpty();

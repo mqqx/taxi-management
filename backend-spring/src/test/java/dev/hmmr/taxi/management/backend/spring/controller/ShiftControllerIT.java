@@ -166,7 +166,7 @@ class ShiftControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                get(linkTo(methodOn(ShiftController.class).findShiftById(shiftEntity.getId()))
+                get(linkTo(methodOn(ShiftController.class).getShiftById(shiftEntity.getId()))
                         .toUri())
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
@@ -190,7 +190,7 @@ class ShiftControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                get(linkTo(methodOn(ShiftController.class).getShifts()).toUri())
+                get(linkTo(methodOn(ShiftController.class).getShiftsByPeriod(null, null)).toUri())
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
             .getResponse();
@@ -209,7 +209,7 @@ class ShiftControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                get(linkTo(methodOn(ShiftController.class).getShifts()).toUri())
+                get(linkTo(methodOn(ShiftController.class).getShiftsByPeriod(null, null)).toUri())
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
             .getResponse();

@@ -8,6 +8,7 @@ import dev.hmmr.taxi.management.backend.spring.service.TripService;
 import dev.hmmr.taxi.management.openapi.api.ShiftsApi;
 import dev.hmmr.taxi.management.openapi.model.Shift;
 import dev.hmmr.taxi.management.openapi.model.Trip;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -43,21 +44,18 @@ public class ShiftController implements ShiftsApi {
   }
 
   @Override
-  public ResponseEntity<Shift> findShiftById(Integer shiftId) {
-    final Shift shift = shiftService.findById(shiftId);
-    return ok(shift);
+  public ResponseEntity<Shift> getShiftById(Integer shiftId) {
+    return ok(shiftService.findById(shiftId));
   }
 
   @Override
-  public ResponseEntity<List<Shift>> getShifts() {
-    final List<Shift> shifts = shiftService.findAll();
-    return ok(shifts);
+  public ResponseEntity<List<Shift>> getShiftsByPeriod(LocalDate from, LocalDate to) {
+    return ok(shiftService.findAllByPeriod(from, to));
   }
 
   @Override
   public ResponseEntity<List<Trip>> getTrips(Integer shiftId) {
-    final List<Trip> trips = tripService.findByShiftId(shiftId);
-    return ok(trips);
+    return ok(tripService.findByShiftId(shiftId));
   }
 
   @Override

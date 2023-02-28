@@ -1,8 +1,11 @@
 get:
-  operationId: getShifts
+  operationId: getShiftsByPeriod
   tags:
     - shift
-  summary: Returns a list of shifts
+  summary: Returns a list of last 20 shifts, optionally in a given period
+  parameters:
+    - $ref: '../components/parameters/From.yaml'
+    - $ref: '../components/parameters/To.yaml'
   responses:
     '200':
       description: OK
