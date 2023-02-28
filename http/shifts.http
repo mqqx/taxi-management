@@ -1,0 +1,55 @@
+### Create a shift
+POST {{ baseURL }}/shifts
+Content-Type: application/json
+
+{
+  "date": "2022-01-31",
+  "startMileage": 157864,
+  "endMileage": 157964,
+  "driver": {
+    "id": 5
+  },
+  "taxi": {
+    "id": 5
+  }
+}
+
+### Find most recent 20 shifts
+GET {{ baseURL }}/shifts
+
+### Find most recent 20 shifts between 2021-12-31 and 2022-01-01
+GET {{ baseURL }}/shifts?from=2021-12-31&to=2022-01-01
+
+
+### Find shift by id
+GET {{ baseURL }}/shifts/23
+
+### Update a shift
+PUT {{ baseURL }}/shifts/23
+Content-Type: application/json
+
+{
+  "id": 23,
+  "date": [
+    2012,
+    6,
+    22
+  ],
+  "startMileage": 39256,
+  "endMileage": 39446,
+  "duration": null,
+  "driver": {
+    "id": 17,
+    "firstName": "Max",
+    "lastName": "Mustermann",
+    "active": false
+  },
+  "taxi": {
+    "id": 2,
+    "description": "Volvo 96555",
+    "mileage": 364081,
+    "numberPlate": "B-MX123",
+    "active": false
+  },
+  "trips": null
+}
