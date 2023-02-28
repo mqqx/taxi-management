@@ -68,8 +68,8 @@ class ShiftServiceTest {
   @Test
   void testFindAll() {
     // Setup
-    // Configure ShiftRepository.findAll(...).
-    when(mockShiftRepository.findAll()).thenReturn(List.of(shiftEntityWithId()));
+    // Configure ShiftRepository.findTop20ByOrderByIdDesc(...).
+    when(mockShiftRepository.findTop20ByOrderByIdDesc()).thenReturn(List.of(shiftEntityWithId()));
 
     // Configure ShiftMapper.fromEntity(...).
     when(mockShiftMapper.fromEntity(shiftEntityWithId())).thenReturn(shiftWithId());
@@ -84,7 +84,7 @@ class ShiftServiceTest {
   @Test
   void testFindAllReturnsNoItems() {
     // Setup
-    when(mockShiftRepository.findAll()).thenReturn(emptyList());
+    when(mockShiftRepository.findTop20ByOrderByIdDesc()).thenReturn(emptyList());
 
     // Run the test
     final List<Shift> result = shiftServiceUnderTest.findAll();

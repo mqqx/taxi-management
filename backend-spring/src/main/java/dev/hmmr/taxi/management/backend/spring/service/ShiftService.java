@@ -32,7 +32,9 @@ public class ShiftService {
   }
 
   public List<Shift> findAll() {
-    return shiftRepository.findAll().stream().map(shiftMapper::fromEntity).toList();
+    return shiftRepository.findTop20ByOrderByIdDesc().stream()
+        .map(shiftMapper::fromEntity)
+        .toList();
   }
 
   @Transactional
