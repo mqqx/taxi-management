@@ -1,0 +1,30 @@
+### Create a trip
+POST {{ baseURL }}/shifts/23/trips
+Content-Type: application/json
+
+{
+  "shiftId": 23,
+  "description": "",
+  "start": {
+    "id": 97,
+    "description": "Berlin"
+  },
+  "destination": {
+    "id": 98,
+    "description": "Hamburg"
+  },
+  "customer": {
+    "id": 19,
+    "name": "H. Mustermann"
+  },
+  "cash": 0.0,
+  "bill": 50.83,
+  "tax": "SEVEN",
+  "waitingTime": 0.0
+}
+
+### Find all trips by shift id
+GET {{ baseURL }}/shifts/23/trips
+
+### Delete a trip
+DELETE {{ baseURL }}/shifts/23/trips/123
