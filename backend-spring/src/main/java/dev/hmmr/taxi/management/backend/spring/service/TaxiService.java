@@ -25,7 +25,9 @@ public class TaxiService {
   }
 
   public List<Taxi> findAll() {
-    return taxiRepository.findAll().stream().map(taxiMapper::fromEntity).toList();
+    return taxiRepository.findAllByOrderByActiveDesc().stream()
+        .map(taxiMapper::fromEntity)
+        .toList();
   }
 
   @Transactional

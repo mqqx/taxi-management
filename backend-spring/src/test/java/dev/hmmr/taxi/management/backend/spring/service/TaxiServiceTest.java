@@ -53,8 +53,8 @@ class TaxiServiceTest {
     // Setup
     when(mockTaxiMapper.fromEntity(taxiEntityWithId())).thenReturn(taxiWithId());
 
-    // Configure TaxiRepository.findAll(...).
-    when(mockTaxiRepository.findAll()).thenReturn(List.of(taxiEntityWithId()));
+    // Configure TaxiRepository.findAllByOrderByActiveDesc(...).
+    when(mockTaxiRepository.findAllByOrderByActiveDesc()).thenReturn(List.of(taxiEntityWithId()));
 
     // Run the test
     final List<Taxi> result = taxiServiceUnderTest.findAll();
@@ -66,7 +66,7 @@ class TaxiServiceTest {
   @Test
   void testFindAll_TaxiRepositoryReturnsNoItems() {
     // Setup
-    when(mockTaxiRepository.findAll()).thenReturn(Collections.emptyList());
+    when(mockTaxiRepository.findAllByOrderByActiveDesc()).thenReturn(Collections.emptyList());
 
     // Run the test
     final List<Taxi> result = taxiServiceUnderTest.findAll();
