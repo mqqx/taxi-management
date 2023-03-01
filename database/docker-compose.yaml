@@ -1,5 +1,6 @@
 version: '3.9'
-
+volumes:
+  data:
 services:
   mariadb:
     # supported version of host limited to 10.3
@@ -7,7 +8,9 @@ services:
     image: mariadb:10.3
     ports:
       - "3306:3306"
+    volumes:
+      - data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_PASSWORD=password
-      - MYSQL_DATABASE=taxi_management
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: taxi_management
