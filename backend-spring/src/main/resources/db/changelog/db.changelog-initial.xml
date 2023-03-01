@@ -1,6 +1,11 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <changeSet author="mqqx (generated)" id="1676298063041-1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="fahrer"/>
+            </not>
+        </preConditions>
         <createTable tableName="fahrer">
             <column autoIncrement="true" name="fahrer_id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -20,6 +25,11 @@
         </createTable>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="fahrten"/>
+            </not>
+        </preConditions>
         <createTable tableName="fahrten">
             <column autoIncrement="true" name="fahrten_id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -45,6 +55,11 @@
         </createTable>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="kunden"/>
+            </not>
+        </preConditions>
         <createTable tableName="kunden">
             <column autoIncrement="true" name="kunden_id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -55,6 +70,11 @@
         </createTable>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="orte"/>
+            </not>
+        </preConditions>
         <createTable tableName="orte">
             <column autoIncrement="true" name="ort_id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -65,6 +85,11 @@
         </createTable>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-5">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="schicht"/>
+            </not>
+        </preConditions>
         <createTable tableName="schicht">
             <column autoIncrement="true" name="schicht_id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -88,6 +113,11 @@
         </createTable>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="taxen"/>
+            </not>
+        </preConditions>
         <createTable tableName="taxen">
             <column autoIncrement="true" name="taxen_id" type="INT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -109,51 +139,111 @@
         </createTable>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-7">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="fahrer_id"/>
+            </not>
+        </preConditions>
         <createIndex indexName="fahrer_id" tableName="schicht">
             <column name="fahrer_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-8">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="kunde_id"/>
+            </not>
+        </preConditions>
         <createIndex indexName="kunde_id" tableName="fahrten">
             <column defaultValueComputed="NULL" name="kunde_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-9">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="schicht_id"/>
+            </not>
+        </preConditions>
         <createIndex indexName="schicht_id" tableName="fahrten">
             <column name="schicht_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-10">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="start_id"/>
+            </not>
+        </preConditions>
         <createIndex indexName="start_id" tableName="fahrten">
             <column name="start_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-11">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="taxen_id"/>
+            </not>
+        </preConditions>
         <createIndex indexName="taxen_id" tableName="schicht">
             <column name="taxen_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-12">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="ziel_id"/>
+            </not>
+        </preConditions>
         <createIndex indexName="ziel_id" tableName="fahrten">
             <column name="ziel_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-13">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fahrten_ibfk_4"/>
+            </not>
+        </preConditions>
         <addForeignKeyConstraint baseColumnNames="start_id" baseTableName="fahrten" constraintName="fahrten_ibfk_4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ort_id" referencedTableName="orte" validate="true"/>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-14">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fahrten_ibfk_5"/>
+            </not>
+        </preConditions>
         <addForeignKeyConstraint baseColumnNames="ziel_id" baseTableName="fahrten" constraintName="fahrten_ibfk_5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ort_id" referencedTableName="orte" validate="true"/>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-15">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fahrten_ibfk_6"/>
+            </not>
+        </preConditions>
         <addForeignKeyConstraint baseColumnNames="kunde_id" baseTableName="fahrten" constraintName="fahrten_ibfk_6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="kunden_id" referencedTableName="kunden" validate="true"/>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-16">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fahrten_ibfk_7"/>
+            </not>
+        </preConditions>
         <addForeignKeyConstraint baseColumnNames="schicht_id" baseTableName="fahrten" constraintName="fahrten_ibfk_7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="schicht_id" referencedTableName="schicht" validate="true"/>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-17">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="schicht_ibfk_1"/>
+            </not>
+        </preConditions>
         <addForeignKeyConstraint baseColumnNames="fahrer_id" baseTableName="schicht" constraintName="schicht_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="fahrer_id" referencedTableName="fahrer" validate="true"/>
     </changeSet>
     <changeSet author="mqqx (generated)" id="1676298063041-18">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="schicht_ibfk_2"/>
+            </not>
+        </preConditions>
         <addForeignKeyConstraint baseColumnNames="taxen_id" baseTableName="schicht" constraintName="schicht_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="CASCADE" referencedColumnNames="taxen_id" referencedTableName="taxen" validate="true"/>
     </changeSet>
 </databaseChangeLog>
