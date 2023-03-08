@@ -9,16 +9,19 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'tm-drivers',
   templateUrl: './drivers.component.html',
-  styleUrls: ['./drivers.component.scss']
+  styleUrls: ['./drivers.component.scss'],
 })
 export class DriversComponent implements AfterViewInit {
-  private dataSource: MatTableDataSource<Driver> = new MatTableDataSource<Driver>([]);
-  columnKeys: string[] = ['lastName',
+  private dataSource: MatTableDataSource<Driver> =
+    new MatTableDataSource<Driver>([]);
+  columnKeys: string[] = [
+    'lastName',
     'firstName',
     'pLicenceDate',
     'birthdate',
     'address',
-    'active'];
+    'active',
+  ];
 
   drivers$: Observable<any>;
 
@@ -31,10 +34,11 @@ export class DriversComponent implements AfterViewInit {
 
   private findDrivers() {
     return this.driverService.getDrivers().pipe(
-      map(customers => {
+      map((customers) => {
         this.dataSource.data = customers;
         return this.dataSource;
-      }));
+      })
+    );
   }
 
   ngAfterViewInit() {

@@ -11,9 +11,8 @@ describe('DarkModeToggleComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DarkModeToggleComponent],
-      imports: [MatIconModule, MatSlideToggleModule]
-    })
-      .compileComponents();
+      imports: [MatIconModule, MatSlideToggleModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DarkModeToggleComponent);
     component = fixture.componentInstance;

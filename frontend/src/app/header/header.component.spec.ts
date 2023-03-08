@@ -14,9 +14,8 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent, MockComponent(DarkModeToggleComponent)],
-      imports: [MatToolbarModule, RouterTestingModule]
-    })
-      .compileComponents();
+      imports: [MatToolbarModule, RouterTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

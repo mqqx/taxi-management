@@ -14,7 +14,10 @@ import { DarkModeToggleComponent } from './dark-mode-toggle/dark-mode-toggle.com
 import { DriversComponent } from './drivers/drivers.component';
 import { FormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
 import { getGermanPaginatorIntl } from './shared/german-paginator-intl';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     HeaderComponent,
     DarkModeToggleComponent,
-    DriversComponent
+    DriversComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,14 +46,18 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatSortModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
-  providers: [{
-    provide: MAT_DATE_LOCALE, useValue: 'de-DE'
-  }, {
-    provide: MatPaginatorIntl, useValue: getGermanPaginatorIntl()
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'de-DE',
+    },
+    {
+      provide: MatPaginatorIntl,
+      useValue: getGermanPaginatorIntl(),
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

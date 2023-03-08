@@ -16,9 +16,8 @@ describe('DriversComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [DriversComponent],
       imports: [MatPaginatorModule, MatTableModule, NoopAnimationsModule],
-      providers: [MockProvider(DriverService, { getDrivers: () => EMPTY, })]
-    })
-      .compileComponents();
+      providers: [MockProvider(DriverService, { getDrivers: () => EMPTY })],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DriversComponent);
     component = fixture.componentInstance;
