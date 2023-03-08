@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./dark-mode-toggle.component.scss'],
 })
 export class DarkModeToggleComponent {
-  constructor() {}
+  constructor() {
+    // do nothing.
+  }
 }
