@@ -11,3 +11,5 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+taxi-management:
+  allowed-origins: http://localhost:4200
