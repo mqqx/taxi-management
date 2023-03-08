@@ -1,0 +1,11 @@
+export * from './customer.service';
+import { CustomerService } from './customer.service';
+export * from './driver.service';
+import { DriverService } from './driver.service';
+export * from './location.service';
+import { LocationService } from './location.service';
+export * from './shift.service';
+import { ShiftService } from './shift.service';
+export * from './taxi.service';
+import { TaxiService } from './taxi.service';
+export const APIS = [CustomerService, DriverService, LocationService, ShiftService, TaxiService];
