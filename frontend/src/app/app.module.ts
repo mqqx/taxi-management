@@ -17,6 +17,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { getGermanPaginatorIntl } from './shared/german-paginator-intl';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -39,7 +41,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatPaginatorModule,
     MatIconModule,
     MatTableModule,
-    FormsModule
+    MatSortModule,
+    FormsModule,
+    MatFormFieldModule
   ],
   providers: [{
     provide: MAT_DATE_LOCALE, useValue: 'de-DE'
