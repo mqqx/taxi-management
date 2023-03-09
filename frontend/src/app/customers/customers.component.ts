@@ -22,7 +22,7 @@ export class CustomersComponent implements AfterViewInit {
     end: new FormControl(DateTime.now().endOf('year')),
   });
 
-  customers$?: Observable<any>;
+  customers$?: Observable<MatTableDataSource<Customer>>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

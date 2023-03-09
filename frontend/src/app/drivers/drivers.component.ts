@@ -22,7 +22,7 @@ export class DriversComponent implements AfterViewInit {
     'active',
   ];
 
-  drivers$?: Observable<any>;
+  drivers$?: Observable<MatTableDataSource<Driver>>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
