@@ -12,7 +12,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HeaderComponent } from './header/header.component';
 import { DarkModeToggleComponent } from './dark-mode-toggle/dark-mode-toggle.component';
 import { DriversComponent } from './drivers/drivers.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {
   MatPaginatorIntl,
@@ -24,6 +24,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
+import { CustomersComponent } from './customers/customers.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     DarkModeToggleComponent,
     DriversComponent,
+    CustomersComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +52,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatSortModule,
     FormsModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatLuxonDateModule,
   ],
   providers: [
     {

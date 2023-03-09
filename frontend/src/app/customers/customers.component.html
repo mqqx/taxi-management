@@ -1,0 +1,47 @@
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Zeitraum</mat-label>
+    <mat-date-range-input [formGroup]="customerRange" [rangePicker]="picker">
+      <input formControlName="start" matStartDate placeholder="Startdatum" />
+      <input
+        formControlName="end"
+        matEndDate
+        placeholder="Enddatum"
+        (dateChange)="customerRangeChange()"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Kundenfilter</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Fr. Müller"
+      #input
+    />
+  </mat-form-field>
+</div>
+
+<table mat-table [dataSource]="customers$ | async" matSort>
+  <!-- Position Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Kunde</th>
+    <td mat-cell *matCellDef="let customer">{{ customer.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="count">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Anzahl</th>
+    <td mat-cell *matCellDef="let customer">{{ customer.count }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
+</table>
+<mat-paginator
+  [pageSizeOptions]="[10, 25, 50, 100, 500, 1000]"
+  showFirstLastButtons
+  aria-label="Wähle die Seite der Kunden"
+>
+</mat-paginator>
