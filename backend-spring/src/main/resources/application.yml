@@ -1,6 +1,9 @@
+taxi-management:
+  allowed-origins: http://localhost:4200
+  database-ip: localhost
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/taxi_management
+    url: jdbc:mariadb://${taxi-management.database-ip}:3306/taxi_management
     username: root
     password: password
   liquibase:
@@ -11,5 +14,3 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
-taxi-management:
-  allowed-origins: http://localhost:4200

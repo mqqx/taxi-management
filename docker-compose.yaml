@@ -1,0 +1,29 @@
+version: '3.9'
+name: taxi-management
+volumes:
+  data:
+services:
+  mariadb:
+    # supported version of host limited to 10.3
+    # therefore development version is set to the same
+    image: mariadb:10.3
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: taxi_management
+  backend-spring:
+    image: backend-spring
+    container_name: backend-spring
+    depends_on:
+      - mariadb
+    ports:
+      - "8080:8080"
+    build:
+      context: backend-spring
+    environment:
+      taxi-management.database-ip: mariadb
