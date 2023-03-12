@@ -1,4 +1,5 @@
 version: '3.9'
+name: taxi-management
 volumes:
   data:
 services:
@@ -6,6 +7,7 @@ services:
     # supported version of host limited to 10.3
     # therefore development version is set to the same
     image: mariadb:10.3
+    container_name: mariadb
     ports:
       - "3306:3306"
     volumes:
