@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'tm-drivers',
@@ -40,5 +41,11 @@ export class DriversComponent implements AfterViewInit {
         return this.dataSource;
       })
     );
+  }
+
+  toggleActive($event: MatSlideToggleChange, driver: Driver) {
+    if (driver.id) {
+      this.driverService.updateDriver(driver.id, driver).subscribe();
+    }
   }
 }
