@@ -15,8 +15,8 @@ export interface Driver {
     id?: number;
     firstName: string;
     lastName: string;
-    pLicenceDate?: string;
-    birthdate?: string;
+    pLicenceDate?: Date;
+    birthdate?: Date;
     address?: string;
     active: boolean;
 }

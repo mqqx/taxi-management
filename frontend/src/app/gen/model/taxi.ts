@@ -16,9 +16,9 @@ export interface Taxi {
     description: string;
     mileage: number;
     numberPlate?: string;
-    registrationDate?: string;
+    registrationDate?: Date;
     concessionNumber?: number;
-    concessionDate?: string;
+    concessionDate?: Date;
     fin?: string;
     active: boolean;
 }

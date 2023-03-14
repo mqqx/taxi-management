@@ -16,7 +16,7 @@ import { Taxi } from './taxi';
 
 export interface Shift { 
     id?: number;
-    date: string;
+    date: Date;
     startMileage: number;
     endMileage: number;
     /**

@@ -33,17 +33,7 @@ export class CustomersComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-    this.customers$ = this.customerService
-      .getCustomersByPeriod(
-        this.customerRange.controls.start.value?.toISODate(),
-        this.customerRange.controls.end.value?.toISODate()
-      )
-      .pipe(
-        map((customers) => {
-          this.dataSource.data = customers;
-          return this.dataSource;
-        })
-      );
+    this.customerRangeChange();
   }
 
   applyFilter(event: Event) {
@@ -58,8 +48,8 @@ export class CustomersComponent implements AfterViewInit {
   customerRangeChange() {
     this.customers$ = this.customerService
       .getCustomersByPeriod(
-        this.customerRange.controls.start.value?.toISODate(),
-        this.customerRange.controls.end.value?.toISODate()
+        this.customerRange.controls.start.value?.toJSDate(),
+        this.customerRange.controls.end.value?.toJSDate()
       )
       .pipe(
         map((customers) => {
