@@ -18,8 +18,8 @@ export class CustomersComponent implements AfterViewInit {
     new MatTableDataSource<Customer>([]);
   columnKeys: string[] = ['name', 'count'];
   customerRange = new FormGroup({
-    start: new FormControl(DateTime.now().startOf('year')),
-    end: new FormControl(DateTime.now().endOf('year')),
+    start: new FormControl(DateTime.now().toUTC().startOf('year')),
+    end: new FormControl(DateTime.now().toUTC().endOf('year')),
   });
 
   customers$?: Observable<MatTableDataSource<Customer>>;
