@@ -37,7 +37,9 @@
     <td mat-cell *matCellDef="let customer">{{ customer.name }}</td>
   </ng-container>
   <ng-container matColumnDef="count">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Anzahl</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Anzahl der Fahrten
+    </th>
     <td mat-cell *matCellDef="let customer">{{ customer.count }}</td>
   </ng-container>
 
