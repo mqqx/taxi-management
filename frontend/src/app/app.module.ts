@@ -26,8 +26,13 @@ import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomersComponent } from './customers/customers.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
+import {
+  MAT_LUXON_DATE_ADAPTER_OPTIONS,
+  MatLuxonDateModule,
+} from '@angular/material-luxon-adapter';
 import { MatInputModule } from '@angular/material/input';
+import { DriverDialogComponent } from './drivers/driver-dialog/driver-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,6 +41,7 @@ import { MatInputModule } from '@angular/material/input';
     DarkModeToggleComponent,
     DriversComponent,
     CustomersComponent,
+    DriverDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +62,7 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatDatepickerModule,
     MatLuxonDateModule,
+    MatDialogModule,
   ],
   providers: [
     {
@@ -65,6 +72,10 @@ import { MatInputModule } from '@angular/material/input';
     {
       provide: MatPaginatorIntl,
       useValue: getGermanPaginatorIntl(),
+    },
+    {
+      provide: MAT_LUXON_DATE_ADAPTER_OPTIONS,
+      useValue: { useUtc: true, firstDayOfWeek: 1 },
     },
   ],
   bootstrap: [AppComponent],

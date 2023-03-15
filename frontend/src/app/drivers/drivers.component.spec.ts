@@ -7,6 +7,7 @@ import { EMPTY } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('DriversComponent', () => {
   let component: DriversComponent;
@@ -16,7 +17,10 @@ describe('DriversComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [DriversComponent],
       imports: [MatPaginatorModule, MatTableModule, NoopAnimationsModule],
-      providers: [MockProvider(DriverService, { getDrivers: () => EMPTY })],
+      providers: [
+        MockProvider(DriverService, { getDrivers: () => EMPTY }),
+        { provide: MatDialog, useValue: {} },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DriversComponent);

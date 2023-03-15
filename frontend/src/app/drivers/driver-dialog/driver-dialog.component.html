@@ -1,0 +1,94 @@
+<h2 mat-dialog-title>Fahrer {{ data.id ? "bearbeiten" : "hinzufügen" }}</h2>
+<form #formControl="ngForm">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        class="form-control"
+        [(ngModel)]="data.lastName"
+        name="lastName"
+        required
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Vorname</mat-label>
+      <input
+        matInput
+        class="form-control"
+        [(ngModel)]="data.firstName"
+        name="firstName"
+        required
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>P-Schein gültig bis</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pLicenceDatepicker"
+        placeholder="8.3.2023"
+        [(ngModel)]="data.pLicenceDate"
+        name="pLicenceDate"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pLicenceDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pLicenceDatepicker> </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Geburtstag</mat-label>
+      <input
+        matInput
+        [max]="maxDate"
+        [matDatepicker]="birthdateDatepicker"
+        placeholder="10.10.1975"
+        #birthdate="ngModel"
+        [(ngModel)]="data.birthdate"
+        name="birthdate"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="birthdateDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #birthdateDatepicker> </mat-datepicker>
+      <mat-error *ngIf="birthdate.hasError('matDatepickerMax')"
+        >Mindestalter 18 Jahre</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Adresse</mat-label>
+      <input
+        matInput
+        class="form-control"
+        [(ngModel)]="data.address"
+        name="address"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-slide-toggle [(ngModel)]="data.active" name="active"
+        >Aktiv</mat-slide-toggle
+      >
+      <textarea matInput hidden></textarea>
+    </mat-form-field>
+
+    <mat-dialog-actions align="end">
+      <button
+        mat-button
+        type="submit"
+        [disabled]="!formControl.valid"
+        [mat-dialog-close]="1"
+      >
+        Speichern
+      </button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Abbrechen</button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</form>
