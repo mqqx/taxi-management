@@ -1,0 +1,110 @@
+<h2 mat-dialog-title>Taxi {{ data.id ? "bearbeiten" : "hinzufügen" }}</h2>
+<form #formControl="ngForm">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Bezeichnung</mat-label>
+      <input
+        matInput
+        class="form-control"
+        [(ngModel)]="data.description"
+        name="description"
+        required
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>KM-Stand</mat-label>
+      <input
+        matInput
+        type="number"
+        class="form-control"
+        [(ngModel)]="data.mileage"
+        name="mileage"
+        required
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Kennzeichen</mat-label>
+      <input
+        matInput
+        class="form-control"
+        [(ngModel)]="data.numberPlate"
+        name="numberPlate"
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Zulassungsdatum</mat-label>
+      <input
+        matInput
+        [matDatepicker]="registrationDatepicker"
+        placeholder="8.3.2023"
+        [(ngModel)]="data.registrationDate"
+        name="registrationDate"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="registrationDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #registrationDatepicker> </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>FIN</mat-label>
+      <input matInput class="form-control" [(ngModel)]="data.fin" name="fin" />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Ordnungsnummer</mat-label>
+      <input
+        matInput
+        type="number"
+        class="form-control"
+        [(ngModel)]="data.concessionNumber"
+        name="concessionNumber"
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Konzessionsdatum</mat-label>
+      <input
+        matInput
+        [matDatepicker]="concessionDatepicker"
+        placeholder="10.10.1975"
+        #birthdate="ngModel"
+        [(ngModel)]="data.concessionDate"
+        name="birthdate"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="concessionDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #concessionDatepicker> </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-slide-toggle [(ngModel)]="data.active" name="active"
+        >Aktiv</mat-slide-toggle
+      >
+      <textarea matInput hidden></textarea>
+    </mat-form-field>
+
+    <mat-dialog-actions align="end">
+      <button
+        mat-button
+        type="submit"
+        [disabled]="!formControl.valid"
+        [mat-dialog-close]="1"
+      >
+        Speichern
+      </button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Abbrechen</button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</form>

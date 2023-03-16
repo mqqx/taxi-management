@@ -33,6 +33,8 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { DriverDialogComponent } from './drivers/driver-dialog/driver-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TaxisComponent } from './taxis/taxis.component';
+import { TaxiDialogComponent } from './taxis/taxi-dialog/taxi-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     DriversComponent,
     CustomersComponent,
     DriverDialogComponent,
+    TaxisComponent,
+    TaxiDialogComponent,
   ],
   imports: [
     BrowserModule,
