@@ -37,15 +37,13 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>
       <button mat-icon-button color="primary" (click)="add()">
-        <mat-icon aria-label="Example icon-button with a heart icon"
-          >add</mat-icon
-        >
+        <mat-icon aria-label="Hinzufügen">add</mat-icon>
       </button>
     </th>
 
     <td mat-cell *matCellDef="let driver">
       <button mat-icon-button color="accent" (click)="edit(driver)">
-        <mat-icon aria-label="Edit">edit</mat-icon>
+        <mat-icon aria-label="Bearbeiten">edit</mat-icon>
       </button>
     </td>
   </ng-container>
