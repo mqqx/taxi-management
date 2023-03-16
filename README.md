@@ -9,17 +9,21 @@ OpenAPI 3 + Java 17 + Spring Boot 3 + Angular + MariaDB for development
 
 [OpenAPI representation of REST API](api/README.md)
 
-## Database
+## HTTP Query Files
 
-[Database for local development](database/README.md)
+[http queries](http/README.md)
+
+## Angular Frontend
+
+[Angular frontend implementation](frontend/README.md)
 
 ## Spring Boot Backend
 
 [Spring Boot backend implementation](backend-spring/README.md)
 
-## Angular Frontend
+## Database
 
-[Angular frontend implementation](frontend/README.md)
+[Database for local development](database/README.md)
 
 ## 📬 Recommended Commit Message Titles
 

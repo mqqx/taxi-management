@@ -1,6 +1,43 @@
 # Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.1.
+Angular implementation of Taxi Management frontend.
+
+## Implemented Use Cases
+
+### driver
+
+1. [x] create driver
+2. [x] read drivers
+3. [x] update driver
+
+### taxi
+
+1. [x] create taxi
+2. [x] read taxis
+3. [x] update taxi
+
+### customer
+
+1. [ ] create customer
+2. [x] read customers
+
+### location
+
+1. [ ] create location
+2. [ ] read locations
+
+### shift
+
+1. [ ] create shift
+2. [ ] read shifts
+3. [ ] read shift
+4. [ ] update shift
+
+### trip
+
+1. [ ] create trip
+2. [ ] read trips
+3. [ ] delete trip
 
 ## Development server
 
@@ -8,7 +45,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng g c component-name` to generate a new component. You can also use `ng g directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
