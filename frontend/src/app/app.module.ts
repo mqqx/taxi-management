@@ -36,6 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TaxisComponent } from './taxis/taxis.component';
 import { TaxiDialogComponent } from './taxis/taxi-dialog/taxi-dialog.component';
 import { LocationsComponent } from './locations/locations.component';
+import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,10 @@ import { LocationsComponent } from './locations/locations.component';
     {
       provide: MAT_LUXON_DATE_ADAPTER_OPTIONS,
       useValue: { useUtc: true, firstDayOfWeek: 1 },
+    },
+    {
+      provide: DATE_PIPE_DEFAULT_OPTIONS,
+      useValue: { dateFormat: 'dd.MM.yy' },
     },
   ],
   bootstrap: [AppComponent],
