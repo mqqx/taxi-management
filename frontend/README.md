@@ -24,7 +24,7 @@ Angular implementation of Taxi Management frontend.
 ### location
 
 1. [ ] create location
-2. [ ] read locations
+2. [x] read locations
 
 ### shift
 
