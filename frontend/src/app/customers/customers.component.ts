@@ -31,8 +31,6 @@ export class CustomersComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
     this.customerRangeChange();
   }
 
@@ -54,6 +52,9 @@ export class CustomersComponent implements AfterViewInit {
       .pipe(
         map((customers) => {
           this.dataSource.data = customers;
+          setTimeout(() => {
+            this.dataSource.sort = this.sort;
+          });
           return this.dataSource;
         })
       );

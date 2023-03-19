@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Location, LocationService } from '../gen';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
@@ -25,12 +25,12 @@ export class LocationsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
     this.locations$ = this.locationService.getLocations().pipe(
       map((locations: Location[]) => {
-        const dataSource = this.dataSource;
-        dataSource.data = locations;
+        this.dataSource.data = locations;
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
         return this.dataSource;
       })
     );

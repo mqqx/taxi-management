@@ -37,15 +37,16 @@ export class TaxisComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.refresh();
   }
 
   private refresh() {
     this.taxis$ = this.taxiService.getTaxis().pipe(
       map((taxis: Taxi[]) => {
-        const dataSource = this.dataSource;
-        dataSource.data = taxis;
+        this.dataSource.data = taxis;
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
         return this.dataSource;
       })
     );

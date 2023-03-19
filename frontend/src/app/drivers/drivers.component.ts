@@ -35,15 +35,16 @@ export class DriversComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.refresh();
   }
 
   private refresh() {
     this.drivers$ = this.driverService.getDrivers().pipe(
       map((drivers: Driver[]) => {
-        const dataSource = this.dataSource;
-        dataSource.data = drivers;
+        this.dataSource.data = drivers;
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
         return this.dataSource;
       })
     );
