@@ -36,7 +36,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TaxisComponent } from './taxis/taxis.component';
 import { TaxiDialogComponent } from './taxis/taxi-dialog/taxi-dialog.component';
 import { LocationsComponent } from './locations/locations.component';
+import { ShiftsComponent } from './shifts/shifts.component';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { MinutesToHumanPipe } from './shared/minutes-to-human.pipe';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
     TaxisComponent,
     TaxiDialogComponent,
     LocationsComponent,
+    ShiftsComponent,
+    MinutesToHumanPipe,
   ],
   imports: [
     BrowserModule,

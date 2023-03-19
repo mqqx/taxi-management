@@ -4,6 +4,7 @@ import { DriversComponent } from './drivers/drivers.component';
 import { CustomersComponent } from './customers/customers.component';
 import { TaxisComponent } from './taxis/taxis.component';
 import { LocationsComponent } from './locations/locations.component';
+import { ShiftsComponent } from './shifts/shifts.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'locations',
     component: LocationsComponent,
+  },
+  {
+    path: 'shifts',
+    component: ShiftsComponent,
   },
 ];
 
