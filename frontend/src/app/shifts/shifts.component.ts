@@ -4,7 +4,6 @@ import { Shift, ShiftService } from '../gen';
 import { Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 
 @Component({

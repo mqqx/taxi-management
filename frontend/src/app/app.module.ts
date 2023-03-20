@@ -39,6 +39,15 @@ import { LocationsComponent } from './locations/locations.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { MinutesToHumanPipe } from './shared/minutes-to-human.pipe';
+import { NgxsModule } from '@ngxs/store';
+import { TaxisState } from './taxis/store/taxi.state';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { environment } from '../environments/environment';
+
+const dev = environment.production
+  ? []
+  : [NgxsReduxDevtoolsPluginModule.forRoot(), NgxsLoggerPluginModule.forRoot()];
 
 @NgModule({
   declarations: [
@@ -74,6 +83,8 @@ import { MinutesToHumanPipe } from './shared/minutes-to-human.pipe';
     MatDatepickerModule,
     MatLuxonDateModule,
     MatDialogModule,
+    NgxsModule.forRoot([TaxisState]),
+    ...dev,
   ],
   providers: [
     {

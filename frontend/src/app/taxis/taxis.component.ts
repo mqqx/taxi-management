@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Taxi, TaxiService } from '../gen';
 import { Observable } from 'rxjs';
@@ -8,13 +8,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { TaxiDialogComponent } from './taxi-dialog/taxi-dialog.component';
+import { Store } from '@ngxs/store';
+import { GetTaxis } from './store/taxi.actions';
+import { TaxisState } from './store/taxi.state';
 
 @Component({
   selector: 'tm-taxis',
   templateUrl: './taxis.component.html',
   styleUrls: ['./taxis.component.scss'],
 })
-export class TaxisComponent implements AfterViewInit {
+export class TaxisComponent implements OnInit, AfterViewInit {
   private dataSource = new MatTableDataSource<Taxi>();
   columnKeys: string[] = [
     'description',
@@ -33,15 +36,23 @@ export class TaxisComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, private taxiService: TaxiService) {}
+  constructor(
+    public dialog: MatDialog,
+    private taxiService: TaxiService,
+    private store: Store
+  ) {}
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  ngOnInit(): void {
+    this.store.dispatch(new GetTaxis());
     this.refresh();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   private refresh() {
-    this.taxis$ = this.taxiService.getTaxis().pipe(
+    this.taxis$ = this.store.select(TaxisState.taxis).pipe(
       map((taxis: Taxi[]) => {
         this.dataSource.data = taxis;
         setTimeout(() => {
