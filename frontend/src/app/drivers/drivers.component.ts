@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Driver, DriverService } from '../gen';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,13 +8,16 @@ import { Observable } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DriverDialogComponent } from './driver-dialog/driver-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AddDriver, GetDrivers, UpdateDriver } from './store/driver.actions';
+import { Store } from '@ngxs/store';
+import { DriversState } from './store/driver.state';
 
 @Component({
   selector: 'tm-drivers',
   templateUrl: './drivers.component.html',
   styleUrls: ['./drivers.component.scss'],
 })
-export class DriversComponent implements AfterViewInit {
+export class DriversComponent implements OnInit, AfterViewInit {
   private dataSource = new MatTableDataSource<Driver>();
   columnKeys: string[] = [
     'lastName',
@@ -31,15 +34,23 @@ export class DriversComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, private driverService: DriverService) {}
+  constructor(
+    public dialog: MatDialog,
+    private driverService: DriverService,
+    private store: Store
+  ) {}
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  ngOnInit(): void {
+    this.store.dispatch(new GetDrivers());
     this.refresh();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   private refresh() {
-    this.drivers$ = this.driverService.getDrivers().pipe(
+    this.drivers$ = this.store.select(DriversState.drivers).pipe(
       map((drivers: Driver[]) => {
         this.dataSource.data = drivers;
         setTimeout(() => {
@@ -57,11 +68,7 @@ export class DriversComponent implements AfterViewInit {
   add() {
     const driver = { active: true } as Driver;
 
-    this.handleDialog(driver, () =>
-      this.driverService.addDriver(driver).subscribe(() => {
-        this.refresh();
-      })
-    );
+    this.handleDialog(driver, () => this.store.dispatch(new AddDriver(driver)));
   }
 
   edit(driver: Driver) {
@@ -69,10 +76,7 @@ export class DriversComponent implements AfterViewInit {
     const clonedDriver = structuredClone(driver);
 
     this.handleDialog(clonedDriver, () => {
-      this.updateIfHasId(clonedDriver, () =>
-        // assign changes after driver was updated successfully in backend
-        Object.assign(driver, clonedDriver)
-      );
+      this.updateIfHasId(clonedDriver);
     });
   }
 
@@ -89,13 +93,9 @@ export class DriversComponent implements AfterViewInit {
     });
   }
 
-  private updateIfHasId(driver: Driver, callback?: () => void) {
+  private updateIfHasId(driver: Driver) {
     if (driver.id) {
-      this.driverService.updateDriver(driver.id, driver).subscribe(() => {
-        if (callback) {
-          callback();
-        }
-      });
+      this.store.dispatch(new UpdateDriver(driver.id, driver));
     }
   }
 }
