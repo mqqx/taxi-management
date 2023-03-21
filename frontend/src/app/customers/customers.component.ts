@@ -33,13 +33,16 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   constructor(private customerService: CustomerService, private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(
-      new GetCustomersByPeriod(
-        this.customerRange.controls.start.value?.toJSDate(),
-        this.customerRange.controls.end.value?.toJSDate()
-      )
-    );
     this.customerRangeChange();
+    this.customers$ = this.store.select(CustomersState.customers).pipe(
+      map((customers) => {
+        this.dataSource.data = customers;
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
+        return this.dataSource;
+      })
+    );
   }
 
   ngAfterViewInit() {
@@ -56,14 +59,11 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   }
 
   customerRangeChange() {
-    this.customers$ = this.store.select(CustomersState.customers).pipe(
-      map((customers) => {
-        this.dataSource.data = customers;
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-        });
-        return this.dataSource;
-      })
+    this.store.dispatch(
+      new GetCustomersByPeriod(
+        this.customerRange.controls.start.value?.toJSDate(),
+        this.customerRange.controls.end.value?.toJSDate()
+      )
     );
   }
 }

@@ -22,11 +22,6 @@ export class CustomersState {
     ctx: StateContext<Customer[]>,
     parameters: GetCustomersByPeriod
   ) {
-    const customers = ctx.getState();
-    if (customers.length > 0) {
-      return;
-    }
-
     return this.customerService
       .getCustomersByPeriod(parameters.from, parameters.to)
       .pipe(
