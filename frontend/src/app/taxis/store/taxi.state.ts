@@ -1,8 +1,9 @@
 import { Taxi, TaxiService } from '../../gen';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { GetTaxis } from './taxi.actions';
+import { AddTaxi, GetTaxis, UpdateTaxi } from './taxi.actions';
 import { tap } from 'rxjs';
+import { updateItem } from '@ngxs/store/operators';
 
 @State<Taxi[]>({
   name: 'taxis',
@@ -29,5 +30,31 @@ export class TaxisState {
         ctx.setState(taxis);
       })
     );
+  }
+
+  @Action(AddTaxi)
+  public addTaxi(ctx: StateContext<Taxi[]>, payload: AddTaxi) {
+    this.taxiService
+      .addTaxi(payload.taxi)
+      .pipe(
+        tap(() => {
+          ctx.setState([payload.taxi, ...ctx.getState()]);
+        })
+      )
+      .subscribe();
+  }
+
+  @Action(UpdateTaxi)
+  public updateTaxi(ctx: StateContext<Taxi[]>, payload: UpdateTaxi) {
+    this.taxiService
+      .updateTaxi(payload.id, payload.taxi)
+      .pipe(
+        tap(() => {
+          ctx.setState(
+            updateItem((taxi) => taxi?.id === payload.id, payload.taxi)
+          );
+        })
+      )
+      .subscribe();
   }
 }

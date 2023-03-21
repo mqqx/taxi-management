@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { TaxiDialogComponent } from './taxi-dialog/taxi-dialog.component';
 import { Store } from '@ngxs/store';
-import { GetTaxis } from './store/taxi.actions';
+import { AddTaxi, GetTaxis, UpdateTaxi } from './store/taxi.actions';
 import { TaxisState } from './store/taxi.state';
 
 @Component({
@@ -70,11 +70,7 @@ export class TaxisComponent implements OnInit, AfterViewInit {
   add() {
     const taxi = { active: true } as Taxi;
 
-    this.handleDialog(taxi, () =>
-      this.taxiService.addTaxi(taxi).subscribe(() => {
-        this.refresh();
-      })
-    );
+    this.handleDialog(taxi, () => this.store.dispatch(new AddTaxi(taxi)));
   }
 
   edit(taxi: Taxi) {
@@ -82,10 +78,7 @@ export class TaxisComponent implements OnInit, AfterViewInit {
     const clonedTaxi = structuredClone(taxi);
 
     this.handleDialog(clonedTaxi, () => {
-      this.updateIfHasId(clonedTaxi, () =>
-        // assign changes after taxi was updated successfully in backend
-        Object.assign(taxi, clonedTaxi)
-      );
+      this.updateIfHasId(clonedTaxi);
     });
   }
 
@@ -102,13 +95,9 @@ export class TaxisComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private updateIfHasId(taxi: Taxi, callback?: () => void) {
+  private updateIfHasId(taxi: Taxi) {
     if (taxi.id) {
-      this.taxiService.updateTaxi(taxi.id, taxi).subscribe(() => {
-        if (callback) {
-          callback();
-        }
-      });
+      this.store.dispatch(new UpdateTaxi(taxi.id, taxi));
     }
   }
 }
