@@ -22,7 +22,6 @@ export class DriversState {
   public getDrivers(ctx: StateContext<Driver[]>) {
     const drivers = ctx.getState();
     if (drivers.length > 0) {
-      console.log(drivers);
       return;
     }
 

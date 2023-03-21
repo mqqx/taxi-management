@@ -45,6 +45,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from '../environments/environment';
 import { DriversState } from './drivers/store/driver.state';
+import { LocationsState } from './locations/store/location.state';
 
 const dev = environment.production
   ? []
@@ -84,7 +85,7 @@ const dev = environment.production
     MatDatepickerModule,
     MatLuxonDateModule,
     MatDialogModule,
-    NgxsModule.forRoot([TaxisState, DriversState]),
+    NgxsModule.forRoot([TaxisState, DriversState, LocationsState]),
     ...dev,
   ],
   providers: [
