@@ -46,6 +46,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from '../environments/environment';
 import { DriversState } from './drivers/store/driver.state';
 import { LocationsState } from './locations/store/location.state';
+import { CustomersState } from './customers/store/customer.state';
 
 const dev = environment.production
   ? []
@@ -85,7 +86,12 @@ const dev = environment.production
     MatDatepickerModule,
     MatLuxonDateModule,
     MatDialogModule,
-    NgxsModule.forRoot([TaxisState, DriversState, LocationsState]),
+    NgxsModule.forRoot([
+      TaxisState,
+      DriversState,
+      LocationsState,
+      CustomersState,
+    ]),
     ...dev,
   ],
   providers: [

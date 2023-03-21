@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Customer, CustomerService } from '../gen';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,13 +7,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateTime } from 'luxon';
+import { Store } from '@ngxs/store';
+import { CustomersState } from './store/customer.state';
+import { GetCustomersByPeriod } from './store/customer.actions';
 
 @Component({
   selector: 'tm-customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
 })
-export class CustomersComponent implements AfterViewInit {
+export class CustomersComponent implements OnInit, AfterViewInit {
   private dataSource: MatTableDataSource<Customer> =
     new MatTableDataSource<Customer>([]);
   columnKeys: string[] = ['name', 'count'];
@@ -27,11 +30,20 @@ export class CustomersComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService, private store: Store) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(
+      new GetCustomersByPeriod(
+        this.customerRange.controls.start.value?.toJSDate(),
+        this.customerRange.controls.end.value?.toJSDate()
+      )
+    );
+    this.customerRangeChange();
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.customerRangeChange();
   }
 
   applyFilter(event: Event) {
@@ -44,19 +56,14 @@ export class CustomersComponent implements AfterViewInit {
   }
 
   customerRangeChange() {
-    this.customers$ = this.customerService
-      .getCustomersByPeriod(
-        this.customerRange.controls.start.value?.toJSDate(),
-        this.customerRange.controls.end.value?.toJSDate()
-      )
-      .pipe(
-        map((customers) => {
-          this.dataSource.data = customers;
-          setTimeout(() => {
-            this.dataSource.sort = this.sort;
-          });
-          return this.dataSource;
-        })
-      );
+    this.customers$ = this.store.select(CustomersState.customers).pipe(
+      map((customers) => {
+        this.dataSource.data = customers;
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        });
+        return this.dataSource;
+      })
+    );
   }
 }
