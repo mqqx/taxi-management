@@ -2,12 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DriversComponent } from './drivers.component';
 import { MockProvider } from 'ng-mocks';
-import { DriverService } from '../gen';
 import { EMPTY } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
 
 describe('DriversComponent', () => {
   let component: DriversComponent;
@@ -18,7 +18,7 @@ describe('DriversComponent', () => {
       declarations: [DriversComponent],
       imports: [MatPaginatorModule, MatTableModule, NoopAnimationsModule],
       providers: [
-        MockProvider(DriverService, { getDrivers: () => EMPTY }),
+        [MockProvider(Store, { select: () => EMPTY })],
         { provide: MatDialog, useValue: {} },
       ],
     }).compileComponents();

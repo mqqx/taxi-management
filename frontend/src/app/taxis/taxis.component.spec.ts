@@ -5,9 +5,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockProvider } from 'ng-mocks';
-import { TaxiService } from '../gen';
 import { EMPTY } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
 
 describe('TaxisComponent', () => {
   let component: TaxisComponent;
@@ -18,7 +18,7 @@ describe('TaxisComponent', () => {
       declarations: [TaxisComponent],
       imports: [MatPaginatorModule, MatTableModule, NoopAnimationsModule],
       providers: [
-        MockProvider(TaxiService, { getTaxis: () => EMPTY }),
+        [MockProvider(Store, { select: () => EMPTY })],
         { provide: MatDialog, useValue: {} },
       ],
     }).compileComponents();

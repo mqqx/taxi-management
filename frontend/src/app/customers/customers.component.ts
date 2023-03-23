@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Customer, CustomerService } from '../gen';
+import { Customer } from '../gen';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -30,7 +30,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private customerService: CustomerService, private store: Store) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.customerRangeChange();

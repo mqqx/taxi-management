@@ -7,8 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockProvider } from 'ng-mocks';
-import { ShiftService } from '../gen';
 import { EMPTY } from 'rxjs';
+import { Store } from '@ngxs/store';
 
 describe('ShiftsComponent', () => {
   let component: ShiftsComponent;
@@ -24,9 +24,7 @@ describe('ShiftsComponent', () => {
         ReactiveFormsModule,
         NoopAnimationsModule,
       ],
-      providers: [
-        MockProvider(ShiftService, { getShiftsByPeriod: () => EMPTY }),
-      ],
+      providers: [[MockProvider(Store, { select: () => EMPTY })]],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ShiftsComponent);

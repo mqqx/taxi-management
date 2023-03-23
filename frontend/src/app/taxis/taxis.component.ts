@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Taxi, TaxiService } from '../gen';
+import { Taxi } from '../gen';
 import { Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -36,11 +36,7 @@ export class TaxisComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(
-    public dialog: MatDialog,
-    private taxiService: TaxiService,
-    private store: Store
-  ) {}
+  constructor(public dialog: MatDialog, private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetTaxis());

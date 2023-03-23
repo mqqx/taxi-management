@@ -5,12 +5,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockProvider } from 'ng-mocks';
-import { CustomerService } from '../gen';
 import { EMPTY } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Store } from '@ngxs/store';
 
 describe('CustomersComponent', () => {
   let component: CustomersComponent;
@@ -28,9 +28,7 @@ describe('CustomersComponent', () => {
         NoopAnimationsModule,
         MatLuxonDateModule,
       ],
-      providers: [
-        MockProvider(CustomerService, { getCustomersByPeriod: () => EMPTY }),
-      ],
+      providers: [MockProvider(Store, { select: () => EMPTY })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CustomersComponent);
