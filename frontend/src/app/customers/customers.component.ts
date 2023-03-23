@@ -35,7 +35,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.customerRangeChange();
     this.customers$ = this.store.select(CustomersState.customers).pipe(
-      map((customers) => {
+      map((customers: Customer[]) => {
         this.dataSource.data = customers;
         setTimeout(() => {
           this.dataSource.sort = this.sort;
