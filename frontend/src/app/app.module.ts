@@ -47,6 +47,7 @@ import { environment } from '../environments/environment';
 import { DriversState } from './drivers/store/driver.state';
 import { LocationsState } from './locations/store/location.state';
 import { CustomersState } from './customers/store/customer.state';
+import { ShiftsState } from './shifts/store/shift.state';
 
 const dev = environment.production
   ? []
@@ -91,6 +92,7 @@ const dev = environment.production
       DriversState,
       LocationsState,
       CustomersState,
+      ShiftsState,
     ]),
     ...dev,
   ],

@@ -1,17 +1,20 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Shift, ShiftService } from '../gen';
 import { Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
+import { Store } from '@ngxs/store';
+import { GetShiftsByPeriod } from './store/shift.actions';
+import { ShiftsState } from './store/shift.state';
 
 @Component({
   selector: 'tm-shifts',
   templateUrl: './shifts.component.html',
   styleUrls: ['./shifts.component.scss'],
 })
-export class ShiftsComponent implements AfterViewInit {
+export class ShiftsComponent implements OnInit, AfterViewInit {
   private dataSource = new MatTableDataSource<Shift>();
   columnKeys: string[] = [
     'date',
@@ -27,7 +30,7 @@ export class ShiftsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private shiftService: ShiftService) {}
+  constructor(private shiftService: ShiftService, private store: Store) {}
 
   // TODO: fix sorting for nested types like taxi or driver
   // ngOnInit(): void {
@@ -40,13 +43,9 @@ export class ShiftsComponent implements AfterViewInit {
   // };
   // }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.refresh();
-  }
-
-  private refresh() {
-    this.shifts$ = this.shiftService.getShiftsByPeriod().pipe(
+  ngOnInit(): void {
+    this.store.dispatch(new GetShiftsByPeriod());
+    this.shifts$ = this.store.select(ShiftsState.shifts).pipe(
       map((shifts: Shift[]) => {
         this.dataSource.data = shifts;
         setTimeout(() => {
@@ -55,5 +54,9 @@ export class ShiftsComponent implements AfterViewInit {
         return this.dataSource;
       })
     );
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 }
