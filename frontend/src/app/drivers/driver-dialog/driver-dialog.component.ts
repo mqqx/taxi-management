@@ -26,4 +26,12 @@ export class DriverDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  onBirthdateChange($event: DateTime): void {
+    this.data.birthdate = $event?.toJSDate();
+  }
+
+  onPLicenceDateChange($event: DateTime): void {
+    this.data.pLicenceDate = $event?.toJSDate();
+  }
 }

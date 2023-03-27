@@ -36,7 +36,8 @@
         matInput
         [matDatepicker]="registrationDatepicker"
         placeholder="8.3.2023"
-        [(ngModel)]="data.registrationDate"
+        [ngModel]="data.registrationDate"
+        (ngModelChange)="onRegistrationDateChange($event)"
         name="registrationDate"
       />
       <mat-datepicker-toggle
@@ -70,7 +71,8 @@
         [matDatepicker]="concessionDatepicker"
         placeholder="10.10.1975"
         #birthdate="ngModel"
-        [(ngModel)]="data.concessionDate"
+        [ngModel]="data.concessionDate"
+        (ngModelChange)="onConcessionDateChange($event)"
         name="birthdate"
       />
       <mat-datepicker-toggle

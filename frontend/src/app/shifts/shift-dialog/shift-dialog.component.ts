@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Shift } from '../../gen';
 import { FormControl, Validators } from '@angular/forms';
-import { Duration } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 
 @Component({
   selector: 'tm-shift-dialog',
@@ -23,6 +23,10 @@ export class ShiftDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onDateChange($event: DateTime): void {
+    this.data.date = $event.toJSDate();
   }
 
   onDurationChange($event: string): void {

@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Taxi } from '../../gen';
 import { FormControl, Validators } from '@angular/forms';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'tm-taxi-dialog',
@@ -22,5 +23,13 @@ export class TaxiDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onRegistrationDateChange($event: DateTime): void {
+    this.data.registrationDate = $event?.toJSDate();
+  }
+
+  onConcessionDateChange($event: DateTime): void {
+    this.data.concessionDate = $event?.toJSDate();
   }
 }
