@@ -1,8 +1,9 @@
 import { Shift, ShiftService } from '../../gen';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { GetShiftsByPeriod } from './shift.actions';
+import { GetShiftsByPeriod, AddShift, UpdateShift } from './shift.actions';
 import { tap } from 'rxjs';
+import { updateItem } from '@ngxs/store/operators';
 
 @State<Shift[]>({
   name: 'shifts',
@@ -33,5 +34,33 @@ export class ShiftsState {
           ctx.setState(shifts);
         })
       );
+  }
+
+  @Action(AddShift)
+  public addShift(ctx: StateContext<Shift[]>, payload: AddShift) {
+    this.shiftService
+      .addShift(payload.shift)
+      .pipe(
+        tap(() => {
+          ctx.setState([payload.shift, ...ctx.getState()]);
+        })
+      )
+      .subscribe();
+  }
+
+  @Action(UpdateShift)
+  public updateShift(ctx: StateContext<Shift[]>, payload: UpdateShift) {
+    this.shiftService
+      .updateShift(payload.id, payload.shift)
+      .pipe(
+        tap(() => {
+          // date ist kaputt wenn es hier reingeschrieben wird
+          console.log(payload.shift);
+          ctx.setState(
+            updateItem((shift) => shift?.id === payload.id, payload.shift)
+          );
+        })
+      )
+      .subscribe();
   }
 }

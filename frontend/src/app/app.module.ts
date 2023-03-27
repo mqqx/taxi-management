@@ -19,7 +19,6 @@ import {
   MatPaginatorModule,
 } from '@angular/material/paginator';
 import { getGermanPaginatorIntl } from './shared/german-paginator-intl';
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -48,6 +47,7 @@ import { DriversState } from './drivers/store/driver.state';
 import { LocationsState } from './locations/store/location.state';
 import { CustomersState } from './customers/store/customer.state';
 import { ShiftsState } from './shifts/store/shift.state';
+import { ShiftDialogComponent } from './shifts/shift-dialog/shift-dialog.component';
 
 const dev = environment.production
   ? []
@@ -59,12 +59,13 @@ const dev = environment.production
     HeaderComponent,
     DarkModeToggleComponent,
     DriversComponent,
-    CustomersComponent,
     DriverDialogComponent,
+    CustomersComponent,
     TaxisComponent,
     TaxiDialogComponent,
     LocationsComponent,
     ShiftsComponent,
+    ShiftDialogComponent,
     MinutesToHumanPipe,
   ],
   imports: [

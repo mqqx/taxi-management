@@ -6,8 +6,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
-import { GetShiftsByPeriod } from './store/shift.actions';
+import {
+  AddShift,
+  GetShiftsByPeriod,
+  UpdateShift,
+} from './store/shift.actions';
 import { ShiftsState } from './store/shift.state';
+import { ShiftDialogComponent } from './shift-dialog/shift-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'tm-shifts',
@@ -23,6 +29,7 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     'startMileage',
     'endMileage',
     'duration',
+    'actions',
   ];
 
   shifts$?: Observable<MatTableDataSource<Shift>>;
@@ -30,13 +37,13 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private store: Store) {}
+  constructor(public dialog: MatDialog, private store: Store) {}
 
-  // TODO: fix sorting for nested types like taxi or driver
+  // TODO: fix sorting for nested types like shift or driver
   // ngOnInit(): void {
   // this.dataSource.sortingDataAccessor = (item, property: string) => {
-  //   if (property === 'taxi') {
-  //     return item.taxi.description;
+  //   if (property === 'shift') {
+  //     return item.shift.description;
   //   } else {
   //     return item[property as keyof Shift];
   //   }
@@ -58,5 +65,39 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  add() {
+    const shift = {} as Shift;
+
+    this.handleDialog(shift, () => this.store.dispatch(new AddShift(shift)));
+  }
+
+  edit(shift: Shift) {
+    // clone to prevent changes in current model if edit gets cancelled
+    const clonedShift = structuredClone(shift);
+
+    this.handleDialog(clonedShift, () => {
+      this.updateIfHasId(clonedShift);
+    });
+  }
+
+  private handleDialog(shift: Shift, callback: () => void) {
+    const dialogRef = this.dialog.open(ShiftDialogComponent, {
+      data: shift,
+      maxWidth: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        callback();
+      }
+    });
+  }
+
+  private updateIfHasId(shift: Shift) {
+    if (shift.id) {
+      this.store.dispatch(new UpdateShift(shift.id, shift));
+    }
   }
 }

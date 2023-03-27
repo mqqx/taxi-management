@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>Schicht {{ data.id ? "bearbeiten" : "hinzufügen" }}</h2>
+<form #formControl="ngForm">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Datum</mat-label>
+      <input
+        matInput
+        [matDatepicker]="date"
+        placeholder="10.11.2023"
+        [(ngModel)]="data.date"
+        name="date"
+        required
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+      <mat-datepicker #date> </mat-datepicker>
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Anfangs-KM</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="data.startMileage"
+        name="startMileage"
+        required
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>End-KM</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="data.endMileage"
+        name="endMileage"
+        required
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Arbeitszeit</mat-label>
+      <input
+        matInput
+        type="time"
+        [ngModel]="data.duration || 0 | minutesToHuman"
+        (ngModelChange)="onDurationChange($event)"
+        name="duration"
+      />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-dialog-actions align="end">
+      <button
+        mat-button
+        type="submit"
+        [disabled]="!formControl.valid"
+        [mat-dialog-close]="1"
+      >
+        Speichern
+      </button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Abbrechen</button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</form>
