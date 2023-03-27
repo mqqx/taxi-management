@@ -3,25 +3,13 @@
   <mat-dialog-content>
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input
-        matInput
-        class="form-control"
-        [(ngModel)]="data.lastName"
-        name="lastName"
-        required
-      />
+      <input matInput [(ngModel)]="data.lastName" name="lastName" required />
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Vorname</mat-label>
-      <input
-        matInput
-        class="form-control"
-        [(ngModel)]="data.firstName"
-        name="firstName"
-        required
-      />
+      <input matInput [(ngModel)]="data.firstName" name="firstName" required />
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
 
@@ -64,12 +52,7 @@
 
     <mat-form-field>
       <mat-label>Adresse</mat-label>
-      <input
-        matInput
-        class="form-control"
-        [(ngModel)]="data.address"
-        name="address"
-      />
+      <input matInput [(ngModel)]="data.address" name="address" />
     </mat-form-field>
 
     <mat-form-field>

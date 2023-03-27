@@ -5,7 +5,6 @@
       <mat-label>Bezeichnung</mat-label>
       <input
         matInput
-        class="form-control"
         [(ngModel)]="data.description"
         name="description"
         required
@@ -18,7 +17,6 @@
       <input
         matInput
         type="number"
-        class="form-control"
         [(ngModel)]="data.mileage"
         name="mileage"
         required
@@ -28,12 +26,7 @@
 
     <mat-form-field>
       <mat-label>Kennzeichen</mat-label>
-      <input
-        matInput
-        class="form-control"
-        [(ngModel)]="data.numberPlate"
-        name="numberPlate"
-      />
+      <input matInput [(ngModel)]="data.numberPlate" name="numberPlate" />
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
 
@@ -64,7 +57,6 @@
       <input
         matInput
         type="number"
-        class="form-control"
         [(ngModel)]="data.concessionNumber"
         name="concessionNumber"
       />
