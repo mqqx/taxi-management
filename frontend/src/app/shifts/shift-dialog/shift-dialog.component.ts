@@ -50,6 +50,10 @@ export class ShiftDialogComponent implements OnInit {
       Duration.fromISOTime($event).shiftTo('minutes').minutes;
   }
 
+  onTaxiChange($event: Taxi): void {
+    this.data.startMileage = $event.mileage;
+  }
+
   compareTaxis(o1: Taxi, o2: Taxi): boolean {
     return o1 && o2 && o1.id === o2.id;
   }

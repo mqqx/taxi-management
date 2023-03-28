@@ -22,6 +22,7 @@
       <mat-select
         [(ngModel)]="data.taxi"
         [compareWith]="compareTaxis"
+        (ngModelChange)="onTaxiChange($event)"
         name="taxi"
         required
       >
