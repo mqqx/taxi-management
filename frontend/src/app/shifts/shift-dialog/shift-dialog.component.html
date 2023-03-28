@@ -18,6 +18,21 @@
     </mat-form-field>
 
     <mat-form-field>
+      <mat-label>Taxi</mat-label>
+      <mat-select
+        [(ngModel)]="data.taxi"
+        [compareWith]="compareTaxis"
+        name="taxi"
+        required
+      >
+        <mat-option *ngFor="let taxi of taxis$ | async" [value]="taxi">{{
+          taxi.description
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
       <mat-label>Anfangs-KM</mat-label>
       <input
         matInput
@@ -38,6 +53,21 @@
         name="endMileage"
         required
       />
+      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fahrer</mat-label>
+      <mat-select
+        [(ngModel)]="data.driver"
+        [compareWith]="compareDrivers"
+        name="driver"
+        required
+      >
+        <mat-option *ngFor="let driver of drivers$ | async" [value]="driver">{{
+          driver.firstName + " " + driver.lastName
+        }}</mat-option>
+      </mat-select>
       <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
     </mat-form-field>
 

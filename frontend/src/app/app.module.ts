@@ -48,6 +48,7 @@ import { LocationsState } from './locations/store/location.state';
 import { CustomersState } from './customers/store/customer.state';
 import { ShiftsState } from './shifts/store/shift.state';
 import { ShiftDialogComponent } from './shifts/shift-dialog/shift-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const dev = environment.production
   ? []
@@ -88,6 +89,7 @@ const dev = environment.production
     MatDatepickerModule,
     MatLuxonDateModule,
     MatDialogModule,
+    MatSelectModule,
     NgxsModule.forRoot([
       TaxisState,
       DriversState,

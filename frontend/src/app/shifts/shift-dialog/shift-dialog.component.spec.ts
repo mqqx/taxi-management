@@ -12,6 +12,11 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { MockProvider } from 'ng-mocks';
+import { Store } from '@ngxs/store';
+import { EMPTY } from 'rxjs';
+import { MinutesToHumanPipe } from '../../shared/minutes-to-human.pipe';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('ShiftDialogComponent', () => {
   let component: ShiftDialogComponent;
@@ -19,7 +24,7 @@ describe('ShiftDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ShiftDialogComponent],
+      declarations: [ShiftDialogComponent, MinutesToHumanPipe],
       imports: [
         FormsModule,
         MatFormFieldModule,
@@ -28,10 +33,12 @@ describe('ShiftDialogComponent', () => {
         NoopAnimationsModule,
         MatLuxonDateModule,
         MatDialogModule,
+        MatSelectModule,
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
+        MockProvider(Store, { select: () => EMPTY }),
       ],
     }).compileComponents();
 

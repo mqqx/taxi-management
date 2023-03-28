@@ -28,10 +28,10 @@ Angular implementation of Taxi Management frontend.
 
 ### shift
 
-1. [ ] create shift
-2. [ ] read shifts
+1. [x] create shift
+2. [x] read shifts
 3. [ ] read shift
-4. [ ] update shift
+4. [x] update shift
 
 ### trip
 

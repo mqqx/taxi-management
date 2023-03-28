@@ -9,6 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockProvider } from 'ng-mocks';
 import { EMPTY } from 'rxjs';
 import { Store } from '@ngxs/store';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('ShiftsComponent', () => {
   let component: ShiftsComponent;
@@ -24,7 +25,10 @@ describe('ShiftsComponent', () => {
         ReactiveFormsModule,
         NoopAnimationsModule,
       ],
-      providers: [[MockProvider(Store, { select: () => EMPTY })]],
+      providers: [
+        [MockProvider(Store, { select: () => EMPTY })],
+        { provide: MatDialog, useValue: {} },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ShiftsComponent);
