@@ -23,7 +23,7 @@ export class ShiftDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Shift
   ) {
     this.taxis$ = this.store.select(TaxisState.activeTaxis);
-    this.drivers$ = this.store.select(DriversState.drivers);
+    this.drivers$ = this.store.select(DriversState.activeDrivers);
   }
 
   ngOnInit(): void {
