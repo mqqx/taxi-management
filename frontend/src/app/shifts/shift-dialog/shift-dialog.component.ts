@@ -22,7 +22,7 @@ export class ShiftDialogComponent implements OnInit {
     private store: Store,
     @Inject(MAT_DIALOG_DATA) public data: Shift
   ) {
-    this.taxis$ = this.store.select(TaxisState.taxis);
+    this.taxis$ = this.store.select(TaxisState.activeTaxis);
     this.drivers$ = this.store.select(DriversState.drivers);
   }
 
