@@ -35,7 +35,7 @@ public class ShiftService {
         .orElseThrow(ResourceNotFoundException::new);
   }
 
-  public List<Shift> findAllByPeriod(LocalDate from, LocalDate to) {
+  public List<Shift> findAllByFilter(LocalDate from, LocalDate to, Integer driverId) {
     if (from == null) {
       from = LocalDate.of(2000, Month.JANUARY, 1);
     }
@@ -44,9 +44,13 @@ public class ShiftService {
       to = LocalDate.now();
     }
 
-    return shiftRepository.findByDateBetweenOrderByIdDesc(from, to, ofSize(50)).stream()
-        .map(shiftMapper::fromEntity)
-        .toList();
+    // TODO could be improved by using an example shift with set driver or changing it to an JPQL
+    // query
+    return (driverId == null
+            ? shiftRepository.findByDateBetweenOrderByIdDesc(from, to, ofSize(50))
+            : shiftRepository.findByDateBetweenAndDriverIdOrderByIdDesc(
+                from, to, driverId, ofSize(50)))
+        .stream().map(shiftMapper::fromEntity).toList();
   }
 
   @Transactional

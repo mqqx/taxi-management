@@ -1,8 +1,8 @@
 import { Shift } from '../../gen';
 
-export class GetShiftsByPeriod {
+export class GetShiftsByFilter {
   static readonly type = '[Shifts] Fetch';
-  constructor(public from?: Date, public to?: Date) {}
+  constructor(public from?: Date, public to?: Date, public driverId?: number) {}
 }
 
 export class AddShift {

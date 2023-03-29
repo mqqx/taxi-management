@@ -8,4 +8,7 @@ import org.springframework.data.repository.ListCrudRepository;
 
 public interface ShiftRepository extends ListCrudRepository<ShiftEntity, Integer> {
   List<ShiftEntity> findByDateBetweenOrderByIdDesc(LocalDate from, LocalDate to, Pageable pageable);
+
+  List<ShiftEntity> findByDateBetweenAndDriverIdOrderByIdDesc(
+      LocalDate from, LocalDate to, int driverId, Pageable pageable);
 }

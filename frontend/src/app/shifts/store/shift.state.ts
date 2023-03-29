@@ -1,7 +1,7 @@
 import { Shift, ShiftService } from '../../gen';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { GetShiftsByPeriod, AddShift, UpdateShift } from './shift.actions';
+import { GetShiftsByFilter, AddShift, UpdateShift } from './shift.actions';
 import { tap } from 'rxjs';
 import { updateItem } from '@ngxs/store/operators';
 
@@ -18,10 +18,10 @@ export class ShiftsState {
     return state;
   }
 
-  @Action(GetShiftsByPeriod)
-  public getShifts(ctx: StateContext<Shift[]>, parameters: GetShiftsByPeriod) {
+  @Action(GetShiftsByFilter)
+  public getShifts(ctx: StateContext<Shift[]>, parameters: GetShiftsByFilter) {
     return this.shiftService
-      .getShiftsByPeriod(parameters.from, parameters.to)
+      .getShiftsByFilter(parameters.from, parameters.to, parameters.driverId)
       .pipe(
         tap((shifts: Shift[]) => {
           ctx.setState(shifts);

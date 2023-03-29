@@ -80,7 +80,7 @@ class ShiftServiceTest {
     when(mockShiftMapper.fromEntity(shiftEntityWithId())).thenReturn(shiftWithId());
 
     // Run the test
-    final List<Shift> result = shiftServiceUnderTest.findAllByPeriod(null, null);
+    final List<Shift> result = shiftServiceUnderTest.findAllByFilter(null, null, null);
 
     // Verify the results
     assertThat(result).isEqualTo(List.of(shiftWithId()));
@@ -89,12 +89,12 @@ class ShiftServiceTest {
   @Test
   void testFindAllReturnsNoItems() {
     // Setup
-    when(mockShiftRepository.findByDateBetweenOrderByIdDesc(
-            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now(), ofSize(50)))
+    when(mockShiftRepository.findByDateBetweenAndDriverIdOrderByIdDesc(
+            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now(), 1, ofSize(50)))
         .thenReturn(emptyList());
 
     // Run the test
-    final List<Shift> result = shiftServiceUnderTest.findAllByPeriod(null, null);
+    final List<Shift> result = shiftServiceUnderTest.findAllByFilter(null, null, 1);
 
     // Verify the results
     assertThat(result).isEmpty();

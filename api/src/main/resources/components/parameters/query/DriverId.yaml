@@ -1,0 +1,7 @@
+name: driver-id
+in: query
+description: id of the resource
+schema:
+  type: integer
+  format: int32
+  example: 123

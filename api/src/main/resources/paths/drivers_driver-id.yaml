@@ -4,7 +4,7 @@ put:
     - driver
   summary: Updates a driver
   parameters:
-    - $ref: '../components/parameters/Id.yaml'
+    - $ref: '../components/parameters/path/Id.yaml'
   requestBody:
     required: true
     content:

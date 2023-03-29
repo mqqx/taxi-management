@@ -1,11 +1,12 @@
 get:
-  operationId: getShiftsByPeriod
+  operationId: getShiftsByFilter
   tags:
     - shift
   summary: Returns a list of last 50 shifts, optionally in a given period
   parameters:
-    - $ref: '../components/parameters/From.yaml'
-    - $ref: '../components/parameters/To.yaml'
+    - $ref: '../components/parameters/query/From.yaml'
+    - $ref: '../components/parameters/query/To.yaml'
+    - $ref: '../components/parameters/query/DriverId.yaml'
   responses:
     '200':
       description: OK

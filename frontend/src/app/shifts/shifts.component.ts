@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Shift } from '../gen';
+import { Driver, Shift } from '../gen';
 import { Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,14 +8,16 @@ import { map } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import {
   AddShift,
-  GetShiftsByPeriod,
+  GetShiftsByFilter,
   UpdateShift,
 } from './store/shift.actions';
 import { ShiftsState } from './store/shift.state';
 import { ShiftDialogComponent } from './shift-dialog/shift-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DateTime } from 'luxon';
+import { DriversState } from '../drivers/store/driver.state';
+import { GetDrivers } from '../drivers/store/driver.actions';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'tm-shifts',
@@ -24,6 +26,8 @@ import { DateTime } from 'luxon';
 })
 export class ShiftsComponent implements OnInit, AfterViewInit {
   private dataSource = new MatTableDataSource<Shift>();
+  drivers$: Observable<Driver[]>;
+  driver: Driver | undefined;
   columnKeys: string[] = [
     'date',
     'driver',
@@ -43,7 +47,9 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, private store: Store) {}
+  constructor(public dialog: MatDialog, private store: Store) {
+    this.drivers$ = this.store.select(DriversState.drivers);
+  }
 
   // TODO: fix sorting for nested types like shift or driver
   // ngOnInit(): void {
@@ -57,7 +63,8 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
   // }
 
   ngOnInit(): void {
-    this.store.dispatch(new GetShiftsByPeriod());
+    this.store.dispatch(new GetDrivers());
+    this.store.dispatch(new GetShiftsByFilter());
     this.shifts$ = this.store.select(ShiftsState.shifts).pipe(
       map((shifts: Shift[]) => {
         this.dataSource.data = shifts;
@@ -74,12 +81,22 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
   }
 
   shiftRangeChange() {
+    this.refresh();
+  }
+
+  private refresh() {
     this.store.dispatch(
-      new GetShiftsByPeriod(
+      new GetShiftsByFilter(
         this.shiftRange.controls.start.value?.toJSDate(),
-        this.shiftRange.controls.end.value?.toJSDate()
+        this.shiftRange.controls.end.value?.toJSDate(),
+        this.driver?.id
       )
     );
+  }
+
+  onDriverChange(driver: Driver) {
+    this.driver = driver;
+    this.refresh();
   }
 
   add() {

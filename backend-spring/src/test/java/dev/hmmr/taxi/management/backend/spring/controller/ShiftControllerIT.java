@@ -190,7 +190,8 @@ class ShiftControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                get(linkTo(methodOn(ShiftController.class).getShiftsByPeriod(null, null)).toUri())
+                get(linkTo(methodOn(ShiftController.class).getShiftsByFilter(null, null, null))
+                        .toUri())
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
             .getResponse();
@@ -209,7 +210,8 @@ class ShiftControllerIT {
     final MockHttpServletResponse response =
         mockMvc
             .perform(
-                get(linkTo(methodOn(ShiftController.class).getShiftsByPeriod(null, null)).toUri())
+                get(linkTo(methodOn(ShiftController.class).getShiftsByFilter(null, null, null))
+                        .toUri())
                     .accept(MediaType.APPLICATION_JSON))
             .andReturn()
             .getResponse();

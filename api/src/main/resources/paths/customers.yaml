@@ -4,8 +4,8 @@ get:
     - customer
   summary: Returns a list of customers, optionally in a period of trips
   parameters:
-    - $ref: '../components/parameters/From.yaml'
-    - $ref: '../components/parameters/To.yaml'
+    - $ref: '../components/parameters/query/From.yaml'
+    - $ref: '../components/parameters/query/To.yaml'
   responses:
     '200':
       description: OK

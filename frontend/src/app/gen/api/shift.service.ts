@@ -351,16 +351,17 @@ export class ShiftService {
     }
 
     /**
-     * Returns a list of last 20 shifts, optionally in a given period
+     * Returns a list of last 50 shifts, optionally in a given period
      * @param from from date inclusive
      * @param to to date inclusive
+     * @param driverId id of the resource
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getShiftsByPeriod(from?: Date, to?: Date, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Shift>>;
-    public getShiftsByPeriod(from?: Date, to?: Date, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Shift>>>;
-    public getShiftsByPeriod(from?: Date, to?: Date, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Shift>>>;
-    public getShiftsByPeriod(from?: Date, to?: Date, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public getShiftsByFilter(from?: Date, to?: Date, driverId?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Shift>>;
+    public getShiftsByFilter(from?: Date, to?: Date, driverId?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Shift>>>;
+    public getShiftsByFilter(from?: Date, to?: Date, driverId?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Shift>>>;
+    public getShiftsByFilter(from?: Date, to?: Date, driverId?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (from !== undefined && from !== null) {
@@ -370,6 +371,10 @@ export class ShiftService {
         if (to !== undefined && to !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>to, 'to');
+        }
+        if (driverId !== undefined && driverId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>driverId, 'driver-id');
         }
 
         let localVarHeaders = this.defaultHeaders;

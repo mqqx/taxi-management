@@ -1,5 +1,5 @@
 parameters:
-  - $ref: '../components/parameters/ShiftId.yaml'
+  - $ref: '../components/parameters/path/ShiftId.yaml'
 get:
   operationId: getShiftById
   tags:

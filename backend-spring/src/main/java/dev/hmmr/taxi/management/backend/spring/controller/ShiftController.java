@@ -49,8 +49,9 @@ public class ShiftController implements ShiftsApi {
   }
 
   @Override
-  public ResponseEntity<List<Shift>> getShiftsByPeriod(LocalDate from, LocalDate to) {
-    return ok(shiftService.findAllByPeriod(from, to));
+  public ResponseEntity<List<Shift>> getShiftsByFilter(
+      LocalDate from, LocalDate to, Integer driverId) {
+    return ok(shiftService.findAllByFilter(from, to, driverId));
   }
 
   @Override
