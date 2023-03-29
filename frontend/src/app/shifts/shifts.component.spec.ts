@@ -10,6 +10,8 @@ import { MockProvider } from 'ng-mocks';
 import { EMPTY } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
 
 describe('ShiftsComponent', () => {
   let component: ShiftsComponent;
@@ -24,6 +26,8 @@ describe('ShiftsComponent', () => {
         MatInputModule,
         ReactiveFormsModule,
         NoopAnimationsModule,
+        MatDatepickerModule,
+        MatLuxonDateModule,
       ],
       providers: [
         [MockProvider(Store, { select: () => EMPTY })],

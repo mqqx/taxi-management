@@ -14,6 +14,8 @@ import {
 import { ShiftsState } from './store/shift.state';
 import { ShiftDialogComponent } from './shift-dialog/shift-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormControl, FormGroup } from '@angular/forms';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'tm-shifts',
@@ -31,6 +33,10 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     'duration',
     'actions',
   ];
+  shiftRange = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
 
   shifts$?: Observable<MatTableDataSource<Shift>>;
 
@@ -65,6 +71,15 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  shiftRangeChange() {
+    this.store.dispatch(
+      new GetShiftsByPeriod(
+        this.shiftRange.controls.start.value?.toJSDate(),
+        this.shiftRange.controls.end.value?.toJSDate()
+      )
+    );
   }
 
   add() {

@@ -1,3 +1,20 @@
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Zeitraum</mat-label>
+    <mat-date-range-input [formGroup]="shiftRange" [rangePicker]="picker">
+      <input formControlName="start" matStartDate placeholder="Startdatum" />
+      <input
+        formControlName="end"
+        matEndDate
+        placeholder="Enddatum"
+        (dateChange)="shiftRangeChange()"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+</div>
+
 <table
   *ngIf="shifts$ | async as shifts"
   mat-table
