@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatRuntimeException;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.data.domain.PageRequest.ofSize;
 
 import dev.hmmr.taxi.management.backend.spring.mapper.ShiftMapper;
 import dev.hmmr.taxi.management.backend.spring.model.ShiftEntity;
@@ -71,8 +72,8 @@ class ShiftServiceTest {
   void testFindAll() {
     // Setup
     // Configure ShiftRepository.findTop20ByOrderByIdDesc(...).
-    when(mockShiftRepository.findTop20ByDateBetweenOrderByIdDesc(
-            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now()))
+    when(mockShiftRepository.findByDateBetweenOrderByIdDesc(
+            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now(), ofSize(50)))
         .thenReturn(List.of(shiftEntityWithId()));
 
     // Configure ShiftMapper.fromEntity(...).
@@ -88,8 +89,8 @@ class ShiftServiceTest {
   @Test
   void testFindAllReturnsNoItems() {
     // Setup
-    when(mockShiftRepository.findTop20ByDateBetweenOrderByIdDesc(
-            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now()))
+    when(mockShiftRepository.findByDateBetweenOrderByIdDesc(
+            LocalDate.of(2000, Month.JANUARY, 1), LocalDate.now(), ofSize(50)))
         .thenReturn(emptyList());
 
     // Run the test

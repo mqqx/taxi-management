@@ -1,5 +1,7 @@
 package dev.hmmr.taxi.management.backend.spring.service;
 
+import static org.springframework.data.domain.PageRequest.ofSize;
+
 import dev.hmmr.taxi.management.backend.spring.exception.ResourceNotFoundException;
 import dev.hmmr.taxi.management.backend.spring.mapper.ShiftMapper;
 import dev.hmmr.taxi.management.backend.spring.model.ShiftEntity;
@@ -42,7 +44,7 @@ public class ShiftService {
       to = LocalDate.now();
     }
 
-    return shiftRepository.findTop20ByDateBetweenOrderByIdDesc(from, to).stream()
+    return shiftRepository.findByDateBetweenOrderByIdDesc(from, to, ofSize(50)).stream()
         .map(shiftMapper::fromEntity)
         .toList();
   }
