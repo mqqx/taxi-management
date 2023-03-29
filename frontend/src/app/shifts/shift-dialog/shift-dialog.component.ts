@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Driver, Shift, Taxi } from '../../gen';
-import { FormControl, Validators } from '@angular/forms';
 import { DateTime, Duration } from 'luxon';
 import { TaxisState } from '../../taxis/store/taxi.state';
 import { Observable } from 'rxjs';
@@ -18,7 +17,6 @@ import { GetDrivers } from '../../drivers/store/driver.actions';
 export class ShiftDialogComponent implements OnInit {
   taxis$: Observable<Taxi[]>;
   drivers$: Observable<Driver[]>;
-  formControl = new FormControl('', [Validators.required]);
   constructor(
     public dialogRef: MatDialogRef<ShiftDialogComponent>,
     private store: Store,
@@ -31,10 +29,6 @@ export class ShiftDialogComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new GetTaxis());
     this.store.dispatch(new GetDrivers());
-  }
-
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Pflichtfeld' : '';
   }
 
   onNoClick(): void {

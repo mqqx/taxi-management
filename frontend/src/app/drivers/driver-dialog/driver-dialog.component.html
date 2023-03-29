@@ -4,13 +4,13 @@
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput [(ngModel)]="data.lastName" name="lastName" required />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Vorname</mat-label>
       <input matInput [(ngModel)]="data.firstName" name="firstName" required />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>

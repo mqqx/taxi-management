@@ -9,7 +9,7 @@
         name="description"
         required
       />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -21,13 +21,13 @@
         name="mileage"
         required
       />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Kennzeichen</mat-label>
       <input matInput [(ngModel)]="data.numberPlate" name="numberPlate" />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -50,7 +50,7 @@
     <mat-form-field>
       <mat-label>FIN</mat-label>
       <input matInput class="form-control" [(ngModel)]="data.fin" name="fin" />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -61,7 +61,7 @@
         [(ngModel)]="data.concessionNumber"
         name="concessionNumber"
       />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>

@@ -14,7 +14,7 @@
       />
       <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
       <mat-datepicker #date> </mat-datepicker>
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -30,7 +30,7 @@
           taxi.description
         }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -42,7 +42,7 @@
         name="startMileage"
         required
       />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -52,9 +52,13 @@
         type="number"
         [(ngModel)]="data.endMileage"
         name="endMileage"
+        [min]="data.startMileage"
         required
       />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="data.endMileage < data.startMileage">
+        End-KM dürfen nicht kleiner als Start-KM sein</mat-error
+      >
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -69,7 +73,7 @@
           driver.firstName + " " + driver.lastName
         }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -81,7 +85,7 @@
         (ngModelChange)="onDurationChange($event)"
         name="duration"
       />
-      <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>
     </mat-form-field>
 
     <mat-dialog-actions align="end">
