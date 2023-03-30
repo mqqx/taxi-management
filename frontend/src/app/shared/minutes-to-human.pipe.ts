@@ -5,7 +5,7 @@ import { Duration } from 'luxon';
   name: 'minutesToHuman',
 })
 export class MinutesToHumanPipe implements PipeTransform {
-  transform(value: number): unknown {
+  transform(value: number): string {
     return Duration.fromObject({ minutes: value }).toISOTime({
       suppressSeconds: true,
     });
