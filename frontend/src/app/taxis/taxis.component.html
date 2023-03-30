@@ -1,4 +1,10 @@
-<table *ngIf="taxis$ | async as taxis" mat-table [dataSource]="taxis" matSort>
+<table
+  *ngIf="taxis$ | async as taxis"
+  mat-table
+  [dataSource]="taxis"
+  matSort
+  aria-label="Taxis"
+>
   <ng-container matColumnDef="description">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Bezeichnung</th>
     <td mat-cell *matCellDef="let taxi">{{ taxi.description }}</td>
