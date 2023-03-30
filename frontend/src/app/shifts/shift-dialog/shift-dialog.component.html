@@ -70,7 +70,7 @@
         required
       >
         <mat-option *ngFor="let driver of drivers$ | async" [value]="driver">{{
-          driver.firstName + " " + driver.lastName
+          driver | driverToName
         }}</mat-option>
       </mat-select>
       <mat-error *ngIf="formControl.invalid">Pflichtfeld</mat-error>

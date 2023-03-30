@@ -49,6 +49,7 @@ import { CustomersState } from './customers/store/customer.state';
 import { ShiftsState } from './shifts/store/shift.state';
 import { ShiftDialogComponent } from './shifts/shift-dialog/shift-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
+import { DriverToNamePipe } from './drivers/driver-to-name.pipe';
 
 const dev = environment.production
   ? []
@@ -68,6 +69,7 @@ const dev = environment.production
     ShiftsComponent,
     ShiftDialogComponent,
     MinutesToHumanPipe,
+    DriverToNamePipe,
   ],
   imports: [
     BrowserModule,
