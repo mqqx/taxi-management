@@ -17,7 +17,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DriversState } from '../drivers/store/driver.state';
 import { GetDrivers } from '../drivers/store/driver.actions';
-import { MatSelectChange } from '@angular/material/select';
+import { _isNumberValue } from '@angular/cdk/coercion';
+
+/**
+ * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
+ * flaky browser support and the value not being defined in Closure's typings.
+ */
+const MAX_SAFE_INTEGER = 9007199254740991;
 
 @Component({
   selector: 'tm-shifts',
@@ -51,17 +57,6 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     this.drivers$ = this.store.select(DriversState.drivers);
   }
 
-  // TODO: fix sorting for nested types like shift or driver
-  // ngOnInit(): void {
-  // this.dataSource.sortingDataAccessor = (item, property: string) => {
-  //   if (property === 'shift') {
-  //     return item.shift.description;
-  //   } else {
-  //     return item[property as keyof Shift];
-  //   }
-  // };
-  // }
-
   ngOnInit(): void {
     this.store.dispatch(new GetDrivers());
     this.store.dispatch(new GetShiftsByFilter());
@@ -74,6 +69,31 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
         return this.dataSource;
       })
     );
+
+    // custom copy of angular sortingDataAccessor https://github.com/angular/components/blob/main/src/material/table/table-data-source.ts#L161
+    this.dataSource.sortingDataAccessor = (
+      data: Shift,
+      sortHeaderId: string
+    ): string | number => {
+      const value = (data as unknown as Record<string, never>)[sortHeaderId];
+
+      if (_isNumberValue(value)) {
+        const numberValue = Number(value);
+
+        // Numbers beyond `MAX_SAFE_INTEGER` can't be compared reliably, so we
+        // leave them as strings. For more info: https://goo.gl/y5vbSg
+        return numberValue < MAX_SAFE_INTEGER ? numberValue : value;
+      }
+
+      switch (sortHeaderId) {
+        case 'taxi':
+          return data.taxi.description;
+        case 'driver':
+          return data.driver.lastName + data.driver.firstName;
+        default:
+          return value;
+      }
+    };
   }
 
   ngAfterViewInit() {
