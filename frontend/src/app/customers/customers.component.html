@@ -1,5 +1,5 @@
 <div class="filter-container">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" subscriptSizing="dynamic">
     <mat-label>Zeitraum</mat-label>
     <mat-date-range-input [formGroup]="customerRange" [rangePicker]="picker">
       <input formControlName="start" matStartDate placeholder="Startdatum" />
@@ -14,37 +14,40 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" subscriptSizing="dynamic">
     <mat-label>Suche</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Fr. Müller" />
+    <mat-icon matPrefix aria-label="Filter">search</mat-icon>
   </mat-form-field>
 </div>
 
-<table
-  *ngIf="customers$ | async as customers"
-  mat-table
-  [dataSource]="customers"
-  matSort
-  aria-label="Kunden"
->
-  <!-- Position Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Kunde</th>
-    <td mat-cell *matCellDef="let customer">{{ customer.name }}</td>
-  </ng-container>
-  <ng-container matColumnDef="count">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>
-      Anzahl der Fahrten
-    </th>
-    <td mat-cell *matCellDef="let customer">{{ customer.count }}</td>
-  </ng-container>
+<div class="table-container">
+  <table
+    *ngIf="customers$ | async as customers"
+    mat-table
+    [dataSource]="customers"
+    matSort
+    aria-label="Kunden"
+  >
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Kunde</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="count">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Anzahl der Fahrten
+      </th>
+      <td mat-cell *matCellDef="let customer">{{ customer.count }}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
-</table>
-<mat-paginator
-  [pageSizeOptions]="[10, 25, 50, 100, 500, 1000]"
-  showFirstLastButtons
-  aria-label="Wähle die Seite der Kunden"
->
-</mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 50, 100, 500, 1000]"
+    showFirstLastButtons
+    aria-label="Wähle die Seite der Kunden"
+  >
+  </mat-paginator>
+</div>

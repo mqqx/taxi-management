@@ -1,61 +1,65 @@
-<table
-  *ngIf="drivers$ | async as drivers"
-  mat-table
-  [dataSource]="drivers"
-  matSort
-  aria-label="Fahrer"
->
-  <ng-container matColumnDef="lastName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-    <td mat-cell *matCellDef="let driver">{{ driver.lastName }}</td>
-  </ng-container>
-  <ng-container matColumnDef="firstName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Vorname</th>
-    <td mat-cell *matCellDef="let driver">{{ driver.firstName }}</td>
-  </ng-container>
-  <ng-container matColumnDef="pLicenceDate">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>P-Schein</th>
-    <td mat-cell *matCellDef="let driver">{{ driver.pLicenceDate | date }}</td>
-  </ng-container>
-  <ng-container matColumnDef="birthdate">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Geburtstag</th>
-    <td mat-cell *matCellDef="let driver">{{ driver.birthdate | date }}</td>
-  </ng-container>
-  <ng-container matColumnDef="address">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Adresse</th>
-    <td mat-cell *matCellDef="let driver">{{ driver.address }}</td>
-  </ng-container>
-  <ng-container matColumnDef="active">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Aktiv</th>
-    <td mat-cell *matCellDef="let driver">
-      <mat-slide-toggle
-        [(ngModel)]="driver.active"
-        (change)="toggleActive($event, driver)"
-      ></mat-slide-toggle>
-    </td>
-  </ng-container>
+<div class="table-container">
+  <table
+    *ngIf="drivers$ | async as drivers"
+    mat-table
+    [dataSource]="drivers"
+    matSort
+    aria-label="Fahrer"
+  >
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let driver">{{ driver.lastName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vorname</th>
+      <td mat-cell *matCellDef="let driver">{{ driver.firstName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="pLicenceDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>P-Schein</th>
+      <td mat-cell *matCellDef="let driver">
+        {{ driver.pLicenceDate | date }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="birthdate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Geburtstag</th>
+      <td mat-cell *matCellDef="let driver">{{ driver.birthdate | date }}</td>
+    </ng-container>
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Adresse</th>
+      <td mat-cell *matCellDef="let driver">{{ driver.address }}</td>
+    </ng-container>
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Aktiv</th>
+      <td mat-cell *matCellDef="let driver">
+        <mat-slide-toggle
+          [(ngModel)]="driver.active"
+          (change)="toggleActive($event, driver)"
+        ></mat-slide-toggle>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="add()">
-        <mat-icon aria-label="Hinzufügen">add</mat-icon>
-      </button>
-    </th>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="add()">
+          <mat-icon aria-label="Hinzufügen">add</mat-icon>
+        </button>
+      </th>
 
-    <td mat-cell *matCellDef="let driver">
-      <button mat-icon-button color="accent" (click)="edit(driver)">
-        <mat-icon aria-label="Bearbeiten">edit</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+      <td mat-cell *matCellDef="let driver">
+        <button mat-icon-button color="accent" (click)="edit(driver)">
+          <mat-icon aria-label="Bearbeiten">edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
-</table>
-<mat-paginator
-  [pageSizeOptions]="[10, 25, 50, 100]"
-  [pageSize]="25"
-  showFirstLastButtons
-  aria-label="Wähle die Seite der Fahrer"
->
-</mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [pageSize]="25"
+    showFirstLastButtons
+    aria-label="Wähle die Seite der Fahrer"
+  >
+  </mat-paginator>
+</div>

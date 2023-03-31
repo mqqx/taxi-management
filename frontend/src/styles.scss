@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-.filter-container mat-form-field + mat-form-field {
+.filter-container mat-form-field {
   margin-left: 8px;
+}
+
+.filter-container {
+  margin: 8px 0 0 0;
+}
+
+.table-container {
+  margin: 8px 8px 0 8px;
 }

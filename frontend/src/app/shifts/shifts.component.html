@@ -1,5 +1,5 @@
 <div class="filter-container">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" subscriptSizing="dynamic">
     <mat-label>Zeitraum</mat-label>
     <mat-date-range-input [formGroup]="shiftRange" [rangePicker]="picker">
       <input formControlName="start" matStartDate placeholder="Startdatum" />
@@ -14,7 +14,7 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field subscriptSizing="dynamic">
     <mat-label>Fahrer</mat-label>
     <mat-select (selectionChange)="onDriverChange($event.value)">
       <mat-option></mat-option>
@@ -25,63 +25,65 @@
   </mat-form-field>
 </div>
 
-<table
-  *ngIf="shifts$ | async as shifts"
-  mat-table
-  [dataSource]="shifts"
-  matSort
-  aria-label="Schichten"
->
-  <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Datum</th>
-    <td mat-cell *matCellDef="let shift">{{ shift.date | date }}</td>
-  </ng-container>
-  <ng-container matColumnDef="driver">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fahrer</th>
-    <td mat-cell *matCellDef="let shift">
-      {{ shift.driver | driverToName }}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="taxi">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Taxi</th>
-    <td mat-cell *matCellDef="let shift">{{ shift.taxi.description }}</td>
-  </ng-container>
-  <ng-container matColumnDef="startMileage">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Anfangs-KM</th>
-    <td mat-cell *matCellDef="let shift">{{ shift.startMileage }}</td>
-  </ng-container>
-  <ng-container matColumnDef="endMileage">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>End-KM</th>
-    <td mat-cell *matCellDef="let shift">{{ shift.endMileage }}</td>
-  </ng-container>
-  <ng-container matColumnDef="duration">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Arbeitszeit</th>
-    <td mat-cell *matCellDef="let shift">
-      {{ shift.duration | minutesToHuman }}
-    </td>
-  </ng-container>
+<div class="table-container">
+  <table
+    *ngIf="shifts$ | async as shifts"
+    mat-table
+    [dataSource]="shifts"
+    matSort
+    aria-label="Schichten"
+  >
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Datum</th>
+      <td mat-cell *matCellDef="let shift">{{ shift.date | date }}</td>
+    </ng-container>
+    <ng-container matColumnDef="driver">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fahrer</th>
+      <td mat-cell *matCellDef="let shift">
+        {{ shift.driver | driverToName }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="taxi">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Taxi</th>
+      <td mat-cell *matCellDef="let shift">{{ shift.taxi.description }}</td>
+    </ng-container>
+    <ng-container matColumnDef="startMileage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Anfangs-KM</th>
+      <td mat-cell *matCellDef="let shift">{{ shift.startMileage }}</td>
+    </ng-container>
+    <ng-container matColumnDef="endMileage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>End-KM</th>
+      <td mat-cell *matCellDef="let shift">{{ shift.endMileage }}</td>
+    </ng-container>
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Arbeitszeit</th>
+      <td mat-cell *matCellDef="let shift">
+        {{ shift.duration | minutesToHuman }}
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="add()">
-        <mat-icon aria-label="Hinzufügen">add</mat-icon>
-      </button>
-    </th>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="add()">
+          <mat-icon aria-label="Hinzufügen">add</mat-icon>
+        </button>
+      </th>
 
-    <td mat-cell *matCellDef="let shift">
-      <button mat-icon-button color="accent" (click)="edit(shift)">
-        <mat-icon aria-label="Bearbeiten">edit</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+      <td mat-cell *matCellDef="let shift">
+        <button mat-icon-button color="accent" (click)="edit(shift)">
+          <mat-icon aria-label="Bearbeiten">edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
-</table>
-<mat-paginator
-  [pageSizeOptions]="[10, 25, 50, 100]"
-  [pageSize]="25"
-  showFirstLastButtons
-  aria-label="Wähle die Seite der Schichten"
->
-</mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [pageSize]="25"
+    showFirstLastButtons
+    aria-label="Wähle die Seite der Schichten"
+  >
+  </mat-paginator>
+</div>

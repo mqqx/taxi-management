@@ -1,27 +1,32 @@
-<mat-form-field appearance="fill">
-  <mat-label>Suche</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Weiden" />
-</mat-form-field>
+<div class="filter-container">
+  <mat-form-field appearance="fill" subscriptSizing="dynamic">
+    <mat-label>Suche</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Weiden" />
+    <mat-icon matPrefix aria-label="Filter">search</mat-icon>
+  </mat-form-field>
+</div>
 
-<table
-  *ngIf="locations$ | async as locations"
-  mat-table
-  [dataSource]="locations"
-  matSort
-  aria-label="Orte"
->
-  <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Bezeichnung</th>
-    <td mat-cell *matCellDef="let location">{{ location.description }}</td>
-  </ng-container>
+<div class="table-container">
+  <table
+    *ngIf="locations$ | async as locations"
+    mat-table
+    [dataSource]="locations"
+    matSort
+    aria-label="Orte"
+  >
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bezeichnung</th>
+      <td mat-cell *matCellDef="let location">{{ location.description }}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
-</table>
-<mat-paginator
-  [pageSizeOptions]="[10, 25, 50, 100]"
-  [pageSize]="25"
-  showFirstLastButtons
-  aria-label="Wähle die Seite der Orte"
->
-</mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    [pageSize]="25"
+    showFirstLastButtons
+    aria-label="Wähle die Seite der Orte"
+  >
+  </mat-paginator>
+</div>
