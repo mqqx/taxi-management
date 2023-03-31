@@ -1,16 +1,52 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-button [routerLink]="'/drivers'">Fahrer</button>
-    <button mat-button [routerLink]="'/taxis'">Taxis</button>
-    <button mat-button [routerLink]="'/customers'">Kunden</button>
-    <button mat-button [routerLink]="'/locations'">Orte</button>
-    <button mat-button [routerLink]="'/shifts'">Schichten</button>
-    <button disabled mat-button [routerLink]="'/trips'">Fahrtensuche</button>
-    <button disabled mat-button [routerLink]="'/driver-revenue'">
+    <button mat-button [routerLink]="'/drivers'" routerLinkActive="active">
+      Fahrer
+    </button>
+    <button mat-button [routerLink]="'/taxis'" routerLinkActive="active">
+      Taxis
+    </button>
+    <button mat-button [routerLink]="'/customers'" routerLinkActive="active">
+      Kunden
+    </button>
+    <button mat-button [routerLink]="'/locations'" routerLinkActive="active">
+      Orte
+    </button>
+    <button mat-button [routerLink]="'/shifts'" routerLinkActive="active">
+      Schichten
+    </button>
+    <button
+      disabled
+      mat-button
+      [routerLink]="'/trips'"
+      routerLinkActive="active"
+    >
+      Fahrtensuche
+    </button>
+    <button
+      disabled
+      mat-button
+      [routerLink]="'/driver-revenue'"
+      routerLinkActive="active"
+    >
       Fahrerumsätze
     </button>
-    <button disabled mat-button [routerLink]="'/treasury'">Kasse</button>
-    <button disabled mat-button [routerLink]="'/worked-hours'">Stunden</button>
+    <button
+      disabled
+      mat-button
+      [routerLink]="'/treasury'"
+      routerLinkActive="active"
+    >
+      Kasse
+    </button>
+    <button
+      disabled
+      mat-button
+      [routerLink]="'/worked-hours'"
+      routerLinkActive="active"
+    >
+      Stunden
+    </button>
     <span class="spacer"></span>
     <tm-dark-mode-toggle></tm-dark-mode-toggle>
   </mat-toolbar-row>
