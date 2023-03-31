@@ -25,8 +25,21 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.scss"
+              {
+                "input": "src/styles.scss",
+                "inject": true
+              },
+              {
+
+                "input": "@angular/material/prebuilt-themes/pink-bluegrey.css",
+                "bundleName": "dark-theme",
+                "inject": false
+              },
+              {
+                "input": "@angular/material/prebuilt-themes/indigo-pink.css",
+                "bundleName": "light-theme",
+                "inject": false
+              }
             ],
             "scripts": []
           },

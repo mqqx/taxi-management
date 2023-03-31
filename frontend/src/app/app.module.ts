@@ -50,6 +50,8 @@ import { ShiftsState } from './shifts/store/shift.state';
 import { ShiftDialogComponent } from './shifts/shift-dialog/shift-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { DriverToNamePipe } from './drivers/driver-to-name.pipe';
+import { StyleManager } from './shared/style-manager';
+import { ThemeStorage } from './dark-mode-toggle/theme-storage/theme-storage';
 
 const dev = environment.production
   ? []
@@ -118,6 +120,8 @@ const dev = environment.production
       provide: DATE_PIPE_DEFAULT_OPTIONS,
       useValue: { dateFormat: 'dd.MM.yy' },
     },
+    StyleManager,
+    ThemeStorage,
   ],
   bootstrap: [AppComponent],
 })
