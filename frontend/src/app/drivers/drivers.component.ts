@@ -76,6 +76,15 @@ export class DriversComponent implements OnInit, AfterViewInit {
     });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   private handleDialog(driver: Driver, callback: () => void) {
     const dialogRef = this.dialog.open(DriverDialogComponent, {
       data: driver,

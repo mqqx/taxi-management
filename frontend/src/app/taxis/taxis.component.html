@@ -1,3 +1,11 @@
+<div class="filter-container">
+  <mat-form-field appearance="fill" subscriptSizing="dynamic">
+    <mat-label>Suche</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Volvo" />
+    <mat-icon matPrefix aria-label="Filter">search</mat-icon>
+  </mat-form-field>
+</div>
+
 <div class="table-container">
   <table
     *ngIf="taxis$ | async as taxis"
