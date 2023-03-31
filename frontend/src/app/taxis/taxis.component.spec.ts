@@ -8,6 +8,7 @@ import { MockProvider } from 'ng-mocks';
 import { EMPTY } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
+import { MatInputModule } from '@angular/material/input';
 
 describe('TaxisComponent', () => {
   let component: TaxisComponent;
@@ -16,7 +17,12 @@ describe('TaxisComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TaxisComponent],
-      imports: [MatPaginatorModule, MatTableModule, NoopAnimationsModule],
+      imports: [
+        MatPaginatorModule,
+        MatTableModule,
+        MatInputModule,
+        NoopAnimationsModule,
+      ],
       providers: [
         [MockProvider(Store, { select: () => EMPTY })],
         { provide: MatDialog, useValue: {} },

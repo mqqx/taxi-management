@@ -8,6 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
+import { MatInputModule } from '@angular/material/input';
 
 describe('DriversComponent', () => {
   let component: DriversComponent;
@@ -16,7 +17,12 @@ describe('DriversComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DriversComponent],
-      imports: [MatPaginatorModule, MatTableModule, NoopAnimationsModule],
+      imports: [
+        MatPaginatorModule,
+        MatTableModule,
+        MatInputModule,
+        NoopAnimationsModule,
+      ],
       providers: [
         [MockProvider(Store, { select: () => EMPTY })],
         { provide: MatDialog, useValue: {} },
