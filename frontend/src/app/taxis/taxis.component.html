@@ -50,6 +50,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Aktiv</th>
       <td mat-cell *matCellDef="let taxi">
         <mat-slide-toggle
+          color="primary"
           [(ngModel)]="taxi.active"
           (change)="toggleActive($event, taxi)"
         ></mat-slide-toggle>
@@ -64,7 +65,7 @@
       </th>
 
       <td mat-cell *matCellDef="let taxi">
-        <button mat-icon-button color="accent" (click)="edit(taxi)">
+        <button mat-icon-button color="primary" (click)="edit(taxi)">
           <mat-icon aria-label="Bearbeiten">edit</mat-icon>
         </button>
       </td>
