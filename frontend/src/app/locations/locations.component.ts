@@ -15,8 +15,9 @@ import { LocationsState } from './store/location.state';
   styleUrls: ['./locations.component.scss'],
 })
 export class LocationsComponent implements OnInit, AfterViewInit {
-  private dataSource: MatTableDataSource<Location> =
-    new MatTableDataSource<Location>([]);
+  dataSource: MatTableDataSource<Location> = new MatTableDataSource<Location>(
+    []
+  );
   columnKeys: string[] = ['description'];
 
   locations$?: Observable<MatTableDataSource<Location>>;
@@ -45,14 +46,5 @@ export class LocationsComponent implements OnInit, AfterViewInit {
         return this.dataSource;
       })
     );
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 }

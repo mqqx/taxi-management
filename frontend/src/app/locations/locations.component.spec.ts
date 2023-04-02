@@ -9,6 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockProvider } from 'ng-mocks';
 import { EMPTY } from 'rxjs';
 import { Store } from '@ngxs/store';
+import { SearchFilterComponent } from '../shared/search-filter/search-filter.component';
 
 describe('LocationsComponent', () => {
   let component: LocationsComponent;
@@ -16,7 +17,7 @@ describe('LocationsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LocationsComponent],
+      declarations: [LocationsComponent, SearchFilterComponent],
       imports: [
         MatPaginatorModule,
         MatTableModule,

@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatLuxonDateModule } from '@angular/material-luxon-adapter';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngxs/store';
+import { SearchFilterComponent } from '../shared/search-filter/search-filter.component';
 
 describe('CustomersComponent', () => {
   let component: CustomersComponent;
@@ -18,7 +19,7 @@ describe('CustomersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CustomersComponent],
+      declarations: [CustomersComponent, SearchFilterComponent],
       imports: [
         MatPaginatorModule,
         MatTableModule,

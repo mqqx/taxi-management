@@ -9,6 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
 import { MatInputModule } from '@angular/material/input';
+import { SearchFilterComponent } from '../shared/search-filter/search-filter.component';
 
 describe('DriversComponent', () => {
   let component: DriversComponent;
@@ -16,7 +17,7 @@ describe('DriversComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DriversComponent],
+      declarations: [DriversComponent, SearchFilterComponent],
       imports: [
         MatPaginatorModule,
         MatTableModule,

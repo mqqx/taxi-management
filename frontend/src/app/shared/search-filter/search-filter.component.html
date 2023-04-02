@@ -1,0 +1,5 @@
+<mat-form-field appearance="fill" subscriptSizing="dynamic">
+  <mat-label>Suche</mat-label>
+  <input matInput (keyup)="applyFilter($event)" [placeholder]="placeholder" />
+  <mat-icon matPrefix aria-label="Suche">search</mat-icon>
+</mat-form-field>

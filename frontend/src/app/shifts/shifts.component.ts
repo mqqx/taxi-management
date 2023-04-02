@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Driver, Shift } from '../gen';
 import { Observable } from 'rxjs';
@@ -13,7 +19,7 @@ import {
 } from './store/shift.actions';
 import { ShiftsState } from './store/shift.state';
 import { ShiftDialogComponent } from './shift-dialog/shift-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DriversState } from '../drivers/store/driver.state';
 import { GetDrivers } from '../drivers/store/driver.actions';
@@ -32,6 +38,7 @@ const MAX_SAFE_INTEGER = 9007199254740991;
 })
 export class ShiftsComponent implements OnInit, AfterViewInit {
   private dataSource = new MatTableDataSource<Shift>();
+  private dialogRef: MatDialogRef<ShiftDialogComponent> | null = null;
   drivers$: Observable<Driver[]>;
   driver: Driver | undefined;
   columnKeys: string[] = [
@@ -119,6 +126,7 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     this.refresh();
   }
 
+  @HostListener('window:keydown.enter')
   add() {
     const shift = {} as Shift;
 
@@ -135,15 +143,20 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
   }
 
   private handleDialog(shift: Shift, callback: () => void) {
-    const dialogRef = this.dialog.open(ShiftDialogComponent, {
+    if (this.dialogRef) {
+      return;
+    }
+
+    this.dialogRef = this.dialog.open(ShiftDialogComponent, {
       data: shift,
       maxWidth: '400px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    this.dialogRef.afterClosed().subscribe((result: number) => {
       if (result === 1) {
         callback();
       }
+      this.dialogRef = null;
     });
   }
 

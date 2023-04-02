@@ -52,6 +52,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DriverToNamePipe } from './drivers/driver-to-name.pipe';
 import { StyleManager } from './shared/style-manager';
 import { ThemeStorage } from './dark-mode-toggle/theme-storage/theme-storage';
+import { SearchFilterComponent } from './shared/search-filter/search-filter.component';
 
 const dev = environment.production
   ? []
@@ -70,6 +71,7 @@ const dev = environment.production
     LocationsComponent,
     ShiftsComponent,
     ShiftDialogComponent,
+    SearchFilterComponent,
     MinutesToHumanPipe,
     DriverToNamePipe,
   ],

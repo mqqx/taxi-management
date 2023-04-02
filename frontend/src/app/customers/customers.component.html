@@ -14,11 +14,10 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
 
-  <mat-form-field appearance="fill" subscriptSizing="dynamic">
-    <mat-label>Suche</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Fr. Müller" />
-    <mat-icon matPrefix aria-label="Filter">search</mat-icon>
-  </mat-form-field>
+  <tm-search-filter
+    [placeholder]="'Fr. Müller'"
+    [dataSource]="dataSource"
+  ></tm-search-filter>
 </div>
 
 <div class="table-container">

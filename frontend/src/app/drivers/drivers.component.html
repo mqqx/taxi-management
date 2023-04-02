@@ -1,9 +1,8 @@
 <div class="filter-container">
-  <mat-form-field appearance="fill" subscriptSizing="dynamic">
-    <mat-label>Suche</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="2023" />
-    <mat-icon matPrefix aria-label="Filter">search</mat-icon>
-  </mat-form-field>
+  <tm-search-filter
+    [placeholder]="'2023'"
+    [dataSource]="dataSource"
+  ></tm-search-filter>
 </div>
 <div class="table-container">
   <table

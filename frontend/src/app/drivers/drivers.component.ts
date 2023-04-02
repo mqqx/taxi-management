@@ -18,7 +18,7 @@ import { DriversState } from './store/driver.state';
   styleUrls: ['./drivers.component.scss'],
 })
 export class DriversComponent implements OnInit, AfterViewInit {
-  private dataSource = new MatTableDataSource<Driver>();
+  dataSource: MatTableDataSource<Driver> = new MatTableDataSource<Driver>();
   columnKeys: string[] = [
     'lastName',
     'firstName',
@@ -74,15 +74,6 @@ export class DriversComponent implements OnInit, AfterViewInit {
     this.handleDialog(clonedDriver, () => {
       this.updateIfHasId(clonedDriver);
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   private handleDialog(driver: Driver, callback: () => void) {

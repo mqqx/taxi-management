@@ -18,7 +18,7 @@ import { TaxisState } from './store/taxi.state';
   styleUrls: ['./taxis.component.scss'],
 })
 export class TaxisComponent implements OnInit, AfterViewInit {
-  private dataSource = new MatTableDataSource<Taxi>();
+  dataSource: MatTableDataSource<Taxi> = new MatTableDataSource<Taxi>();
   columnKeys: string[] = [
     'description',
     'mileage',
@@ -76,15 +76,6 @@ export class TaxisComponent implements OnInit, AfterViewInit {
     this.handleDialog(clonedTaxi, () => {
       this.updateIfHasId(clonedTaxi);
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   private handleDialog(taxi: Taxi, callback: () => void) {

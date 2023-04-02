@@ -9,6 +9,7 @@ import { EMPTY } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
 import { MatInputModule } from '@angular/material/input';
+import { SearchFilterComponent } from '../shared/search-filter/search-filter.component';
 
 describe('TaxisComponent', () => {
   let component: TaxisComponent;
@@ -16,7 +17,7 @@ describe('TaxisComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TaxisComponent],
+      declarations: [TaxisComponent, SearchFilterComponent],
       imports: [
         MatPaginatorModule,
         MatTableModule,
