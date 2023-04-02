@@ -120,7 +120,7 @@ const dev = environment.production
     },
     {
       provide: DATE_PIPE_DEFAULT_OPTIONS,
-      useValue: { dateFormat: 'dd.MM.yy' },
+      useValue: { dateFormat: 'dd.MM.yyyy' },
     },
     StyleManager,
     ThemeStorage,
