@@ -17,12 +17,4 @@ export class TaxiDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  onRegistrationDateChange($event: DateTime): void {
-    this.data.registrationDate = $event?.toJSDate();
-  }
-
-  onConcessionDateChange($event: DateTime): void {
-    this.data.concessionDate = $event?.toJSDate();
-  }
 }

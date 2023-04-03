@@ -7,8 +7,7 @@
         matInput
         [matDatepicker]="date"
         placeholder="10.11.2023"
-        [ngModel]="data.date"
-        (ngModelChange)="onDateChange($event)"
+        [(ngModel)]="data.date"
         name="date"
         required
       />

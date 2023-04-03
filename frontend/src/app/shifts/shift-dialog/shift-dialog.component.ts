@@ -35,10 +35,6 @@ export class ShiftDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onDateChange($event: DateTime): void {
-    this.data.date = $event.toJSDate();
-  }
-
   onDurationChange($event: string): void {
     this.data.duration =
       Duration.fromISOTime($event).shiftTo('minutes').minutes;
