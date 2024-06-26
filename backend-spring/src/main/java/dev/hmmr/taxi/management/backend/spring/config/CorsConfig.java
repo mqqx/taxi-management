@@ -37,7 +37,7 @@ public class CorsConfig {
                 DELETE.name(),
                 PATCH.name(),
                 OPTIONS.name())
-            .allowedOrigins(allowedOrigins);
+            .allowedOrigins(allowedOrigins.split(","));
       }
     };
   }
