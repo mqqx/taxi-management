@@ -53,10 +53,21 @@ import { DriverToNamePipe } from './drivers/driver-to-name.pipe';
 import { StyleManager } from './shared/style-manager';
 import { ThemeStorage } from './dark-mode-toggle/theme-storage/theme-storage';
 import { SearchFilterComponent } from './shared/search-filter/search-filter.component';
+import { ApiModule, Configuration, ConfigurationParameters } from './gen';
 
 const dev = environment.production
   ? []
   : [NgxsReduxDevtoolsPluginModule.forRoot(), NgxsLoggerPluginModule.forRoot()];
+
+const configurationFactory = () => {
+  const configParams: ConfigurationParameters = {
+    credentials: {
+      basicAuth: environment.apiBasicAuth,
+      basePath: environment.apiBasePath,
+    },
+  };
+  return new Configuration(configParams);
+};
 
 @NgModule({
   declarations: [
@@ -103,6 +114,7 @@ const dev = environment.production
       CustomersState,
       ShiftsState,
     ]),
+    ApiModule.forRoot(configurationFactory),
     ...dev,
   ],
   providers: [
